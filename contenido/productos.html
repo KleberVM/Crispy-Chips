@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/productos.css">
+  <title>Productos</title>
+</head>
+<body>
+  <header class="encabezado">
+    <div class="logo">CRISPY CHIPS</div>
+    <input type="text" class="buscar" placeholder="BUSCAR">
+    <button class="menu-btn" id="menu-btn">&#9776;</button>
+    <nav class="menu" id="menu">
+      <a href="../index.html">Sesion</a>
+      <a href="../contenido/principal.html">Principal</a>
+      <a href="../contenido/productos.html">Productos</a>
+      <a href="../contenido/contacto.html">Contacto</a>
+      <a href="../contenido/informacion.html">Informacion</a>
+    </nav>
+  </header>
+
+   <main>
+    <section class="titulo">
+      <h1>🥔 Snacks Crispy Chips</h1>
+      <p>Cambiamos el menú cada jueves para que siempre tengas algo nuevo que probar 😋</p>
+      <p class="opciones">👉 Probar una vez ☑️ Suscripción semanal ⭐ Sabores fijos 🔵 Papas Clásicas Papas Fritas Original</p>
+    </section>
+
+    <section class="productos">
+      <h2>Opciones de compra:</h2>
+      <div class="contenedor-productos">
+
+  <div class="producto rojo">
+    <img src="https://i.imgur.com/vkSbQzW.png" alt="Crispy Picante">
+    <p>(100g)</p>
+    <p>💰 Precio habitual: 16,50 Bs<br>🔥 Sabor justo, crujientes y naturales</p>
+    <p>180 kcal | 10g grasas | 20g carbohidratos | 2g proteínas</p>
+    <button>AÑADIR</button>
+  </div>
+
+  <div class="producto amarillo">
+    <img src="https://i.imgur.com/vkSbQzW.png" alt="Crispy Amarillo">
+    <p>(100g)</p>
+    <p>💰 Precio habitual: 17,00 Bs<br>🌽 Sabor suave con toque dorado</p>
+    <p>182 kcal | 9g grasas | 21g carbohidratos | 2g proteínas</p>
+    <button>AÑADIR</button>
+  </div>
+
+  <div class="producto celeste">
+    <img src="https://i.imgur.com/vkSbQzW.png" alt="Crispy Celeste">
+    <p>(100g)</p>
+    <p>💰 Precio habitual: 16,00 Bs<br>💨 Ligero, fresco y crocante</p>
+    <p>175 kcal | 8g grasas | 19g carbohidratos | 2g proteínas</p>
+    <button>AÑADIR</button>
+  </div>
+
+  <div class="producto morado">
+    <img src="https://i.imgur.com/khhw14H.png" alt="Crispy Vinagre">
+    <p>(100g)</p>
+    <p>💰 Precio habitual: 18,00 Bs<br>🍷 Sabor tradicional con un toque gourmet</p>
+    <p>185 kcal | 11g grasas | 21g carbohidratos | 2g proteínas</p>
+    <button>AÑADIR</button>
+  </div>
+
+  <div class="producto naranja">
+    <img src="https://i.imgur.com/V4M1QES.png" alt="Amor a primera mordida">
+    <p>(90g)</p>
+    <p>💰 Precio habitual: 20,00 Bs<br>🍯 Dulce natural, sin aditivos</p>
+    <p>160 kcal | 9g grasas | 18g carbohidratos | 1g proteínas</p>
+    <button>AÑADIR</button>
+  </div>
+
+  <div class="producto verde">
+    <img src="https://i.imgur.com/6EvYf1W.png" alt="Mixeos">
+    <p>(100g)</p>
+    <p>💰 Precio habitual: 22,00 Bs<br>🥬 Remolacha, zanahoria y yuca</p>
+    <p>170 kcal | 8g grasas | 22g carbohidratos | 2g proteínas</p>
+    <button>AÑADIR</button>
+  </div>
+
+  <div class="producto lechuga">
+    <img src="https://i.imgur.com/Ejv90vI.png" alt="Sticks">
+    <p>(100g)</p>
+    <p>💰 Precio habitual: 19,00 Bs<br>🌶️ Picante suave</p>
+    <p>190 kcal | 12g grasas | 19g carbohidratos | 3g proteínas</p>
+    <button>AÑADIR</button>
+  </div>
+
+  <div class="producto azul">
+    <img src="https://i.imgur.com/x7tJm1M.png" alt="Modo Ranked">
+    <p>(90g)</p>
+    <p>💰 Precio habitual: 26,00 Bs<br>🎮 Sabor intenso, experiencia gourmet</p>
+    <p>195 kcal | 11g grasas | 20g carbohidratos | 2g proteínas</p>
+    <button class="agotado">AGOTADO</button>
+  </div>
+
+</div>       
+</section>
+
+
+<!-- 🛒 CARRITO DE COMPRAS -->
+<section class="carrito">
+  <h2>🛍️ Tu carrito</h2>
+
+  <!-- Carrito vacío -->
+  <div id="carrito-vacio" class="carrito-vacio">
+    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Carrito vacío">
+    <h3>Tu carrito está vacío</h3>
+    <button onclick="scrollToProducts()" class="btn-seguir">Seguir comprando</button>
+    <p>¿Tienes una cuenta? <a href="#">Inicia sesión</a> para finalizar tus compras con mayor rapidez.</p>
+  </div>
+
+  <!-- Carrito con productos -->
+  <div id="carrito-lleno" class="carrito-lleno oculto">
+    <table>
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="carrito-items"></tbody>
+    </table>
+
+    <div class="total">
+      <h3>Total: <span id="carrito-total">0 Bs</span></h3>
+      <button class="btn-comprar">Finalizar compra</button>
+    </div>
+    <div id="mensaje-compra" class="mensaje-compra oculto">
+    ✅ ¡Tu compra ha sido finalizada con éxito! Gracias por elegir Crispy Chips 🥔
+    </div>
+
+    
+  </div>
+</section>
+
+
+    <footer>
+      <div class="footer-contenido">
+        <div class="columna">
+          <h3>CRISPY CHIPS</h3>
+        </div>
+        <div class="columna">
+          <h3>📖 Sobre la Empresa</h3>
+          <ul>
+            <li>¿Cómo funciona Crispy Chips?</li>
+            <li>¿Quiénes somos?</li>
+            <li>Métodos de envío en Bolivia</li>
+            <li>Trabajá con nosotros</li>
+          </ul>
+        </div>
+        <div class="columna">
+          <h3>🍟 Productos y Servicios</h3>
+          <ul>
+            <li>Suscripción personalizada</li>
+            <li>Variedad semanal</li>
+            <li>Snacks para oficinas y eventos</li>
+            <li>Recargá tu monedero</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="../javascript/menu.js"></script>
+  <script src="../javascript/productos.js"></script>
+  <script src="../server.js"></script>
+</body>
+</html>

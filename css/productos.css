@@ -1,0 +1,290 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fff;
+  color: #1a1a1a;
+}
+
+/* ENCABEZADO */
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #631616;
+  padding: 10px 20px;
+  color: white;
+  position: relative;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.buscar {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 20px;
+  width: 700px;
+  max-width: 100%;
+}
+
+.menu-btn {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: #631616;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  text-align: right;
+}
+
+.menu a:hover {
+  background-color: #822020;
+}
+
+/* TITULO */
+.titulo {
+  text-align: center;
+  margin: 30px auto;
+  max-width: 800px;
+}
+
+.opciones {
+  font-size: 14px;
+  color: #444;
+}
+
+h1, h2 {
+  color: #631616;
+}
+
+/* PRODUCTOS */
+.productos {
+  text-align: center;
+  padding: 20px;
+}
+
+.contenedor-productos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  justify-items: center;
+  margin-top: 20px;
+}
+
+.producto {
+  border-radius: 15px;
+  padding: 15px;
+  color: #fff;
+  text-align: center;
+  width: 230px;
+  transition: transform 0.3s ease;
+}
+
+.producto:hover {
+  transform: scale(1.05);
+}
+
+.producto img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.producto p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.producto button {
+  background-color: yellow;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.producto button.agotado {
+  background-color: #0b50ff;
+  color: white;
+}
+
+/* COLORES DE PRODUCTO */
+.rojo { background-color: #b33939; }
+.morado { background-color: #82589F; }
+.naranja { background-color: #e58e26; }
+.verde { background-color: #218c74; }
+.azul { background-color: #3c40c6; }
+.amarillo { background-color: #f6b93b; }
+.celeste { background-color: #60a3bc; }
+.lechuga { background-color: #78e08f; }
+
+/* 🛒 CARRITO */
+.carrito {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fffaf0;
+  margin-top: 50px;
+  border-top: 2px solid #631616;
+}
+
+.carrito h2 {
+  color: #631616;
+  margin-bottom: 20px;
+}
+
+.mensaje-compra {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #28a745;
+  font-weight: bold;
+}
+
+.oculto {
+  display: none;
+}
+
+.carrito-vacio img {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.btn-seguir {
+  background-color: #f6b93b;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.carrito-lleno {
+  margin-top: 30px;
+  overflow-x: auto;
+}
+
+table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 600px;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #631616;
+  color: white;
+}
+
+.total {
+  margin-top: 20px;
+}
+
+/* FOOTER */
+footer {
+  background-color: #631616;
+  color: white;
+  padding: 20px;
+}
+
+.footer-contenido {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-contenido ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-contenido li {
+  font-size: 14px;
+  margin: 3px 0;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 1024px) {
+  .buscar {
+    width: 400px;
+  }
+  .contenedor-productos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .encabezado {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+  .buscar {
+    width: 90%;
+    margin: 10px 0;
+  }
+  .menu-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+  }
+  .contenedor-productos {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .producto {
+    width: 90%;
+  }
+  table {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.2rem;
+  }
+  .buscar {
+    width: 100%;
+  }
+  .contenedor-productos {
+    grid-template-columns: 1fr;
+  }
+  .producto {
+    width: 100%;
+  }
+  th, td {
+    font-size: 12px;
+    padding: 8px;
+  }
+  .footer-contenido {
+    flex-direction: column;
+    text-align: center;
+  }
+}
