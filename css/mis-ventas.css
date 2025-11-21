@@ -15,6 +15,15 @@ body {
 /* NO SOBRESCRIBIR ESTILOS DEL SIDEBAR */
 /* Dejar que principal.css maneje todos los estilos del sidebar */
 
+/* Fix: Asegurar que admin-only en sidebar sea block, no flex */
+.sidebar .admin-only {
+  display: block !important;
+}
+
+.sidebar .admin-only[style*="display: none"] {
+  display: none !important;
+}
+
 /* ========================================
    VARIABLES
    ======================================== */
@@ -51,18 +60,19 @@ body {
    BREADCRUMB
    ======================================== */
 .breadcrumb {
+  padding: 1.5rem 0 1rem 0;
+  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 2rem;
   font-size: 0.9rem;
-  color: var(--text-light);
 }
 
 .breadcrumb a {
   color: var(--text-light);
   text-decoration: none;
   transition: var(--transition);
+  font-weight: 500;
 }
 
 .breadcrumb a:hover {
@@ -76,6 +86,7 @@ body {
 
 .separator {
   color: var(--border-color);
+  font-size: 1.2rem;
 }
 
 /* ========================================
@@ -108,15 +119,17 @@ body {
   box-shadow: 0 8px 24px rgba(245, 87, 108, 0.3);
 }
 
-.header-content h1 {
+.header-text h2 {
   font-size: 2rem;
   color: var(--text-dark);
   margin: 0;
+  font-weight: 700;
 }
 
-.header-content p {
+.header-text p {
   color: var(--text-light);
   margin: 0.5rem 0 0 0;
+  font-size: 1rem;
 }
 
 .header-stats {
@@ -432,27 +445,38 @@ body {
    MODAL
    ======================================== */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 1rem;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.7) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10000 !important;
+  padding: 1rem !important;
+  margin: 0 !important;
+}
+
+/* El display se controla desde JavaScript */
+.modal-overlay[style*="display: none"] {
+  display: none !important;
+}
+
+.modal-overlay[style*="display: flex"] {
+  display: flex !important;
 }
 
 .modal-container {
-  background: white;
-  border-radius: 16px;
-  max-width: 800px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  background: white !important;
+  border-radius: 16px !important;
+  max-width: 800px !important;
+  width: 100% !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3) !important;
+  position: relative !important;
+  margin: 0 auto !important;
 }
 
 .modal-header {
@@ -489,18 +513,26 @@ body {
 
 .modal-body {
   padding: 2rem;
+  overflow-y: auto;
+  max-height: calc(90vh - 100px);
 }
 
 .detalle-section {
   margin-bottom: 2rem;
 }
 
+.detalle-section:last-child {
+  margin-bottom: 0;
+}
+
 .detalle-section h3 {
   color: var(--text-dark);
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
+  padding: 0;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .detalle-grid {
@@ -530,6 +562,9 @@ body {
 .productos-table {
   width: 100%;
   border-collapse: collapse;
+  margin: 0;
+  overflow-x: auto;
+  display: table;
 }
 
 .productos-table th,
@@ -537,12 +572,17 @@ body {
   padding: 1rem;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
 }
 
 .productos-table th {
   background: var(--bg-light);
   font-weight: 600;
   color: var(--text-dark);
+}
+
+.productos-table tfoot tr {
+  border-top: 2px solid var(--border-color);
 }
 
 .comprobante-container {
@@ -591,6 +631,16 @@ body {
 .ventas-list {
   margin-left: 0 !important;
   margin-right: 0 !important;
+}
+
+/* Asegurar que el sidebar esté por debajo del modal */
+.sidebar {
+  z-index: 1000 !important;
+}
+
+/* Asegurar que el header esté por debajo del modal */
+.encabezado {
+  z-index: 999 !important;
 }
 
 /* ========================================

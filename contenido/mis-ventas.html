@@ -14,43 +14,51 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header con navegación -->
   <header class="encabezado">
     <div class="header-container">
-      <button class="sidebar-toggle" id="sidebar-toggle">
-        <div class="hamburger"></div>
-        <div class="hamburger"></div>
-        <div class="hamburger"></div>
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú lateral" style="display: none;">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
       </button>
-      
       <div class="logo">
-        <span class="logo-emoji"></span>
-        <h1>CRISPY CHIPS</h1>
+        <span class="logo-text">CRISPY CHIPS</span>
       </div>
-
+      
       <div class="search-container">
-        <input 
-          type="text" 
-          id="search-input" 
-          placeholder="Buscar productos..." 
-          class="search-input"
-        >
-        <button class="search-btn" id="search-btn">
-          <span></span>
+        <input type="search" class="buscar" placeholder="Buscar productos..." aria-label="Buscar productos">
+        <span class="search-icon">🔍</span>
+      </div>
+      
+      <!-- Menú de navegación -->
+      <nav class="menu" id="menu" role="navigation" style="display: none;">
+        <a href="../contenido/principal.html">Inicio</a>
+        <a href="../contenido/productos.html">Productos</a>
+        <a href="../contenido/contacto.html">Contacto</a>
+        <a href="../contenido/informacion.html">Información</a>
+      </nav>
+      
+      <!-- Iconos de carrito y notificaciones (solo visibles para CLIENTE) -->
+      <div class="header-icons cliente-only" id="header-icons" style="display: none;">
+        <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
+          <img src="../imgs/icon/campana.svg" alt="Notificaciones" class="icon">
+          <span class="badge" id="notif-badge">0</span>
+        </button>
+        <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
+          <img src="../imgs/icon/shopping-cart.svg" alt="Carrito de compras" class="icon">
+          <span class="badge">0</span>
         </button>
       </div>
 
-      <div class="header-icons admin-only">
-        <button class="icon-btn" id="btn-notifications-admin">
-          <span class="icon">🔔</span>
+      <!-- Iconos para ADMIN (solo notificaciones) -->
+      <div class="header-icons admin-only" id="header-icons-admin" style="display: none;">
+        <button class="icon-btn" id="btn-notifications-admin" aria-label="Notificaciones">
+          <img src="../imgs/icon/campana.svg" alt="Notificaciones" class="icon">
           <span class="badge" id="notif-badge-admin">0</span>
         </button>
-        
-        <button class="btn-login" id="btn-login-nav">
-          <div class="user-icon">👤</div>
-        </button>
       </div>
-
+      
       <!-- Dropdown de Notificaciones -->
       <div class="notifications-dropdown" id="notifications-dropdown">
         <div class="notifications-header">
@@ -64,77 +72,93 @@
           </div>
         </div>
       </div>
-
-      <div class="user-dropdown" id="user-dropdown">
-        <div class="dropdown-header">
-          <div class="user-avatar user-icon"></div>
-          <div class="user-info">
-            <p class="user-name" id="dropdown-username">Usuario</p>
-            <p class="user-email" id="dropdown-email">usuario@email.com</p>
+      
+      <!-- Botón de Login / Usuario -->
+      <div class="user-section">
+        <button class="btn-login" id="btn-login-nav">
+          <span class="user-icon">👤</span>
+          <span class="user-text">Iniciar Sesión</span>
+        </button>
+        
+        <!-- Dropdown de usuario (oculto por defecto) -->
+        <div class="user-dropdown" id="userDropdown">
+          <div class="dropdown-header">
+            <div class="user-avatar user-icon">👤</div>
+            <div class="user-info">
+              <span class="user-name" id="userName">Usuario</span>
+              <span class="user-email" id="userEmail">usuario@email.com</span>
+            </div>
           </div>
-        </div>
-        <div class="dropdown-menu">
-          <a href="../contenido/perfil.html" class="dropdown-item">
-            <span class="user-icon-small"></span>
-            <span>Ver Perfil</span>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item" id="btnPerfil">
+            <span class="item-icon user-icon-small">👤</span>
+            Ver Perfil
           </a>
-          <a href="#" class="dropdown-item" id="btn-cerrar-sesion">
-            <span></span>
-            <span>Cerrar Sesión</span>
+          <a href="#" class="dropdown-item" id="btnCerrarSesion">
+            <span class="item-icon">🚪</span>
+            Cerrar Sesión
           </a>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Sidebar -->
+  <!-- Sidebar (visible solo cuando hay sesión iniciada) -->
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-content">
-      <div class="sidebar-header">
-        <h2>Menú</h2>
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-text">CRISPY CHIPS</span>
       </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Cerrar menú">
+        <span>&times;</span>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="../contenido/principal.html" class="sidebar-item">
+        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-text">Inicio</span>
+      </a>
+      <a href="../contenido/productos.html" class="sidebar-item">
+        <span class="sidebar-icon">🛍️</span>
+        <span class="sidebar-text">Productos</span>
+      </a>
       
-      <nav class="sidebar-nav">
-        <a href="../contenido/principal.html" class="sidebar-link">
-          <span class="sidebar-icon"></span>
-          <span class="sidebar-text">Inicio</span>
-        </a>
-        <a href="../contenido/productos.html" class="sidebar-link">
-          <span class="sidebar-icon"></span>
-          <span class="sidebar-text">Productos</span>
-        </a>
-        <a href="../contenido/informacion.html" class="sidebar-link">
-          <span class="sidebar-icon"></span>
-          <span class="sidebar-text">Información</span>
-        </a>
-        <a href="../contenido/contacto.html" class="sidebar-link">
-          <span class="sidebar-icon"></span>
-          <span class="sidebar-text">Contacto</span>
-        </a>
-        
+      <!-- Opciones solo para ADMIN -->
+      <div class="admin-only" style="display: none;">
         <div class="sidebar-divider"></div>
-        
-        <a href="../contenido/mis-productos.html" class="sidebar-link admin-only">
-          <span class="sidebar-icon"></span>
+        <div class="sidebar-section-title">Panel de Administración</div>
+        <a href="../contenido/mis-productos.html" class="sidebar-item">
+          <span class="sidebar-icon">📦</span>
           <span class="sidebar-text">Mis Productos</span>
         </a>
-        <a href="../contenido/mis-ventas.html" class="sidebar-link admin-only active">
-          <span class="sidebar-icon"></span>
+        <a href="../contenido/mis-ventas.html" class="sidebar-item active">
+          <span class="sidebar-icon">💰</span>
           <span class="sidebar-text">Mis Ventas</span>
         </a>
-        <a href="../contenido/usuarios.html" class="sidebar-link admin-only">
-          <span class="sidebar-icon"></span>
+        <a href="../contenido/usuarios.html" class="sidebar-item">
+          <span class="sidebar-icon">👥</span>
           <span class="sidebar-text">Usuarios</span>
         </a>
-      </nav>
-
-      <div class="sidebar-footer">
-        <div class="sidebar-user">
-          <div class="user-avatar-sidebar sidebar-user-icon"></div>
-          <div class="user-info-sidebar">
-            <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
-            <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
-          </div>
+        <div class="sidebar-divider"></div>
+      </div>
+      
+      <a href="../contenido/contacto.html" class="sidebar-item">
+        <span class="sidebar-icon">📧</span>
+        <span class="sidebar-text">Contacto</span>
+      </a>
+      <a href="../contenido/informacion.html" class="sidebar-item">
+        <span class="sidebar-icon">ℹ️</span>
+        <span class="sidebar-text">Información</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-info-sidebar">
+          <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
+          <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
         </div>
       </div>
     </div>
@@ -153,12 +177,12 @@
         <span class="current"> Mis Ventas</span>
       </nav>
 
-      <!-- Header -->
+      <!-- Header de Ventas -->
       <div class="ventas-header">
         <div class="header-content">
-          <div class="header-icon"></div>
-          <div>
-            <h1>Mis Ventas</h1>
+          <div class="header-icon">💰</div>
+          <div class="header-text">
+            <h2>Mis Ventas</h2>
             <p>Gestiona tus pedidos y comprobantes de pago</p>
           </div>
         </div>
@@ -248,16 +272,16 @@
   <footer class="pie">
     <div class="footer-content">
       <div class="footer-logo">
-        <h3>Crispy Chips</h3>
+        <h3>CRISPY CHIPS</h3>
         <p>Los mejores snacks crujientes para ti. Calidad y sabor en cada bolsa.</p>
       </div>
       <div class="footer-section">
         <h4>Enlaces Rápidos</h4>
         <ul>
-          <li><a href="../contenido/principal.html"> Inicio</a></li>
-          <li><a href="../contenido/productos.html"> Productos</a></li>
-          <li><a href="../contenido/contacto.html"> Contacto</a></li>
-          <li><a href="../contenido/informacion.html">ℹ Información</a></li>
+          <li><a href="../contenido/principal.html">Inicio</a></li>
+          <li><a href="../contenido/productos.html">Productos</a></li>
+          <li><a href="../contenido/contacto.html">Contacto</a></li>
+          <li><a href="../contenido/informacion.html">Información</a></li>
         </ul>
       </div>
       <div class="footer-contact">
@@ -271,10 +295,10 @@
       <p>&copy; 2024 Crispy Chips. Todos los derechos reservados.</p>
     </div>
   </footer>
-
+  <script src="../javascript/mis-ventas.js"></script>
   <script src="../javascript/menu.js"></script>
   <script src="../javascript/auth-modal.js"></script>
   <script src="../javascript/notificaciones.js"></script>
-  <script src="../javascript/mis-ventas.js"></script>
+  
 </body>
 </html>

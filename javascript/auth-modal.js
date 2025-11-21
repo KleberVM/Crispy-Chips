@@ -615,6 +615,17 @@ function mostrarMenuAdmin(esAdmin) {
   
   adminSections.forEach((section, index) => {
     console.log(`👑 Sección ${index}:`, section, '- Display:', esAdmin ? 'block' : 'none');
+    
+    // NO TOCAR secciones de perfil (profile-section) - estas se controlan por tabs
+    if (section.classList.contains('profile-section') || section.classList.contains('profile-nav-item')) {
+      // Solo mostrar/ocultar el botón de navegación, no la sección completa
+      if (section.classList.contains('profile-nav-item')) {
+        section.style.display = esAdmin ? 'block' : 'none';
+      }
+      // Las profile-section se controlan por el sistema de tabs, no tocar
+      return;
+    }
+    
     // Verificar si es un contenedor de header-icons (que sí debe ser flex)
     if (section.classList.contains('header-icons')) {
       section.style.display = esAdmin ? 'flex' : 'none';

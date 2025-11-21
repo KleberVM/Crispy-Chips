@@ -51,7 +51,12 @@ class PedidosController {
   // Obtener pedidos del vendedor (Mis Ventas)
   async obtenerPedidosVendedor(req, res) {
     try {
+      console.log('🔍 obtenerPedidosVendedor - req.user:', req.user);
+      console.log('🔍 obtenerPedidosVendedor - req.isAuthenticated():', req.isAuthenticated ? req.isAuthenticated() : 'N/A');
+      
       const vendedorId = req.user.id;
+      console.log('🔍 VendedorId:', vendedorId);
+      
       const { estado } = req.query;
 
       const filtros = {};
@@ -59,12 +64,14 @@ class PedidosController {
         filtros.estado = estado;
       }
 
+      console.log('🔍 Llamando a pedidosService.obtenerPedidosVendedor con:', { vendedorId, filtros });
       const pedidos = await pedidosService.obtenerPedidosVendedor(vendedorId, filtros);
+      console.log('✅ Pedidos encontrados:', pedidos.length);
 
       res.json({ pedidos });
 
     } catch (error) {
-      console.error('Error al obtener pedidos:', error);
+      console.error('❌ Error al obtener pedidos:', error);
       res.status(500).json({ message: error.message || 'Error al obtener pedidos' });
     }
   }

@@ -1,9 +1,11 @@
 // ========================================
 // VARIABLES GLOBALES
 // ========================================
+console.log('🚀 mis-ventas.js cargado');
 const API_BASE_URL = 'http://localhost:3000';
 let pedidosData = [];
 let filtroEstado = '';
+console.log('✅ Variables globales inicializadas');
 
 // ========================================
 // VERIFICAR AUTENTICACIÓN Y ROL
@@ -68,15 +70,23 @@ async function cargarVentas() {
     });
     
     console.log('📡 Response status:', response.status);
+    console.log('📡 Response headers:', response.headers);
     
     if (!response.ok) {
       const errorText = await response.text();
       console.error('❌ Error response:', errorText);
+      console.error('❌ Response completo:', {
+        status: response.status,
+        statusText: response.statusText,
+        headers: Object.fromEntries(response.headers.entries())
+      });
       throw new Error(`Error al cargar ventas: ${response.status}`);
     }
     
     const data = await response.json();
+    console.log('📦 Data recibida:', data);
     pedidosData = data.pedidos;
+    console.log('📦 pedidosData asignado:', pedidosData);
     
     console.log('✅ Pedidos recibidos:', pedidosData.length);
     
@@ -320,6 +330,7 @@ async function mostrarDetallePedido(pedidoId) {
     `;
     
     modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevenir scroll del body
     
   } catch (error) {
     console.error('Error al mostrar detalle:', error);
@@ -412,9 +423,23 @@ async function cargarEstadisticas() {
 // ========================================
 // INICIALIZACIÓN
 // ========================================
+console.log('📌 Registrando DOMContentLoaded...');
 document.addEventListener('DOMContentLoaded', () => {
-  if (!verificarAutenticacion()) return;
+  console.log('🎯 DOMContentLoaded disparado');
   
+  // Asegurar que el modal esté oculto al inicio
+  const modal = document.getElementById('modal-detalle');
+  if (modal) {
+    modal.style.display = 'none';
+    console.log('✅ Modal oculto al inicio');
+  }
+  
+  if (!verificarAutenticacion()) {
+    console.log('❌ Autenticación falló, deteniendo...');
+    return;
+  }
+  
+  console.log('🔄 Llamando a cargarVentas()...');
   cargarVentas();
   
   // Filtro de estado
@@ -434,10 +459,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Cerrar modal
   const closeModal = document.getElementById('close-modal');
-  const modal = document.getElementById('modal-detalle');
-  if (closeModal) {
-    closeModal.addEventListener('click', () => {
+  if (closeModal && modal) {
+    closeModal.addEventListener('click', (e) => {
+      console.log('🔴 Cerrando modal (botón X)');
+      e.stopPropagation();
       modal.style.display = 'none';
+      document.body.style.overflow = ''; // Restaurar scroll
     });
   }
   
@@ -445,8 +472,27 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
+        console.log('🔴 Cerrando modal (click fuera)');
         modal.style.display = 'none';
+        document.body.style.overflow = ''; // Restaurar scroll
       }
     });
   }
+  
+  // Prevenir que clicks dentro del modal lo cierren
+  const modalContainer = document.querySelector('.modal-container');
+  if (modalContainer) {
+    modalContainer.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  }
+  
+  // Cerrar modal con tecla ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+      console.log('🔴 Cerrando modal (ESC)');
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
 });

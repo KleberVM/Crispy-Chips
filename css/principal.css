@@ -1087,6 +1087,15 @@ a {
   display: none;
 }
 
+/* Fix: Asegurar que admin-only en sidebar sea block, no flex */
+.sidebar .admin-only {
+  display: block !important;
+}
+
+.sidebar .admin-only[style*="display: none"] {
+  display: none !important;
+}
+
 .cliente-only {
   display: none;
 }

@@ -194,12 +194,21 @@
 }
 
 .profile-section {
-  display: none;
+  display: none !important;
   animation: fadeIn 0.3s ease;
 }
 
 .profile-section.active {
-  display: block;
+  display: block !important;
+}
+
+/* Fix: Asegurar que secciones admin-only no se muestren si no están activas */
+.profile-section.admin-only {
+  display: none !important;
+}
+
+.profile-section.admin-only.active {
+  display: block !important;
 }
 
 @keyframes fadeIn {
