@@ -1,0 +1,602 @@
+/* ========================================
+   VARIABLES
+   ======================================== */
+:root {
+  --primary-color: #C1272D;
+  --secondary-color: #FF6B35;
+  --accent-color: #FFD93D;
+  --text-dark: #2c3e50;
+  --text-light: #7f8c8d;
+  --bg-light: #f8f9fa;
+  --border-radius: 12px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.15);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.2);
+  --transition: all 0.3s ease;
+}
+
+/* ========================================
+   MODAL BASE
+   ======================================== */
+.auth-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+}
+
+.auth-modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+}
+
+/* Modal Container */
+.modal-container {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.4s ease;
+  z-index: 1;
+  display: flex;
+  overflow-x: hidden;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar personalizado del modal */
+.modal-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.modal-container::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* Modal Close Button */
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--text-light);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition);
+  z-index: 2;
+}
+
+.modal-close:hover {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  transform: rotate(90deg);
+}
+
+/* Modal Left Side (Image) */
+.modal-left {
+  flex: 1;
+  background: linear-gradient(135deg, #631616 0%, #FF6B35 100%);
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Modal Left with Background Image */
+.modal-left-image {
+  padding: 0;
+}
+
+.modal-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.modal-left-overlay {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(99, 22, 22, 0.85), rgba(255, 107, 53, 0.75));
+}
+
+.modal-left::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="80" opacity="0.1">🍟</text></svg>') repeat;
+  background-size: 150px;
+  opacity: 0.3;
+  animation: float 20s linear infinite;
+}
+
+@keyframes float {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.modal-brand {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-brand h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.modal-brand p {
+  font-size: 1.1rem;
+  opacity: 0.95;
+}
+
+.modal-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+}
+
+.modal-feature-icon {
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Modal Content (Right Side) */
+.modal-content {
+  flex: 1;
+  padding: 2.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 90vh;
+  min-width: 0;
+}
+
+/* Scrollbar del modal content */
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* ========================================
+   MODAL HEADER
+   ======================================== */
+.modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modal-header h2 {
+  font-size: 1.75rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.modal-header p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+/* ========================================
+   FORM STYLES
+   ======================================== */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-group label .icon {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.form-group input {
+  padding: 0.875rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: var(--transition);
+  background: white;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #bbb;
+}
+
+/* Password Wrapper */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  flex: 1;
+  padding-right: 3rem;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: var(--transition);
+}
+
+.toggle-password:hover {
+  transform: scale(1.1);
+}
+
+/* Password Strength */
+.password-strength {
+  height: 4px;
+  background: #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.strength-bar {
+  height: 100%;
+  width: 0;
+  background: #e74c3c;
+  transition: var(--transition);
+}
+
+.strength-bar.weak {
+  width: 33%;
+  background: #e74c3c;
+}
+
+.strength-bar.medium {
+  width: 66%;
+  background: #f39c12;
+}
+
+.strength-bar.strong {
+  width: 100%;
+  background: #27ae60;
+}
+
+/* Error Messages */
+.error-message {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  display: none;
+  margin-top: 0.25rem;
+}
+
+.error-message.active {
+  display: block;
+}
+
+.form-group input.error {
+  border-color: #e74c3c;
+}
+
+/* Form Row Two Columns */
+.form-row-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   SUBMIT BUTTON
+   ======================================== */
+.btn-submit {
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+.btn-submit.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn-submit.loading .btn-text {
+  opacity: 0;
+}
+
+.btn-submit.loading .btn-loader {
+  display: block;
+}
+
+.btn-loader {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* ========================================
+   MESSAGES
+   ======================================== */
+.message {
+  padding: 0.875rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  font-size: 0.95rem;
+  display: none;
+}
+
+.message.active {
+  display: block;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* ========================================
+   MODAL FOOTER
+   ======================================== */
+.modal-footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.modal-footer p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-footer a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.modal-footer a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .modal-container {
+    width: 95%;
+    max-height: 95vh;
+    flex-direction: column;
+  }
+  
+  .modal-left {
+    display: none;
+  }
+  
+  .modal-content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .form-row-two {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-container {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  
+  .modal-left {
+    display: none;
+  }
+  
+  .modal-content {
+    padding: 1.5rem 1rem;
+  }
+  
+  .modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.35rem;
+  }
+  
+  .form-group input,
+  .btn-submit {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+  }
+}

@@ -3,72 +3,462 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Información</title>
+  <meta name="description" content="Conoce la historia, misión, visión y valores de Crispy Chips - Los mejores snacks de Bolivia">
+  <meta name="keywords" content="crispy chips, historia, empresa, snacks bolivia, valores">
+  <title>Sobre Nosotros - Crispy Chips</title>
   <link rel="stylesheet" href="../css/informacion.css">
+  <link rel="stylesheet" href="../css/principal.css">
+  <link rel="stylesheet" href="../css/auth-modal.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Header con navegación -->
   <header class="encabezado">
-    <div class="logo">CRISPY CHIPS</div>
-    <input type="text" class="buscar" placeholder="BUSCAR">
-    <button class="menu-btn" id="menu-btn">&#9776;</button>
-    <nav class="menu" id="menu">
-      <a href="../index.html">Sesión</a>
-      <a href="../contenido/principal.html">Principal</a>
-      <a href="../contenido/productos.html">Productos</a>
-      <a href="../contenido/contacto.html">Contacto</a>
-      <a href="../contenido/informacion.html">Información</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="informacion">
-      <h1>🍟 Sobre Crispy Chips</h1>
-      <p class="intro">En <strong>Crispy Chips</strong> elaboramos los snacks más crujientes y sabrosos de Bolivia, hechos con ingredientes naturales y locales. Nuestro compromiso es brindar productos de calidad que acompañen tus mejores momentos.</p>
-
-      <div class="contenido">
-        <div class="bloque">
-          <h2>🥔 Nuestra Historia</h2>
-          <p>Comenzamos como un pequeño emprendimiento familiar con la visión de ofrecer papas fritas artesanales con un sabor inigualable. Con el tiempo, crecimos gracias a la confianza de nuestros clientes y al amor por lo que hacemos.</p>
-        </div>
-
-        <div class="bloque">
-          <h2>💜 Misión</h2>
-          <p>Brindar a nuestros clientes snacks deliciosos, elaborados con ingredientes de primera calidad, promoviendo la producción local y el desarrollo sostenible.</p>
-        </div>
-
-        <div class="bloque">
-          <h2>⭐ Visión</h2>
-          <p>Convertirnos en una marca líder en snacks a nivel nacional, reconocida por su calidad, innovación y compromiso con la comunidad.</p>
-        </div>
-
-        <div class="bloque">
-          <h2>🌍 Valores</h2>
-          <ul>
-            <li>Calidad y frescura</li>
-            <li>Compromiso con el cliente</li>
-            <li>Innovación constante</li>
-            <li>Trabajo en equipo</li>
-            <li>Respeto al medio ambiente</li>
-          </ul>
+    <div class="header-container">
+      <!-- Botón hamburguesa para sidebar (solo visible cuando hay sesión) -->
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú lateral" style="display: none;">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+      </button>
+      
+      <div class="logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      
+      <div class="search-container">
+        <input type="search" class="buscar" placeholder="Buscar productos..." aria-label="Buscar productos">
+        <span class="search-icon">🔍</span>
+      </div>
+      
+      <!-- Menú de navegación (oculto cuando hay sesión) -->
+      <nav class="menu" id="menu" role="navigation">
+        <a href="../contenido/principal.html">Inicio</a>
+        <a href="../contenido/productos.html">Productos</a>
+        <a href="../contenido/contacto.html">Contacto</a>
+        <a href="../contenido/informacion.html" class="active">Información</a>
+      </nav>
+      
+      <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión) -->
+      <div class="header-icons" id="header-icons" style="display: none;">
+        <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
+          <span class="icon">🔔</span>
+          <span class="badge">3</span>
+        </button>
+        <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
+          <span class="icon">🛒</span>
+          <span class="badge">0</span>
+        </button>
+      </div>
+      
+      <!-- Botón de Login / Usuario -->
+      <div class="user-section">
+        <button class="btn-login" id="btn-login-nav">
+          <span class="user-icon">👤</span>
+          <span class="user-text">Iniciar Sesión</span>
+        </button>
+        
+        <!-- Dropdown de usuario (oculto por defecto) -->
+        <div class="user-dropdown" id="userDropdown">
+          <div class="dropdown-header">
+            <div class="user-avatar user-icon">👤</div>
+            <div class="user-info">
+              <span class="user-name" id="userName">Usuario</span>
+              <span class="user-email" id="userEmail">usuario@email.com</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item" id="btnPerfil">
+            <span class="item-icon user-icon-small">👤</span>
+            Ver Perfil
+          </a>
+          <a href="#" class="dropdown-item" id="btnCerrarSesion">
+            <span class="item-icon">🚪</span>
+            Cerrar Sesión
+          </a>
         </div>
       </div>
+    </div>
+  </header>
 
-      <div class="imagenes">
-        <img src="https://via.placeholder.com/500x300" alt="Historia Crispy Chips" class="grande">
-        <div class="pequeñas">
-          <img src="https://via.placeholder.com/250x150" alt="Producción">
-          <img src="https://via.placeholder.com/250x150" alt="Equipo Crispy Chips">
+  <!-- Sidebar (visible solo cuando hay sesión iniciada) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Cerrar menú">
+        <span>&times;</span>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="../contenido/principal.html" class="sidebar-item">
+        <span class="sidebar-text">Inicio</span>
+      </a>
+      <a href="../contenido/productos.html" class="sidebar-item">
+        <span class="sidebar-text">Productos</span>
+      </a>
+      <a href="../contenido/contacto.html" class="sidebar-item">
+        <span class="sidebar-text">Contacto</span>
+      </a>
+      <a href="../contenido/informacion.html" class="sidebar-item active">
+        <span class="sidebar-text">Información</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-info-sidebar">
+          <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
+          <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Overlay para cerrar sidebar en mobile -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <h1 class="hero-title">Sobre Nosotros</h1>
+        <p class="hero-subtitle">La historia detrás del sabor que hace crunch</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Introducción -->
+    <section class="intro-section">
+      <div class="container">
+        <div class="intro-content">
+          <h2 class="section-title">Bienvenido a Crispy Chips</h2>
+          <p class="intro-text">
+            En <strong>Crispy Chips</strong> elaboramos los snacks más crujientes y sabrosos de Bolivia, 
+            hechos con ingredientes naturales y locales. Nuestro compromiso es brindar productos de 
+            calidad que acompañen tus mejores momentos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nuestra Historia -->
+    <section class="historia-section">
+      <div class="container">
+        <div class="historia-grid">
+          <div class="historia-content">
+            <h2>Nuestra Historia</h2>
+            <p>
+              Comenzamos como un pequeño emprendimiento familiar con la visión de ofrecer 
+              papas fritas artesanales con un sabor inigualable. Desde nuestros inicios, 
+              nos enfocamos en seleccionar las mejores papas bolivianas y usar técnicas 
+              tradicionales combinadas con innovación.
+            </p>
+            <p>
+              Con el tiempo, crecimos gracias a la confianza de nuestros clientes y al 
+              amor por lo que hacemos. Hoy somos una marca reconocida que se enorgullece 
+              de sus raíces y de contribuir al desarrollo local.
+            </p>
+            <div class="stats">
+              <div class="stat">
+                <span class="stat-number">10+</span>
+                <span class="stat-label">Años de experiencia</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">50K+</span>
+                <span class="stat-label">Clientes felices</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">20+</span>
+                <span class="stat-label">Sabores únicos</span>
+              </div>
+            </div>
+          </div>
+          <div class="historia-imagen">
+            <img src="https://via.placeholder.com/600x400/FF6B35/fff?text=Nuestra+Historia" alt="Historia de Crispy Chips" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Misión, Visión y Valores -->
+    <section class="mvv-section">
+      <div class="container">
+        <div class="mvv-grid">
+          <article class="mvv-card">
+            <h3>Misión</h3>
+            <p>
+              Brindar a nuestros clientes snacks deliciosos, elaborados con ingredientes 
+              de primera calidad, promoviendo la producción local y el desarrollo sostenible 
+              de nuestras comunidades.
+            </p>
+          </article>
+
+          <article class="mvv-card highlight">
+            <h3>Visión</h3>
+            <p>
+              Convertirnos en una marca líder en snacks a nivel nacional, reconocida por 
+              su calidad, innovación y compromiso con la comunidad, llevando el sabor 
+              boliviano a cada rincón del país.
+            </p>
+          </article>
+
+          <article class="mvv-card">
+            <h3>Valores</h3>
+            <ul class="valores-list">
+              <li>Calidad y frescura</li>
+              <li>Compromiso con el cliente</li>
+              <li>Innovación constante</li>
+              <li>Trabajo en equipo</li>
+              <li>Respeto al medio ambiente</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galería de Imágenes -->
+    <section class="galeria-section">
+      <div class="container">
+        <h2 class="section-title">Nuestra Producción</h2>
+        <p class="section-subtitle">Un vistazo detrás de escenas</p>
+        
+        <div class="galeria-grid">
+          <div class="galeria-item large">
+            <img src="https://via.placeholder.com/600x400/4ECDC4/fff?text=Produccion" alt="Proceso de producción" loading="lazy">
+            <div class="galeria-overlay">
+              <h4>Proceso Artesanal</h4>
+              <p>Cada lote es cuidadosamente preparado</p>
+            </div>
+          </div>
+          <div class="galeria-item">
+            <img src="https://via.placeholder.com/300x300/FFD93D/333?text=Equipo" alt="Nuestro equipo" loading="lazy">
+            <div class="galeria-overlay">
+              <h4>Nuestro Equipo</h4>
+              <p>Gente apasionada por la calidad</p>
+            </div>
+          </div>
+          <div class="galeria-item">
+            <img src="https://via.placeholder.com/300x300/FF6B35/fff?text=Empaque" alt="Empaque de productos" loading="lazy">
+            <div class="galeria-overlay">
+              <h4>Control de Calidad</h4>
+              <p>Frescura garantizada</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>¿Listo para probar nuestros snacks?</h2>
+          <p>Descubre todos nuestros sabores y haz tu pedido hoy</p>
+          <div class="cta-buttons">
+            <a href="../contenido/productos.html" class="btn-primary">Ver Productos</a>
+            <a href="../contenido/contacto.html" class="btn-secondary">Contáctanos</a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="pie">
-    <div class="contacto">
-      <p>📞 Contáctanos: info@crispychips.com</p>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>CRISPY CHIPS</h3>
+        <p>El sabor que hace crunch desde 2014</p>
+      </div>
+      
+      <div class="footer-social">
+        <h4>Síguenos</h4>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><span>📘</span></a>
+          <a href="#" aria-label="Instagram"><span>📷</span></a>
+          <a href="#" aria-label="Twitter"><span>🐦</span></a>
+          <a href="#" aria-label="WhatsApp"><span>💬</span></a>
+        </div>
+      </div>
+      
+      <div class="footer-contact">
+        <h4>Contacto</h4>
+        <p>info@crispychips.com</p>
+        <p>+591 71794376</p>
+        <p>La Paz, Bolivia</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2024 Crispy Chips.</p>
     </div>
   </footer>
 
+  <!-- Modal de Login -->
+  <div class="auth-modal" id="loginModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+      
+      <div class="modal-left modal-left-image">
+        <img src="../imgs/fondo.jpg" alt="Crispy Chips" class="modal-bg-image">
+        <div class="modal-left-overlay">
+          <div class="modal-brand">
+            <h2>CRISPY CHIPS</h2>
+            <p>El sabor que hace crunch</p>
+          </div>
+          <div class="modal-features">
+            <div class="modal-feature">
+              <span class="modal-feature-icon">✓</span>
+              <p>Más de 20 sabores</p>
+            </div>
+            <div class="modal-feature">
+              <span class="modal-feature-icon">✓</span>
+              <p>Envío rápido</p>
+            </div>
+            <div class="modal-feature">
+              <span class="modal-feature-icon">✓</span>
+              <p>Productos frescos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Iniciar Sesión</h2>
+          <p>Bienvenido de nuevo a Crispy Chips</p>
+        </div>
+
+        <form id="loginForm" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="login-username">
+              <span class="icon">👤</span>
+              Correo o Usuario
+            </label>
+            <input type="text" id="login-username" name="username" placeholder="tu@email.com o usuario" autocomplete="username" required>
+            <span class="error-message" id="login-username-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">
+              <span class="icon">🔒</span>
+              Contraseña
+            </label>
+            <div class="password-wrapper">
+              <input type="password" id="login-password" name="password" placeholder="Tu contraseña" autocomplete="current-password" required>
+              <button type="button" class="toggle-password" aria-label="Mostrar contraseña">👁️</button>
+            </div>
+            <span class="error-message" id="login-password-error"></span>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span class="btn-text">Iniciar Sesión</span>
+            <span class="btn-loader"></span>
+          </button>
+
+          <div id="login-message" class="message" aria-live="polite"></div>
+        </form>
+
+        <div class="modal-footer">
+          <p>¿No tienes una cuenta? <a href="#" id="btn-open-register">Crear Cuenta</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Registro -->
+  <div class="auth-modal" id="registerModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+      
+      <div class="modal-left">
+        <div class="modal-brand">
+          <h2>CRISPY CHIPS</h2>
+          <p>El sabor que hace crunch</p>
+        </div>
+        <div class="modal-features">
+          <div class="modal-feature">
+            <span class="modal-feature-icon">✓</span>
+            <p>Más de 20 sabores</p>
+          </div>
+          <div class="modal-feature">
+            <span class="modal-feature-icon">✓</span>
+            <p>Envío rápido</p>
+          </div>
+          <div class="modal-feature">
+            <span class="modal-feature-icon">✓</span>
+            <p>Productos frescos</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Crear Cuenta</h2>
+          <p>Únete a la comunidad Crispy</p>
+        </div>
+
+        <form id="registerForm" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="register-email">Correo Electrónico *</label>
+            <input type="email" id="register-email" placeholder="tu@email.com" autocomplete="email" required>
+            <span class="error-message" id="register-email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="register-username">Nombre de Usuario *</label>
+            <input type="text" id="register-username" placeholder="usuario123" autocomplete="username" required>
+            <span class="error-message" id="register-username-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="register-nombre">Nombre</label>
+            <input type="text" id="register-nombre" placeholder="Juan" autocomplete="given-name">
+          </div>
+
+          <div class="form-group">
+            <label for="register-apellido">Apellido</label>
+            <input type="text" id="register-apellido" placeholder="Pérez" autocomplete="family-name">
+          </div>
+
+          <div class="form-group">
+            <label for="register-password">Contraseña *</label>
+            <div class="password-wrapper">
+              <input type="password" id="register-password" placeholder="Mínimo 6 caracteres" minlength="6" autocomplete="new-password" required>
+              <button type="button" class="toggle-password" aria-label="Mostrar contraseña">👁️</button>
+            </div>
+            <div class="password-strength" id="password-strength">
+              <div class="strength-bar"></div>
+            </div>
+            <span class="error-message" id="register-password-error"></span>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span class="btn-text">Crear Cuenta</span>
+            <span class="btn-loader"></span>
+          </button>
+
+          <div id="register-message" class="message" aria-live="polite"></div>
+        </form>
+
+        <div class="modal-footer">
+          <p>¿Ya tienes una cuenta? <a href="#" id="btn-open-login">Iniciar Sesión</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="../javascript/menu.js"></script>
+  <script src="../javascript/auth-modal.js"></script>
 </body>
 </html>

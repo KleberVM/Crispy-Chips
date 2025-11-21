@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Crispy Chips - Los mejores snacks y papas crujientes. Compra online y recibe en tu puerta.">
-  <meta name="keywords" content="papas, chips, snacks, comida, delivery">
-  <title>Crispy Chips - El sabor que hace crunch</title>
+  <meta name="description" content="Mi Perfil - Crispy Chips. Gestiona tu información personal y preferencias">
+  <meta name="keywords" content="perfil, usuario, cuenta, crispy chips">
+  <title>Mi Perfil - Crispy Chips</title>
+  <link rel="stylesheet" href="../css/perfil.css">
   <link rel="stylesheet" href="../css/principal.css">
   <link rel="stylesheet" href="../css/auth-modal.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,11 +17,13 @@
   <!-- Header con navegación -->
   <header class="encabezado">
     <div class="header-container">
+      <!-- Botón hamburguesa para sidebar (solo visible cuando hay sesión) -->
       <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú lateral" style="display: none;">
         <span class="hamburger"></span>
         <span class="hamburger"></span>
         <span class="hamburger"></span>
       </button>
+      
       <div class="logo">
         <span class="logo-text">CRISPY CHIPS</span>
       </div>
@@ -30,11 +33,9 @@
         <span class="search-icon">🔍</span>
       </div>
       
-      
-      
       <!-- Menú de navegación (oculto cuando hay sesión) -->
       <nav class="menu" id="menu" role="navigation">
-        <a href="../contenido/principal.html" class="active">Inicio</a>
+        <a href="../contenido/principal.html">Inicio</a>
         <a href="../contenido/productos.html">Productos</a>
         <a href="../contenido/contacto.html">Contacto</a>
         <a href="../contenido/informacion.html">Información</a>
@@ -69,7 +70,7 @@
             </div>
           </div>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item" id="btnPerfil">
+          <a href="../contenido/perfil.html" class="dropdown-item" id="btnPerfil">
             <span class="item-icon user-icon-small">👤</span>
             Ver Perfil
           </a>
@@ -94,20 +95,16 @@
     </div>
     
     <nav class="sidebar-nav">
-      <a href="../contenido/principal.html" class="sidebar-item active">
-        
+      <a href="../contenido/principal.html" class="sidebar-item">
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
-        
         <span class="sidebar-text">Productos</span>
       </a>
       <a href="../contenido/contacto.html" class="sidebar-item">
-        
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item">
-        
         <span class="sidebar-text">Información</span>
       </a>
     </nav>
@@ -126,169 +123,255 @@
   <!-- Overlay para cerrar sidebar en mobile -->
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <!-- Banner Hero -->
-  <section class="banner" role="banner">
-    <div class="banner-overlay">
-      <div class="banner-content">
-        <h1 class="banner-title">El sabor que hace <span class="highlight">crunch</span></h1>
-        <p class="banner-subtitle">Los mejores snacks frescos directo a tu puerta</p>
-        <a href="../contenido/productos.html" class="btn-primary">Ver Productos</a>
-      </div>
-    </div>
-    <img src="../imgs/fondo.jpg" alt="Banner de Crispy Chips con productos deliciosos" loading="eager">
-  </section>
-
-  <!-- Sección Cómo Funciona -->
-  <section class="funciona" id="como-funciona">
-    <div class="section-header">
-      <h2 class="section-title">Cómo funciona</h2>
-      <p class="section-subtitle">Tres simples pasos para disfrutar</p>
-    </div>
-
-    <div class="fila" data-aos="fade-up">
-      <div class="imagen">
-        <div class="imagen-wrapper">
-          <img src="../imgs/papas1.jpg" alt="Variedad de snacks y papas Crispy Chips" loading="lazy">
-          <div class="step-badge">1</div>
-        </div>
-      </div>
-      <div class="texto">
-        <h3>Elige tus snacks favoritos</h3>
-        <p>Cada semana en <strong>Crispy Chips</strong> te traemos nuevas combinaciones de sabores irresistibles: papas clásicas, onduladas, saborizadas y una variedad de snacks que te harán crujir de felicidad.</p>
-        <ul class="feature-list">
-          <li>✓ Más de 20 sabores diferentes</li>
-          <li>✓ Productos frescos semanalmente</li>
-          <li>✓ Ingredientes de calidad</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="fila inversa" data-aos="fade-up" data-aos-delay="100">
-      <div class="texto">
-        <h3>Te los llevamos donde estés</h3>
-        <p>En <strong>Crispy Chips</strong>, queremos que disfrutes sin complicaciones. Realiza tu pedido online y recibe tus chips frescos en una única entrega. Garantizamos que tus productos llegarán en perfectas condiciones, listos para abrir y disfrutar.</p>
-        <ul class="feature-list">
-          <li>✓ Envío rápido a domicilio</li>
-          <li>✓ Empaque protector garantizado</li>
-          <li>✓ Seguimiento en tiempo real</li>
-        </ul>
-      </div>
-      <div class="imagen">
-        <div class="imagen-wrapper">
-          <img src="../imgs/papas2.jpg" alt="Entrega a domicilio de Crispy Chips" loading="lazy">
-          <div class="step-badge">2</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Productos Destacados -->
-  <section class="productos" id="productos-destacados">
-    <div class="section-header">
-      <h2 class="section-title">Nuestros Favoritos</h2>
-      <p class="section-subtitle">Los más vendidos de la semana</p>
-    </div>
-    
-    <div class="productos-grid">
-      <article class="producto" data-aos="zoom-in">
-        <div class="producto-imagen">
-          <img src="https://via.placeholder.com/200/FF6B35/fff?text=Conos" alt="Conos de queso Crispy Chips" loading="lazy">
-          <span class="producto-badge">🔥 Popular</span>
-        </div>
-        <div class="producto-info">
-          <h3 class="producto-titulo">Conos de Queso</h3>
-          <p class="producto-precio">$3.500</p>
-          <div class="producto-nutri">
-            <span>🔥 220 kcal</span>
-            <span>🥑 14g grasas</span>
-            <span>🍞 23g carbs</span>
+  <!-- Main Content -->
+  <main class="profile-main">
+    <div class="profile-container">
+      <!-- Contenido del perfil -->
+      <div class="profile-content">
+        <!-- Sidebar de navegación del perfil -->
+        <aside class="profile-sidebar">
+          <!-- Usuario con foto -->
+          <div class="profile-sidebar-user">
+            <div class="profile-sidebar-avatar" id="profile-sidebar-avatar">
+              👤
+            </div>
+            <div class="profile-sidebar-info">
+              <p class="profile-sidebar-name" id="profile-sidebar-name">Usuario</p>
+              <p class="profile-sidebar-email" id="profile-sidebar-email">usuario@email.com</p>
+            </div>
           </div>
-          <button class="btn-producto">Agregar al carrito</button>
-        </div>
-      </article>
+          
+          <nav class="profile-nav">
+            <button class="profile-nav-item active" data-section="info">
+              <span class="nav-text">Información Personal</span>
+            </button>
+            <button class="profile-nav-item" data-section="photo">
+              <span class="nav-text">Foto de Perfil</span>
+            </button>
+            <button class="profile-nav-item" data-section="password">
+              <span class="nav-text">Cambiar Contraseña</span>
+            </button>
+          </nav>
+        </aside>
 
-      <article class="producto" data-aos="zoom-in" data-aos-delay="100">
-        <div class="producto-imagen">
-          <img src="https://via.placeholder.com/200/4ECDC4/fff?text=Mixeos" alt="Mixeos Crispy Chips" loading="lazy">
-          <span class="producto-badge new">✨ Nuevo</span>
-        </div>
-        <div class="producto-info">
-          <h3 class="producto-titulo">Mixeos</h3>
-          <p class="producto-precio">$4.200</p>
-          <div class="producto-nutri">
-            <span>🔥 210 kcal</span>
-            <span>🥑 13g grasas</span>
-            <span>🍞 22g carbs</span>
-          </div>
-          <button class="btn-producto">Agregar al carrito</button>
-        </div>
-      </article>
+        <!-- Secciones del perfil -->
+        <div class="profile-sections">
+          <!-- Sección: Información Personal -->
+          <section class="profile-section active" id="section-info">
+            <div class="section-header">
+              <h2>Información Personal</h2>
+              <p>Actualiza tus datos personales</p>
+            </div>
 
-      <article class="producto" data-aos="zoom-in" data-aos-delay="200">
-        <div class="producto-imagen">
-          <img src="https://via.placeholder.com/200/FFD93D/333?text=Papas" alt="Papas fritas clásicas Crispy Chips" loading="lazy">
-          <span class="producto-badge">⭐ Best Seller</span>
-        </div>
-        <div class="producto-info">
-          <h3 class="producto-titulo">Papas Clásicas</h3>
-          <p class="producto-precio">$3.000</p>
-          <div class="producto-nutri">
-            <span>🔥 230 kcal</span>
-            <span>🥑 14g grasas</span>
-            <span>🍞 24g carbs</span>
-          </div>
-          <button class="btn-producto">Agregar al carrito</button>
-        </div>
-      </article>
-    </div>
-  </section>
+            <form id="form-info" class="profile-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="info-nombre">Nombre</label>
+                  <input 
+                    type="text" 
+                    id="info-nombre" 
+                    placeholder="Tu nombre"
+                    autocomplete="given-name"
+                  >
+                  <span class="error-message" id="info-nombre-error"></span>
+                </div>
 
-  <!-- Call to Action -->
-  <section class="abres">
-    <div class="abre">
-      <div class="abre-imagen">
-        <img src="../imgs/papas1.jpg" alt="Comparte momentos con Crispy Chips" loading="lazy">
+                <div class="form-group">
+                  <label for="info-apellido">Apellido</label>
+                  <input 
+                    type="text" 
+                    id="info-apellido" 
+                    placeholder="Tu apellido"
+                    autocomplete="family-name"
+                  >
+                  <span class="error-message" id="info-apellido-error"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="info-username">Nombre de Usuario</label>
+                  <input 
+                    type="text" 
+                    id="info-username" 
+                    placeholder="usuario123"
+                    autocomplete="username"
+                    readonly
+                  >
+                  <span class="form-hint">El nombre de usuario no se puede cambiar</span>
+                </div>
+
+                <div class="form-group">
+                  <label for="info-email">Correo Electrónico</label>
+                  <input 
+                    type="email" 
+                    id="info-email" 
+                    placeholder="tu@email.com"
+                    autocomplete="email"
+                    readonly
+                  >
+                  <span class="form-hint">El email no se puede cambiar</span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="info-telefono">Teléfono</label>
+                  <input 
+                    type="tel" 
+                    id="info-telefono" 
+                    placeholder="78983485"
+                    autocomplete="tel"
+                  >
+                  <span class="error-message" id="info-telefono-error"></span>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                  <span class="btn-text">Guardar Cambios</span>
+                  <span class="btn-loader"></span>
+                </button>
+              </div>
+
+              <div class="form-message" id="info-message"></div>
+            </form>
+          </section>
+
+          <!-- Sección: Foto de Perfil -->
+          <section class="profile-section" id="section-photo">
+            <div class="section-header">
+              <h2>Foto de Perfil</h2>
+              <p>Personaliza tu imagen de perfil</p>
+            </div>
+
+            <div class="photo-container">
+              <div class="photo-preview">
+                <div class="photo-circle" id="photo-preview">
+                  <img src="" alt="Foto de perfil" id="photo-img" style="display: none;">
+                  <span class="photo-placeholder">👤</span>
+                </div>
+                <div class="photo-info">
+                  <p class="photo-name" id="photo-name">Usuario</p>
+                  <p class="photo-email" id="photo-email">usuario@email.com</p>
+                </div>
+              </div>
+
+              <form id="form-photo" class="photo-form">
+                <div class="photo-upload">
+                  <input 
+                    type="file" 
+                    id="photo-input" 
+                    accept="image/jpeg,image/png,image/jpg"
+                    hidden
+                  >
+                  <label for="photo-input" class="btn-upload">
+                    <span class="upload-icon">📷</span>
+                    <span class="upload-text">Seleccionar Foto</span>
+                  </label>
+                  <p class="upload-hint">JPG, PNG. Máximo 5MB</p>
+                </div>
+
+                <div class="photo-actions">
+                  <button type="button" class="btn-secondary" id="btn-remove-photo">
+                    Eliminar Foto
+                  </button>
+                  <button type="submit" class="btn-primary" id="btn-save-photo" disabled>
+                    <span class="btn-text">Guardar Foto</span>
+                    <span class="btn-loader"></span>
+                  </button>
+                </div>
+
+                <div class="form-message" id="photo-message"></div>
+              </form>
+            </div>
+          </section>
+
+          <!-- Sección: Cambiar Contraseña -->
+          <section class="profile-section" id="section-password">
+            <div class="section-header">
+              <h2>Cambiar Contraseña</h2>
+              <p>Actualiza tu contraseña de forma segura</p>
+            </div>
+
+            <form id="form-password" class="profile-form">
+              <div class="form-group">
+                <label for="password-current">Contraseña Actual</label>
+                <div class="password-input-wrapper">
+                  <input 
+                    type="password" 
+                    id="password-current" 
+                    placeholder="Ingresa tu contraseña actual"
+                    autocomplete="current-password"
+                  >
+                  <button type="button" class="toggle-password" data-target="password-current">
+                    👁️
+                  </button>
+                </div>
+                <span class="error-message" id="password-current-error"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="password-new">Nueva Contraseña</label>
+                <div class="password-input-wrapper">
+                  <input 
+                    type="password" 
+                    id="password-new" 
+                    placeholder="Ingresa tu nueva contraseña"
+                    autocomplete="new-password"
+                  >
+                  <button type="button" class="toggle-password" data-target="password-new">
+                    👁️
+                  </button>
+                </div>
+                <span class="error-message" id="password-new-error"></span>
+                
+                <!-- Indicador de fortaleza -->
+                <div class="password-strength" id="password-strength">
+                  <div class="strength-bar"></div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="password-confirm">Confirmar Nueva Contraseña</label>
+                <div class="password-input-wrapper">
+                  <input 
+                    type="password" 
+                    id="password-confirm" 
+                    placeholder="Confirma tu nueva contraseña"
+                    autocomplete="new-password"
+                  >
+                  <button type="button" class="toggle-password" data-target="password-confirm">
+                    👁️
+                  </button>
+                </div>
+                <span class="error-message" id="password-confirm-error"></span>
+              </div>
+
+              <div class="password-requirements">
+                <p class="requirements-title">La contraseña debe contener:</p>
+                <ul class="requirements-list">
+                  <li id="req-length">Al menos 6 caracteres</li>
+                  <li id="req-lowercase">Una letra minúscula</li>
+                  <li id="req-uppercase">Una letra mayúscula</li>
+                  <li id="req-number">Un número</li>
+                </ul>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                  <span class="btn-text">Cambiar Contraseña</span>
+                  <span class="btn-loader"></span>
+                </button>
+              </div>
+
+              <div class="form-message" id="password-message"></div>
+            </form>
+          </section>
+        </div>
       </div>
-      <div class="abre-texto">
-        <h2>Abre, Comparte y Disfruta</h2>
-        <p>Solo tienes que elegir tus productos favoritos en nuestra tienda y prepararte para disfrutar del auténtico sabor de lo crujiente. Perfectos para compartir con amigos y familia.</p>
-        <a href="../contenido/productos.html" class="btn-secondary">Explorar Catálogo Completo</a>
-      </div>
     </div>
-  </section>
-
-  <!-- Footer Info -->
-  <section class="compartes">
-    <div class="comparte">
-      <h4>Preguntas frecuentes</h4>
-      <ul>
-        <li><a href="#faq">¿Cuánto tarda el envío?</a></li>
-        <li><a href="#faq">¿Cómo se conservan las papas fritas?</a></li>
-        <li><a href="#faq">¿Qué métodos de pago aceptan?</a></li>
-        <li><a href="#faq">¿Hacen envíos a todo el país?</a></li>
-      </ul>
-    </div>
-    
-    <div class="comparte">
-      <h4>Empresa</h4>
-      <ul>
-        <li><a href="#como-funciona">Cómo funciona</a></li>
-        <li><a href="../contenido/informacion.html">Quiénes somos</a></li>
-        <li><a href="../contenido/contacto.html">Trabaja con nosotros</a></li>
-        <li><a href="#politicas">Políticas de privacidad</a></li>
-      </ul>
-    </div>
-    
-    <div class="comparte">
-      <h4>Productos y servicios</h4>
-      <ul>
-        <li><a href="../contenido/productos.html">Snacks individuales</a></li>
-        <li><a href="../contenido/productos.html">Combos familiares</a></li>
-        <li><a href="../contenido/productos.html">Tienda online</a></li>
-        <li><a href="#suscripcion">Suscripción mensual</a></li>
-      </ul>
-    </div>
-  </section>
+  </main>
 
   <!-- Footer -->
   <footer class="pie">
@@ -304,20 +387,20 @@
           <a href="#" aria-label="Facebook"><span>📘</span></a>
           <a href="#" aria-label="Instagram"><span>📷</span></a>
           <a href="#" aria-label="Twitter"><span>🐦</span></a>
-          <a href="#" aria-label="WhatsApp"><span>�</span></a>
+          <a href="#" aria-label="WhatsApp"><span>💬</span></a>
         </div>
       </div>
       
       <div class="footer-contact">
         <h4>Contacto</h4>
         <p>info@crispychips.com</p>
-        <p>743734737</p>
-        <p>Cochabamba, Bolivia</p>
+        <p>+57 300 123 4567</p>
+        <p>Bogotá, Colombia</p>
       </div>
     </div>
     
     <div class="footer-bottom">
-      <p>&copy; 2024 Crispy Chips.</p>
+      <p>&copy; 2024 Crispy Chips. Todos los derechos reservados.</p>
     </div>
   </footer>
 
@@ -534,5 +617,6 @@
 
   <script src="../javascript/menu.js"></script>
   <script src="../javascript/auth-modal.js"></script>
+  <script src="../javascript/perfil.js"></script>
 </body>
 </html>

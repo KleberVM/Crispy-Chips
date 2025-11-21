@@ -1,0 +1,197 @@
+// Esquema de Prisma para plataforma de ventas Crispy Chips
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de Usuario con autenticación
+model Usuario {
+  id                Int       @id @default(autoincrement())
+  email             String    @unique
+  username          String    @unique
+  password          String
+  nombre            String?
+  apellido          String?
+  telefono          String?
+  fotoPerfil        String?   @db.Text
+  emailVerificado   Boolean   @default(false)
+  tokenVerificacion String?
+  resetPasswordToken String?
+  resetPasswordExpires DateTime?
+  rol               Rol       @default(CLIENTE)
+  activo            Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  // Relaciones
+  cliente           Cliente?
+  pedidos           Pedido[]
+  carrito           Carrito[]
+  
+  @@map("usuarios")
+}
+
+// Enum para roles de usuario
+enum Rol {
+  ADMIN
+  EMPLEADO
+  CLIENTE
+}
+
+// Modelo de Cliente (información adicional del usuario cliente)
+model Cliente {
+  id                Int       @id @default(autoincrement())
+  usuarioId         Int       @unique
+  direccion         String?
+  ciudad            String?
+  codigoPostal      String?
+  pais              String    @default("Colombia")
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  // Relaciones
+  usuario           Usuario   @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  @@map("clientes")
+}
+
+// Modelo de Categoría para productos
+model Categoria {
+  id          Int       @id @default(autoincrement())
+  nombre      String    @unique
+  descripcion String?   @db.Text
+  activo      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relaciones
+  productos   Producto[]
+  
+  @@map("categorias")
+}
+
+// Modelo de Producto
+model Producto {
+  id              Int       @id @default(autoincrement())
+  nombre          String
+  descripcion     String?   @db.Text
+  precio          Decimal   @db.Decimal(10, 2)
+  stock           Int       @default(0)
+  imagen          String?
+  categoriaId     Int?
+  destacado       Boolean   @default(false)
+  activo          Boolean   @default(true)
+  sku             String?   @unique
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  // Relaciones
+  categoria       Categoria?        @relation(fields: [categoriaId], references: [id], onDelete: SetNull)
+  detalles        DetalleProducto[]
+  itemsCarrito    ItemCarrito[]
+  itemsPedido     ItemPedido[]
+  
+  @@map("productos")
+}
+
+// Modelo de DetalleProducto (atributos adicionales como sabor, tamaño, etc)
+model DetalleProducto {
+  id          Int       @id @default(autoincrement())
+  productoId  Int
+  atributo    String    // Ejemplo: "Sabor", "Tamaño", "Peso"
+  valor       String    // Ejemplo: "Picante", "Grande", "500g"
+  precioExtra Decimal?  @db.Decimal(10, 2)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relaciones
+  producto    Producto  @relation(fields: [productoId], references: [id], onDelete: Cascade)
+  
+  @@map("detalle_productos")
+}
+
+// Modelo de Carrito
+model Carrito {
+  id          Int       @id @default(autoincrement())
+  usuarioId   Int?
+  sessionId   String?   // Para invitados
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relaciones
+  usuario     Usuario?  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  items       ItemCarrito[]
+  
+  @@map("carritos")
+}
+
+// Modelo de ItemCarrito
+model ItemCarrito {
+  id          Int       @id @default(autoincrement())
+  carritoId   Int
+  productoId  Int
+  cantidad    Int       @default(1)
+  precio      Decimal   @db.Decimal(10, 2)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relaciones
+  carrito     Carrito   @relation(fields: [carritoId], references: [id], onDelete: Cascade)
+  producto    Producto  @relation(fields: [productoId], references: [id], onDelete: Cascade)
+  
+  @@map("items_carrito")
+}
+
+// Enum para estado de pedido
+enum EstadoPedido {
+  PENDIENTE
+  PROCESANDO
+  ENVIADO
+  ENTREGADO
+  CANCELADO
+}
+
+// Modelo de Pedido
+model Pedido {
+  id                Int           @id @default(autoincrement())
+  usuarioId         Int
+  total             Decimal       @db.Decimal(10, 2)
+  subtotal          Decimal       @db.Decimal(10, 2)
+  impuestos         Decimal       @db.Decimal(10, 2) @default(0)
+  envio             Decimal       @db.Decimal(10, 2) @default(0)
+  estado            EstadoPedido  @default(PENDIENTE)
+  direccionEnvio    String
+  ciudadEnvio       String
+  codigoPostalEnvio String?
+  telefonoContacto  String
+  notas             String?       @db.Text
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  // Relaciones
+  usuario           Usuario       @relation(fields: [usuarioId], references: [id])
+  items             ItemPedido[]
+  
+  @@map("pedidos")
+}
+
+// Modelo de ItemPedido
+model ItemPedido {
+  id          Int       @id @default(autoincrement())
+  pedidoId    Int
+  productoId  Int
+  cantidad    Int
+  precio      Decimal   @db.Decimal(10, 2)
+  subtotal    Decimal   @db.Decimal(10, 2)
+  createdAt   DateTime  @default(now())
+  
+  // Relaciones
+  pedido      Pedido    @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+  producto    Producto  @relation(fields: [productoId], references: [id])
+  
+  @@map("items_pedido")
+}

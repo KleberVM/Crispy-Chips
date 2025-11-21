@@ -1,173 +1,626 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explora nuestra variedad de snacks crujientes - Crispy Chips. Papas, mixeos y más sabores únicos">
+  <meta name="keywords" content="papas fritas, snacks, crispy chips, productos, comprar online">
+  <title>Productos - Crispy Chips</title>
   <link rel="stylesheet" href="../css/productos.css">
-  <title>Productos</title>
+  <link rel="stylesheet" href="../css/principal.css">
+  <link rel="stylesheet" href="../css/auth-modal.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Header con navegación -->
   <header class="encabezado">
-    <div class="logo">CRISPY CHIPS</div>
-    <input type="text" class="buscar" placeholder="BUSCAR">
-    <button class="menu-btn" id="menu-btn">&#9776;</button>
-    <nav class="menu" id="menu">
-      <a href="../index.html">Sesion</a>
-      <a href="../contenido/principal.html">Principal</a>
-      <a href="../contenido/productos.html">Productos</a>
-      <a href="../contenido/contacto.html">Contacto</a>
-      <a href="../contenido/informacion.html">Informacion</a>
-    </nav>
-  </header>
-
-   <main>
-    <section class="titulo">
-      <h1>🥔 Snacks Crispy Chips</h1>
-      <p>Cambiamos el menú cada jueves para que siempre tengas algo nuevo que probar 😋</p>
-      <p class="opciones">👉 Probar una vez ☑️ Suscripción semanal ⭐ Sabores fijos 🔵 Papas Clásicas Papas Fritas Original</p>
-    </section>
-
-    <section class="productos">
-      <h2>Opciones de compra:</h2>
-      <div class="contenedor-productos">
-
-  <div class="producto rojo">
-    <img src="https://i.imgur.com/vkSbQzW.png" alt="Crispy Picante">
-    <p>(100g)</p>
-    <p>💰 Precio habitual: 16,50 Bs<br>🔥 Sabor justo, crujientes y naturales</p>
-    <p>180 kcal | 10g grasas | 20g carbohidratos | 2g proteínas</p>
-    <button>AÑADIR</button>
-  </div>
-
-  <div class="producto amarillo">
-    <img src="https://i.imgur.com/vkSbQzW.png" alt="Crispy Amarillo">
-    <p>(100g)</p>
-    <p>💰 Precio habitual: 17,00 Bs<br>🌽 Sabor suave con toque dorado</p>
-    <p>182 kcal | 9g grasas | 21g carbohidratos | 2g proteínas</p>
-    <button>AÑADIR</button>
-  </div>
-
-  <div class="producto celeste">
-    <img src="https://i.imgur.com/vkSbQzW.png" alt="Crispy Celeste">
-    <p>(100g)</p>
-    <p>💰 Precio habitual: 16,00 Bs<br>💨 Ligero, fresco y crocante</p>
-    <p>175 kcal | 8g grasas | 19g carbohidratos | 2g proteínas</p>
-    <button>AÑADIR</button>
-  </div>
-
-  <div class="producto morado">
-    <img src="https://i.imgur.com/khhw14H.png" alt="Crispy Vinagre">
-    <p>(100g)</p>
-    <p>💰 Precio habitual: 18,00 Bs<br>🍷 Sabor tradicional con un toque gourmet</p>
-    <p>185 kcal | 11g grasas | 21g carbohidratos | 2g proteínas</p>
-    <button>AÑADIR</button>
-  </div>
-
-  <div class="producto naranja">
-    <img src="https://i.imgur.com/V4M1QES.png" alt="Amor a primera mordida">
-    <p>(90g)</p>
-    <p>💰 Precio habitual: 20,00 Bs<br>🍯 Dulce natural, sin aditivos</p>
-    <p>160 kcal | 9g grasas | 18g carbohidratos | 1g proteínas</p>
-    <button>AÑADIR</button>
-  </div>
-
-  <div class="producto verde">
-    <img src="https://i.imgur.com/6EvYf1W.png" alt="Mixeos">
-    <p>(100g)</p>
-    <p>💰 Precio habitual: 22,00 Bs<br>🥬 Remolacha, zanahoria y yuca</p>
-    <p>170 kcal | 8g grasas | 22g carbohidratos | 2g proteínas</p>
-    <button>AÑADIR</button>
-  </div>
-
-  <div class="producto lechuga">
-    <img src="https://i.imgur.com/Ejv90vI.png" alt="Sticks">
-    <p>(100g)</p>
-    <p>💰 Precio habitual: 19,00 Bs<br>🌶️ Picante suave</p>
-    <p>190 kcal | 12g grasas | 19g carbohidratos | 3g proteínas</p>
-    <button>AÑADIR</button>
-  </div>
-
-  <div class="producto azul">
-    <img src="https://i.imgur.com/x7tJm1M.png" alt="Modo Ranked">
-    <p>(90g)</p>
-    <p>💰 Precio habitual: 26,00 Bs<br>🎮 Sabor intenso, experiencia gourmet</p>
-    <p>195 kcal | 11g grasas | 20g carbohidratos | 2g proteínas</p>
-    <button class="agotado">AGOTADO</button>
-  </div>
-
-</div>       
-</section>
-
-
-<!-- 🛒 CARRITO DE COMPRAS -->
-<section class="carrito">
-  <h2>🛍️ Tu carrito</h2>
-
-  <!-- Carrito vacío -->
-  <div id="carrito-vacio" class="carrito-vacio">
-    <img src="https://cdn-icons-png.flaticon.com/512/263/263142.png" alt="Carrito vacío">
-    <h3>Tu carrito está vacío</h3>
-    <button onclick="scrollToProducts()" class="btn-seguir">Seguir comprando</button>
-    <p>¿Tienes una cuenta? <a href="#">Inicia sesión</a> para finalizar tus compras con mayor rapidez.</p>
-  </div>
-
-  <!-- Carrito con productos -->
-  <div id="carrito-lleno" class="carrito-lleno oculto">
-    <table>
-      <thead>
-        <tr>
-          <th>Producto</th>
-          <th>Precio</th>
-          <th>Cantidad</th>
-          <th>Total</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="carrito-items"></tbody>
-    </table>
-
-    <div class="total">
-      <h3>Total: <span id="carrito-total">0 Bs</span></h3>
-      <button class="btn-comprar">Finalizar compra</button>
-    </div>
-    <div id="mensaje-compra" class="mensaje-compra oculto">
-    ✅ ¡Tu compra ha sido finalizada con éxito! Gracias por elegir Crispy Chips 🥔
-    </div>
-
-    
-  </div>
-</section>
-
-
-    <footer>
-      <div class="footer-contenido">
-        <div class="columna">
-          <h3>CRISPY CHIPS</h3>
-        </div>
-        <div class="columna">
-          <h3>📖 Sobre la Empresa</h3>
-          <ul>
-            <li>¿Cómo funciona Crispy Chips?</li>
-            <li>¿Quiénes somos?</li>
-            <li>Métodos de envío en Bolivia</li>
-            <li>Trabajá con nosotros</li>
-          </ul>
-        </div>
-        <div class="columna">
-          <h3>🍟 Productos y Servicios</h3>
-          <ul>
-            <li>Suscripción personalizada</li>
-            <li>Variedad semanal</li>
-            <li>Snacks para oficinas y eventos</li>
-            <li>Recargá tu monedero</li>
-          </ul>
+    <div class="header-container">
+      <!-- Botón hamburguesa para sidebar (solo visible cuando hay sesión) -->
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú lateral" style="display: none;">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+      </button>
+      
+      <div class="logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      
+      <div class="search-container">
+        <input type="search" class="buscar" id="searchInput" placeholder="Buscar productos..." aria-label="Buscar productos">
+        <span class="search-icon">🔍</span>
+      </div>
+      
+      <!-- Menú de navegación (oculto cuando hay sesión) -->
+      <nav class="menu" id="menu" role="navigation">
+        <a href="../contenido/principal.html">Inicio</a>
+        <a href="../contenido/productos.html" class="active">Productos</a>
+        <a href="../contenido/contacto.html">Contacto</a>
+        <a href="../contenido/informacion.html">Información</a>
+      </nav>
+      
+      <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión) -->
+      <div class="header-icons" id="header-icons" style="display: none;">
+        <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
+          <span class="icon">🔔</span>
+          <span class="badge">3</span>
+        </button>
+        <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
+          <span class="icon">🛒</span>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+      </div>
+      
+      <!-- Botón de Login / Usuario -->
+      <div class="user-section">
+        <button class="btn-login" id="btn-login-nav">
+          <span class="user-icon">👤</span>
+          <span class="user-text">Iniciar Sesión</span>
+        </button>
+        
+        <!-- Dropdown de usuario (oculto por defecto) -->
+        <div class="user-dropdown" id="userDropdown">
+          <div class="dropdown-header">
+            <div class="user-avatar user-icon">👤</div>
+            <div class="user-info">
+              <span class="user-name" id="userName">Usuario</span>
+              <span class="user-email" id="userEmail">usuario@email.com</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item" id="btnPerfil">
+            <span class="item-icon user-icon-small">👤</span>
+            Ver Perfil
+          </a>
+          <a href="#" class="dropdown-item" id="btnCerrarSesion">
+            Cerrar Sesión
+          </a>
         </div>
       </div>
-    </footer>
+    </div>
+  </header>
+
+  <!-- Sidebar (visible solo cuando hay sesión iniciada) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Cerrar menú">
+        <span>&times;</span>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="../contenido/principal.html" class="sidebar-item">
+        <span class="sidebar-text">Inicio</span>
+      </a>
+      <a href="../contenido/productos.html" class="sidebar-item active">
+        
+        <span class="sidebar-text">Productos</span>
+      </a>
+      <a href="../contenido/contacto.html" class="sidebar-item">
+        
+        <span class="sidebar-text">Contacto</span>
+      </a>
+      <a href="../contenido/informacion.html" class="sidebar-item">
+        
+        <span class="sidebar-text">Información</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-info-sidebar">
+          <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
+          <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Overlay para cerrar sidebar en mobile -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <h1 class="hero-title">Nuestros Productos</h1>
+        <p class="hero-subtitle">Descubre el sabor que hace crunch</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Intro Section -->
+    <section class="intro-section">
+      <div class="container">
+        <div class="intro-content">
+          <h2 class="section-title">Snacks Crispy Chips</h2>
+          <p class="intro-text">
+            Cambiamos el menú cada jueves para que siempre tengas algo nuevo que probar
+          </p>
+          <div class="badges">
+            <span class="badge">Prueba única</span>
+            <span class="badge">Suscripción semanal</span>
+            <span class="badge">Sabores fijos</span>
+            <span class="badge">Clásicas</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filtros -->
+    <section class="filtros-section">
+      <div class="container">
+        <div class="filtros">
+          <button class="filtro-btn active" data-filter="all">Todos</button>
+          <button class="filtro-btn" data-filter="picante">Picantes</button>
+          <button class="filtro-btn" data-filter="clasico">Clásicos</button>
+          <button class="filtro-btn" data-filter="gourmet">Gourmet</button>
+          <button class="filtro-btn" data-filter="mixto">Mixtos</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Productos Grid -->
+    <section class="productos-section" id="productos-section">
+      <div class="container">
+        <h2 class="section-title">Opciones de compra</h2>
+        <div class="productos-grid">
+          
+          <!-- Producto 1: Crispy Picante -->
+          <article class="producto-card" data-category="picante">
+            <div class="producto-badge hot">Popular</div>
+            <div class="producto-imagen">
+              <img src="https://i.imgur.com/vkSbQzW.png" alt="Crispy Picante" loading="lazy">
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-titulo">Crispy Picante</h3>
+              <p class="producto-peso">(100g)</p>
+              <p class="producto-desc">Sabor justo, crujientes y naturales</p>
+              <div class="producto-nutri">
+                <span>180 kcal</span>
+                <span>10g grasas</span>
+                <span>20g carbs</span>
+                <span>2g proteínas</span>
+              </div>
+              <div class="producto-footer">
+                <span class="producto-precio">Bs. 16,50</span>
+                <button class="btn-agregar" data-producto="Crispy Picante" data-precio="16.50">
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Producto 2: Crispy Amarillo -->
+          <article class="producto-card" data-category="clasico">
+            <div class="producto-imagen">
+              <img src="https://i.imgur.com/vkSbQzW.png" alt="Crispy Amarillo" loading="lazy">
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-titulo">Crispy Amarillo</h3>
+              <p class="producto-peso">(100g)</p>
+              <p class="producto-desc">Sabor suave con toque dorado</p>
+              <div class="producto-nutri">
+                <span>182 kcal</span>
+                <span>9g grasas</span>
+                <span>21g carbs</span>
+                <span>2g proteínas</span>
+              </div>
+              <div class="producto-footer">
+                <span class="producto-precio">Bs. 17,00</span>
+                <button class="btn-agregar" data-producto="Crispy Amarillo" data-precio="17.00">
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Producto 3: Crispy Celeste -->
+          <article class="producto-card" data-category="clasico">
+            <div class="producto-imagen">
+              <img src="https://i.imgur.com/vkSbQzW.png" alt="Crispy Celeste" loading="lazy">
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-titulo">Crispy Celeste</h3>
+              <p class="producto-peso">(100g)</p>
+              <p class="producto-desc">Ligero, fresco y crocante</p>
+              <div class="producto-nutri">
+                <span>175 kcal</span>
+                <span>8g grasas</span>
+                <span>19g carbs</span>
+                <span>2g proteínas</span>
+              </div>
+              <div class="producto-footer">
+                <span class="producto-precio">Bs. 16,00</span>
+                <button class="btn-agregar" data-producto="Crispy Celeste" data-precio="16.00">
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Producto 4: Crispy Vinagre -->
+          <article class="producto-card" data-category="gourmet">
+            <div class="producto-badge gourmet">⭐ Gourmet</div>
+            <div class="producto-imagen">
+              <img src="https://i.imgur.com/khhw14H.png" alt="Crispy Vinagre" loading="lazy">
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-titulo">Crispy Vinagre</h3>
+              <p class="producto-peso">(100g)</p>
+              <p class="producto-desc">Sabor tradicional con un toque gourmet</p>
+              <div class="producto-nutri">
+                <span>185 kcal</span>
+                <span>11g grasas</span>
+                <span>21g carbs</span>
+                <span>2g proteínas</span>
+              </div>
+              <div class="producto-footer">
+                <span class="producto-precio">Bs. 18,00</span>
+                <button class="btn-agregar" data-producto="Crispy Vinagre" data-precio="18.00">
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Producto 5: Amor a primera mordida -->
+          <article class="producto-card" data-category="gourmet">
+            <div class="producto-imagen">
+              <img src="https://i.imgur.com/V4M1QES.png" alt="Amor a primera mordida" loading="lazy">
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-titulo">Amor a primera mordida</h3>
+              <p class="producto-peso">(90g)</p>
+              <p class="producto-desc">Dulce natural, sin aditivos</p>
+              <div class="producto-nutri">
+                <span>160 kcal</span>
+                <span>9g grasas</span>
+                <span>18g carbs</span>
+                <span>1g proteínas</span>
+              </div>
+              <div class="producto-footer">
+                <span class="producto-precio">Bs. 20,00</span>
+                <button class="btn-agregar" data-producto="Amor a primera mordida" data-precio="20.00">
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Producto 6: Mixeos -->
+          <article class="producto-card" data-category="mixto">
+            <div class="producto-badge new">Nuevo</div>
+            <div class="producto-imagen">
+              <img src="https://i.imgur.com/6EvYf1W.png" alt="Mixeos" loading="lazy">
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-titulo">Mixeos</h3>
+              <p class="producto-peso">(100g)</p>
+              <p class="producto-desc">Remolacha, zanahoria y yuca</p>
+              <div class="producto-nutri">
+                <span>170 kcal</span>
+                <span>8g grasas</span>
+                <span>22g carbs</span>
+                <span>2g proteínas</span>
+              </div>
+              <div class="producto-footer">
+                <span class="producto-precio">Bs. 22,00</span>
+                <button class="btn-agregar" data-producto="Mixeos" data-precio="22.00">
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Producto 7: Sticks -->
+          <article class="producto-card" data-category="picante">
+            <div class="producto-imagen">
+              <img src="https://i.imgur.com/Ejv90vI.png" alt="Sticks" loading="lazy">
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-titulo">Sticks</h3>
+              <p class="producto-peso">(100g)</p>
+              <p class="producto-desc">Picante suave</p>
+              <div class="producto-nutri">
+                <span>190 kcal</span>
+                <span>12g grasas</span>
+                <span>19g carbs</span>
+                <span>3g proteínas</span>
+              </div>
+              <div class="producto-footer">
+                <span class="producto-precio">Bs. 19,00</span>
+                <button class="btn-agregar" data-producto="Sticks" data-precio="19.00">
+                  Agregar
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Producto 8: Modo Ranked -->
+          <article class="producto-card" data-category="gourmet">
+            <div class="producto-badge sold-out">Agotado</div>
+            <div class="producto-imagen">
+              <img src="https://i.imgur.com/x7tJm1M.png" alt="Modo Ranked" loading="lazy">
+            </div>
+            <div class="producto-info">
+              <h3 class="producto-titulo">Modo Ranked</h3>
+              <p class="producto-peso">(90g)</p>
+              <p class="producto-desc">Sabor intenso, experiencia gourmet</p>
+              <div class="producto-nutri">
+                <span>195 kcal</span>
+                <span>11g grasas</span>
+                <span>20g carbs</span>
+                <span>2g proteínas</span>
+              </div>
+              <div class="producto-footer">
+                <span class="producto-precio">Bs. 26,00</span>
+                <button class="btn-agregar agotado" disabled>
+                  Agotado
+                </button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Carrito Modal -->
+    <div class="carrito-modal" id="carritoModal">
+      <div class="modal-overlay" id="modalOverlay"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Tu carrito</h2>
+          <button class="modal-close" id="modalClose">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+          <!-- Carrito vacío -->
+          <div id="carrito-vacio" class="carrito-vacio">
+            <span class="empty-icon">🛒</span>
+            <h3>Tu carrito está vacío</h3>
+            <p>Agrega algunos productos deliciosos</p>
+          </div>
+
+          <!-- Carrito con productos -->
+          <div id="carrito-lleno" class="carrito-lleno oculto">
+            <div class="carrito-items" id="carrito-items"></div>
+            
+            <div class="carrito-total">
+              <div class="total-row">
+                <span>Subtotal:</span>
+                <span id="carrito-subtotal">Bs. 0,00</span>
+              </div>
+              <div class="total-row">
+                <span>Envío:</span>
+                <span>Bs. 5,00</span>
+              </div>
+              <div class="total-row total-final">
+                <span>Total:</span>
+                <span id="carrito-total">Bs. 5,00</span>
+              </div>
+            </div>
+            
+            <button class="btn-comprar" id="btnComprar">Finalizar compra</button>
+            
+            <div id="mensaje-compra" class="mensaje-compra oculto">
+              ¡Tu compra ha sido finalizada con éxito! Gracias por elegir Crispy Chips 🥔
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
+
+  <!-- Footer -->
+  <footer class="pie">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>CRISPY CHIPS</h3>
+        <p>El sabor que hace crunch desde 2014</p>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Sobre la Empresa</h4>
+        <ul>
+          <li><a href="../contenido/informacion.html">¿Cómo funciona?</a></li>
+          <li><a href="../contenido/informacion.html">¿Quiénes somos?</a></li>
+          <li><a href="../contenido/contacto.html">Métodos de envío</a></li>
+          <li><a href="../contenido/contacto.html">Trabaja con nosotros</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Productos y Servicios</h4>
+        <ul>
+          <li><a href="#">Suscripción personalizada</a></li>
+          <li><a href="#">Variedad semanal</a></li>
+          <li><a href="#">Snacks para eventos</a></li>
+          <li><a href="#">Gift cards</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-contact">
+        <h4>Contacto</h4>
+        <p>info@crispychips.com</p>
+        <p>+591 71794376</p>
+        <p>La Paz, Bolivia</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2024 Crispy Chips. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Modal de Login -->
+  <div class="auth-modal" id="loginModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+      
+      <div class="modal-left modal-left-image">
+        <img src="../imgs/fondo.jpg" alt="Crispy Chips" class="modal-bg-image">
+        <div class="modal-left-overlay">
+          <div class="modal-brand">
+            <h2>CRISPY CHIPS</h2>
+            <p>El sabor que hace crunch</p>
+          </div>
+          <div class="modal-features">
+            <div class="modal-feature">
+              <span class="modal-feature-icon">✓</span>
+              <p>Más de 20 sabores</p>
+            </div>
+            <div class="modal-feature">
+              <span class="modal-feature-icon">✓</span>
+              <p>Envío rápido</p>
+            </div>
+            <div class="modal-feature">
+              <span class="modal-feature-icon">✓</span>
+              <p>Productos frescos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Iniciar Sesión</h2>
+          <p>Bienvenido de nuevo a Crispy Chips</p>
+        </div>
+
+        <form id="loginForm" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="login-username">
+              <span class="icon">👤</span>
+              Correo o Usuario
+            </label>
+            <input type="text" id="login-username" name="username" placeholder="tu@email.com o usuario" autocomplete="username" required>
+            <span class="error-message" id="login-username-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">
+              <span class="icon">🔒</span>
+              Contraseña
+            </label>
+            <div class="password-wrapper">
+              <input type="password" id="login-password" name="password" placeholder="Tu contraseña" autocomplete="current-password" required>
+              <button type="button" class="toggle-password" aria-label="Mostrar contraseña">👁️</button>
+            </div>
+            <span class="error-message" id="login-password-error"></span>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span class="btn-text">Iniciar Sesión</span>
+            <span class="btn-loader"></span>
+          </button>
+
+          <div id="login-message" class="message" aria-live="polite"></div>
+        </form>
+
+        <div class="modal-footer">
+          <p>¿No tienes una cuenta? <a href="#" id="btn-open-register">Crear Cuenta</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Registro -->
+  <div class="auth-modal" id="registerModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+      
+      <div class="modal-left">
+        <div class="modal-brand">
+          <h2>CRISPY CHIPS</h2>
+          <p>El sabor que hace crunch</p>
+        </div>
+        <div class="modal-features">
+          <div class="modal-feature">
+            <span class="modal-feature-icon">✓</span>
+            <p>Más de 20 sabores</p>
+          </div>
+          <div class="modal-feature">
+            <span class="modal-feature-icon">✓</span>
+            <p>Envío rápido</p>
+          </div>
+          <div class="modal-feature">
+            <span class="modal-feature-icon">✓</span>
+            <p>Productos frescos</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Crear Cuenta</h2>
+          <p>Únete a la comunidad Crispy</p>
+        </div>
+
+        <form id="registerForm" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="register-email">Correo Electrónico *</label>
+            <input type="email" id="register-email" placeholder="tu@email.com" autocomplete="email" required>
+            <span class="error-message" id="register-email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="register-username">Nombre de Usuario *</label>
+            <input type="text" id="register-username" placeholder="usuario123" autocomplete="username" required>
+            <span class="error-message" id="register-username-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="register-nombre">Nombre</label>
+            <input type="text" id="register-nombre" placeholder="Juan" autocomplete="given-name">
+          </div>
+
+          <div class="form-group">
+            <label for="register-apellido">Apellido</label>
+            <input type="text" id="register-apellido" placeholder="Pérez" autocomplete="family-name">
+          </div>
+
+          <div class="form-group">
+            <label for="register-password">Contraseña *</label>
+            <div class="password-wrapper">
+              <input type="password" id="register-password" placeholder="Mínimo 6 caracteres" minlength="6" autocomplete="new-password" required>
+              <button type="button" class="toggle-password" aria-label="Mostrar contraseña">👁️</button>
+            </div>
+            <div class="password-strength" id="password-strength">
+              <div class="strength-bar"></div>
+            </div>
+            <span class="error-message" id="register-password-error"></span>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span class="btn-text">Crear Cuenta</span>
+            <span class="btn-loader"></span>
+          </button>
+
+          <div id="register-message" class="message" aria-live="polite"></div>
+        </form>
+
+        <div class="modal-footer">
+          <p>¿Ya tienes una cuenta? <a href="#" id="btn-open-login">Iniciar Sesión</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="../javascript/menu.js"></script>
   <script src="../javascript/productos.js"></script>
-  <script src="../server.js"></script>
+  <script src="../javascript/auth-modal.js"></script>
 </body>
 </html>

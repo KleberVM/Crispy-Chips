@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("username").value.trim(); // Puede ser email o username
     const password = document.getElementById("password").value.trim();
 
-    if (!username || !password) {
+    if (!email || !password) {
       message.textContent = "Por favor completa todos los campos.";
       message.style.color = "red";
       return;
@@ -20,14 +20,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        credentials: "include", // Importante para las sesiones
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
         // Guardar el usuario en localStorage
-        localStorage.setItem("username", username);
+        if (data.user) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+          localStorage.setItem("username", data.user.username);
+        }
 
         message.textContent = data.message;
         message.style.color = "green";

@@ -1,63 +1,535 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contáctanos - Crispy Chips. Estamos aquí para atenderte. Envíanos tu mensaje">
+  <meta name="keywords" content="contacto, crispy chips, soporte, consultas, ubicación">
+  <title>Contacto - Crispy Chips</title>
   <link rel="stylesheet" href="../css/contacto.css">
-  <title>Contacto</title>
+  <link rel="stylesheet" href="../css/principal.css">
+  <link rel="stylesheet" href="../css/auth-modal.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Header con navegación -->
   <header class="encabezado">
-    <div class="logo">CRISPY CHIPS</div>
-    <input type="text" class="buscar" placeholder="BUSCAR">
-    <button class="menu-btn" id="menu-btn">&#9776;</button>
-    <nav class="menu" id="menu">
-      <a href="../index.html">Sesion</a>
-      <a href="../contenido/principal.html">Principal</a>
-      <a href="../contenido/productos.html">Productos</a>
-      <a href="../contenido/contacto.html">Contacto</a>
-      <a href="../contenido/informacion.html">Informacion</a>
-    </nav>
+    <div class="header-container">
+      <!-- Botón hamburguesa para sidebar (solo visible cuando hay sesión) -->
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú lateral" style="display: none;">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+      </button>
+      
+      <div class="logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      
+      <div class="search-container">
+        <input type="search" class="buscar" placeholder="Buscar productos..." aria-label="Buscar productos">
+        <span class="search-icon">🔍</span>
+      </div>
+      
+      <!-- Menú de navegación (oculto cuando hay sesión) -->
+      <nav class="menu" id="menu" role="navigation">
+        <a href="../contenido/principal.html">Inicio</a>
+        <a href="../contenido/productos.html">Productos</a>
+        <a href="../contenido/contacto.html" class="active">Contacto</a>
+        <a href="../contenido/informacion.html">Información</a>
+      </nav>
+      
+      <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión) -->
+      <div class="header-icons" id="header-icons" style="display: none;">
+        <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
+          <span class="icon">🔔</span>
+          <span class="badge">3</span>
+        </button>
+        <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
+          <span class="icon">🛒</span>
+          <span class="badge">0</span>
+        </button>
+      </div>
+      
+      <!-- Botón de Login / Usuario -->
+      <div class="user-section">
+        <button class="btn-login" id="btn-login-nav">
+          <span class="user-icon">👤</span>
+          <span class="user-text">Iniciar Sesión</span>
+        </button>
+        
+        <!-- Dropdown de usuario (oculto por defecto) -->
+        <div class="user-dropdown" id="userDropdown">
+          <div class="dropdown-header">
+            <div class="user-avatar user-icon">👤</div>
+            <div class="user-info">
+              <span class="user-name" id="userName">Usuario</span>
+              <span class="user-email" id="userEmail">usuario@email.com</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item" id="btnPerfil">
+            <span class="item-icon user-icon-small">👤</span>
+            Ver Perfil
+          </a>
+          <a href="#" class="dropdown-item" id="btnCerrarSesion">
+            Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
   </header>
 
-   <main>
-    <section class="contacto">
-      <h1>📞 Contáctanos</h1>
-      <p>Si tienes dudas, sugerencias o deseas ser distribuidor, escríbenos. ¡Nos encantará escucharte!</p>
-
-      <div class="contenedor-contacto">
-        <div class="formulario">
-          <h2>Envíanos un mensaje</h2>
-          <form>
-            <input type="text" placeholder="Tu nombre" required>
-            <input type="email" placeholder="Tu correo electrónico" required>
-            <input type="text" placeholder="Asunto" required>
-            <textarea placeholder="Escribe tu mensaje aquí..." required></textarea>
-            <button type="submit">Enviar mensaje</button>
-          </form>
+  <!-- Sidebar (visible solo cuando hay sesión iniciada) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Cerrar menú">
+        <span>&times;</span>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="../contenido/principal.html" class="sidebar-item">
+        <span class="sidebar-text">Inicio</span>
+      </a>
+      <a href="../contenido/productos.html" class="sidebar-item">
+        <span class="sidebar-text">Productos</span>
+      </a>
+      <a href="../contenido/contacto.html" class="sidebar-item active">
+        <span class="sidebar-text">Contacto</span>
+      </a>
+      <a href="../contenido/informacion.html" class="sidebar-item">
+        <span class="sidebar-text">Información</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-info-sidebar">
+          <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
+          <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
         </div>
+      </div>
+    </div>
+  </aside>
 
-        <div class="info">
-          <h2>Información de contacto</h2>
-          <p>📍 Av. Principal #123, La Paz - Bolivia</p>
-          <p>📱 +591 71794376</p>
-          <p>📱 +591 65334874</p>
-          <p>✉️ info@crispychips.com</p>
-          <h2>Ubicación</h2>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.505080978801!2d-68.11929318513183!3d-16.50019558861214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915edf2035d06b0d%3A0xb54af57353f74b5e!2sUnidad%20Educativa%20Eugenia%20Ravasco!5e0!3m2!1ses!2sbo!4v1684351915230!5m2!1ses!2sbo" 
-          width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  <!-- Overlay para cerrar sidebar en mobile -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <h1 class="hero-title">Contáctanos</h1>
+        <p class="hero-subtitle">Estamos aquí para atenderte</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Intro -->
+    <section class="intro-section">
+      <div class="container">
+        <div class="intro-content">
+          <h2 class="section-title">¿Cómo podemos ayudarte?</h2>
+          <p class="intro-text">
+            Si tienes dudas, sugerencias o deseas ser distribuidor, escríbenos. 
+            ¡Nos encantará escucharte y responder todas tus consultas!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulario y Info -->
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Formulario -->
+          <div class="form-container">
+            <div class="form-header">
+              <h2>Envíanos un mensaje</h2>
+              <p>Completa el formulario y te responderemos pronto</p>
+            </div>
+            
+            <form id="contactForm" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="nombre">
+                    Nombre completo *
+                  </label>
+                  <input 
+                    type="text" 
+                    id="nombre" 
+                    placeholder="Juan Pérez" 
+                    autocomplete="name"
+                    required
+                  >
+                  <span class="error-message" id="nombre-error"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">
+                    Correo electrónico *
+                  </label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    placeholder="tu@email.com" 
+                    autocomplete="email"
+                    required
+                  >
+                  <span class="error-message" id="email-error"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="telefono">
+                    Teléfono
+                  </label>
+                  <input 
+                    type="tel" 
+                    id="telefono" 
+                    placeholder="+591 71234567" 
+                    autocomplete="tel"
+                  >
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="asunto">
+                    Asunto *
+                  </label>
+                  <select id="asunto" required>
+                    <option value="">Selecciona un tema</option>
+                    <option value="consulta">Consulta general</option>
+                    <option value="pedido">Información sobre pedidos</option>
+                    <option value="distribuidor">Quiero ser distribuidor</option>
+                    <option value="sugerencia">Sugerencias</option>
+                    <option value="otro">Otro</option>
+                  </select>
+                  <span class="error-message" id="asunto-error"></span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="mensaje">
+                    Mensaje *
+                  </label>
+                  <textarea 
+                    id="mensaje" 
+                    rows="5" 
+                    placeholder="Escribe tu mensaje aquí..." 
+                    required
+                  ></textarea>
+                  <span class="error-message" id="mensaje-error"></span>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-submit">
+                <span class="btn-text">Enviar mensaje</span>
+                <span class="btn-loader"></span>
+              </button>
+
+              <div id="message" class="message" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <!-- Información de contacto -->
+          <div class="info-container">
+            <div class="info-card">
+              <h3>Información de contacto</h3>
+              
+              <div class="info-item">
+                <div>
+                  <h4>Dirección</h4>
+                  <p>Av. Principal #123<br>La Paz, Bolivia</p>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div>
+                  <h4>Teléfonos</h4>
+                  <p><a href="tel:+59171794376">+591 71794376</a></p>
+                  <p><a href="tel:+59165334874">+591 65334874</a></p>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div>
+                  <h4>Email</h4>
+                  <p><a href="mailto:info@crispychips.com">info@crispychips.com</a></p>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div>
+                  <h4>Horario de atención</h4>
+                  <p>Lunes a Viernes: 9:00 - 18:00</p>
+                  <p>Sábados: 9:00 - 14:00</p>
+                </div>
+              </div>
+
+              <div class="social-section">
+                <h4>Síguenos en redes</h4>
+                <div class="social-links">
+                  <a href="#" aria-label="Facebook" class="social-btn"><span>📘</span></a>
+                  <a href="#" aria-label="Instagram" class="social-btn"><span>📷</span></a>
+                  <a href="#" aria-label="WhatsApp" class="social-btn"><span>💬</span></a>
+                  <a href="#" aria-label="TikTok" class="social-btn"><span>🎵</span></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mapa -->
+            <div class="map-container">
+              <h3>Nuestra ubicación</h3>
+              <div class="map-wrapper">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.505080978801!2d-68.11929318513183!3d-16.50019558861214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915edf2035d06b0d%3A0xb54af57353f74b5e!2sUnidad%20Educativa%20Eugenia%20Ravasco!5e0!3m2!1ses!2sbo!4v1684351915230!5m2!1ses!2sbo" 
+                  width="100%" 
+                  height="300" 
+                  style="border:0; border-radius: 12px;" 
+                  allowfullscreen="" 
+                  loading="lazy"
+                  title="Ubicación de Crispy Chips">
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <div class="container">
+        <h2 class="section-title">Preguntas Frecuentes</h2>
+        <p class="section-subtitle">Respuestas rápidas a las consultas más comunes</p>
+        
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h4>¿Cuál es el tiempo de entrega?</h4>
+            <p>Realizamos entregas en 24-48 horas dentro de La Paz y 3-5 días a nivel nacional.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h4>¿Hacen pedidos mayoristas?</h4>
+            <p>Sí, ofrecemos precios especiales para pedidos mayoristas y distribuidores. Contáctanos para más información.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h4>¿Qué métodos de pago aceptan?</h4>
+            <p>Aceptamos transferencias bancarias, QR, efectivo y tarjetas de crédito/débito.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h4>¿Tienen tienda física?</h4>
+            <p>Sí, puedes visitarnos en nuestra dirección de Lunes a Sábado en horario de atención.</p>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="pie">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>CRISPY CHIPS</h3>
+        <p>El sabor que hace crunch desde 2014</p>
+      </div>
+      
+      <div class="footer-social">
+        <h4>Síguenos</h4>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><span>Facebook</span></a>
+          <a href="#" aria-label="WhatsApp"><span>WhatsApp</span></a>
+        </div>
+      </div>
+      
+      <div class="footer-contact">
+        <h4>Contacto</h4>
+        <p>info@crispychips.com</p>
+        <p>+591 71794376</p>
+        <p>La Paz, Bolivia</p>
+      </div>
+    </div>
     
-    <div class="contacto">
-      <p>📞 Contáctanos: info@crispychips.com</p>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Crispy Chips. Todos los derechos reservados.</p>
     </div>
   </footer>
 
+  <!-- Modal de Login -->
+  <div class="auth-modal" id="loginModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+      
+      <div class="modal-left modal-left-image">
+        <img src="../imgs/fondo.jpg" alt="Crispy Chips" class="modal-bg-image">
+        <div class="modal-left-overlay">
+          <div class="modal-brand">
+            <h2>CRISPY CHIPS</h2>
+            <p>El sabor que hace crunch</p>
+          </div>
+          <div class="modal-features">
+            <div class="modal-feature">
+              <span class="modal-feature-icon">✓</span>
+              <p>Más de 20 sabores</p>
+            </div>
+            <div class="modal-feature">
+              <span class="modal-feature-icon">✓</span>
+              <p>Envío rápido</p>
+            </div>
+            <div class="modal-feature">
+              <span class="modal-feature-icon">✓</span>
+              <p>Productos frescos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Iniciar Sesión</h2>
+          <p>Bienvenido de nuevo a Crispy Chips</p>
+        </div>
+
+        <form id="loginForm" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="login-username">
+              <span class="icon">👤</span>
+              Correo o Usuario
+            </label>
+            <input type="text" id="login-username" name="username" placeholder="tu@email.com o usuario" autocomplete="username" required>
+            <span class="error-message" id="login-username-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">
+              <span class="icon">🔒</span>
+              Contraseña
+            </label>
+            <div class="password-wrapper">
+              <input type="password" id="login-password" name="password" placeholder="Tu contraseña" autocomplete="current-password" required>
+              <button type="button" class="toggle-password" aria-label="Mostrar contraseña">👁️</button>
+            </div>
+            <span class="error-message" id="login-password-error"></span>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span class="btn-text">Iniciar Sesión</span>
+            <span class="btn-loader"></span>
+          </button>
+
+          <div id="login-message" class="message" aria-live="polite"></div>
+        </form>
+
+        <div class="modal-footer">
+          <p>¿No tienes una cuenta? <a href="#" id="btn-open-register">Crear Cuenta</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Registro -->
+  <div class="auth-modal" id="registerModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+      <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+      
+      <div class="modal-left">
+        <div class="modal-brand">
+          <h2>CRISPY CHIPS</h2>
+          <p>El sabor que hace crunch</p>
+        </div>
+        <div class="modal-features">
+          <div class="modal-feature">
+            <span class="modal-feature-icon">✓</span>
+            <p>Más de 20 sabores</p>
+          </div>
+          <div class="modal-feature">
+            <span class="modal-feature-icon">✓</span>
+            <p>Envío rápido</p>
+          </div>
+          <div class="modal-feature">
+            <span class="modal-feature-icon">✓</span>
+            <p>Productos frescos</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Crear Cuenta</h2>
+          <p>Únete a la comunidad Crispy</p>
+        </div>
+
+        <form id="registerForm" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="register-email">Correo Electrónico *</label>
+            <input type="email" id="register-email" placeholder="tu@email.com" autocomplete="email" required>
+            <span class="error-message" id="register-email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="register-username">Nombre de Usuario *</label>
+            <input type="text" id="register-username" placeholder="usuario123" autocomplete="username" required>
+            <span class="error-message" id="register-username-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="register-nombre">Nombre</label>
+            <input type="text" id="register-nombre" placeholder="Juan" autocomplete="given-name">
+          </div>
+
+          <div class="form-group">
+            <label for="register-apellido">Apellido</label>
+            <input type="text" id="register-apellido" placeholder="Pérez" autocomplete="family-name">
+          </div>
+
+          <div class="form-group">
+            <label for="register-password">Contraseña *</label>
+            <div class="password-wrapper">
+              <input type="password" id="register-password" placeholder="Mínimo 6 caracteres" minlength="6" autocomplete="new-password" required>
+              <button type="button" class="toggle-password" aria-label="Mostrar contraseña">👁️</button>
+            </div>
+            <div class="password-strength" id="password-strength">
+              <div class="strength-bar"></div>
+            </div>
+            <span class="error-message" id="register-password-error"></span>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span class="btn-text">Crear Cuenta</span>
+            <span class="btn-loader"></span>
+          </button>
+
+          <div id="register-message" class="message" aria-live="polite"></div>
+        </form>
+
+        <div class="modal-footer">
+          <p>¿Ya tienes una cuenta? <a href="#" id="btn-open-login">Iniciar Sesión</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="../javascript/menu.js"></script>
+  <script src="../javascript/contacto.js"></script>
+  <script src="../javascript/auth-modal.js"></script>
 </body>
 </html>
