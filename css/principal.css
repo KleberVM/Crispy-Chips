@@ -654,6 +654,20 @@ a {
   box-shadow: var(--shadow-md);
 }
 
+/* Texto para ADMIN (no puede agregar al carrito) */
+.producto-vendedor-principal {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-style: italic;
+  background: #f8f9fa;
+  border-radius: 8px;
+  display: block;
+  text-align: center;
+  border: 1px solid #e9ecef;
+}
+
 /* ========================================
    CALL TO ACTION
    ======================================== */
@@ -1051,6 +1065,30 @@ a {
 
 .sidebar-text {
   font-size: 1rem;
+}
+
+/* Estilos para sección de ADMIN */
+.sidebar-divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 1rem 1.5rem;
+}
+
+.sidebar-section-title {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-light);
+  letter-spacing: 1px;
+}
+
+.admin-only {
+  display: none;
+}
+
+.cliente-only {
+  display: none;
 }
 
 .sidebar-footer {

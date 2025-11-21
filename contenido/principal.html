@@ -8,6 +8,7 @@
   <title>Crispy Chips - El sabor que hace crunch</title>
   <link rel="stylesheet" href="../css/principal.css">
   <link rel="stylesheet" href="../css/auth-modal.css">
+  <link rel="stylesheet" href="../css/notificaciones.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -40,16 +41,40 @@
         <a href="../contenido/informacion.html">Información</a>
       </nav>
       
-      <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión) -->
-      <div class="header-icons" id="header-icons" style="display: none;">
+      <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión y NO es ADMIN) -->
+      <div class="header-icons cliente-only" id="header-icons" style="display: none;">
         <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
-          <span class="icon">🔔</span>
-          <span class="badge">3</span>
+          
+          <img src="../imgs/icon/campana.svg" alt="Notificaciones" class="icon">
+          <span class="badge" id="notif-badge">0</span>
         </button>
         <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
-          <span class="icon">🛒</span>
+          
+          <img src="../imgs/icon/shopping-cart.svg" alt="Carrito de compras" class="icon">
           <span class="badge">0</span>
         </button>
+      </div>
+
+      <!-- Iconos para ADMIN (solo notificaciones) -->
+      <div class="header-icons admin-only" id="header-icons-admin" style="display: none;">
+        <button class="icon-btn" id="btn-notifications-admin" aria-label="Notificaciones">
+          <img src="../imgs/icon/campana.svg" alt="Notificaciones" class="icon">
+          <span class="badge" id="notif-badge-admin">0</span>
+        </button>
+      </div>
+      
+      <!-- Dropdown de Notificaciones -->
+      <div class="notifications-dropdown" id="notifications-dropdown">
+        <div class="notifications-header">
+          <h3>Notificaciones</h3>
+          <button class="btn-mark-all-read" id="btn-mark-all-read">Marcar todas</button>
+        </div>
+        <div class="notifications-body" id="notifications-body">
+          <div class="notifications-empty">
+            <div class="notifications-empty-icon">🔔</div>
+            <p>No tienes notificaciones</p>
+          </div>
+        </div>
       </div>
       
       <!-- Botón de Login / Usuario -->
@@ -95,19 +120,39 @@
     
     <nav class="sidebar-nav">
       <a href="../contenido/principal.html" class="sidebar-item active">
-        
+        <span class="sidebar-icon">🏠</span>
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
-        
+        <span class="sidebar-icon">🛍️</span>
         <span class="sidebar-text">Productos</span>
       </a>
+      
+      <!-- Opciones solo para ADMIN -->
+      <div class="admin-only" style="display: none;">
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Panel de Administración</div>
+        <a href="../contenido/mis-productos.html" class="sidebar-item">
+          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-text">Mis Productos</span>
+        </a>
+        <a href="../contenido/mis-ventas.html" class="sidebar-item">
+          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-text">Mis Ventas</span>
+        </a>
+        <a href="../contenido/usuarios.html" class="sidebar-item">
+          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-text">Usuarios</span>
+        </a>
+        <div class="sidebar-divider"></div>
+      </div>
+      
       <a href="../contenido/contacto.html" class="sidebar-item">
-        
+        <span class="sidebar-icon">📧</span>
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item">
-        
+        <span class="sidebar-icon">ℹ️</span>
         <span class="sidebar-text">Información</span>
       </a>
     </nav>
@@ -189,57 +234,19 @@
       <p class="section-subtitle">Los más vendidos de la semana</p>
     </div>
     
-    <div class="productos-grid">
-      <article class="producto" data-aos="zoom-in">
-        <div class="producto-imagen">
-          <img src="https://via.placeholder.com/200/FF6B35/fff?text=Conos" alt="Conos de queso Crispy Chips" loading="lazy">
-          <span class="producto-badge">🔥 Popular</span>
-        </div>
-        <div class="producto-info">
-          <h3 class="producto-titulo">Conos de Queso</h3>
-          <p class="producto-precio">$3.500</p>
-          <div class="producto-nutri">
-            <span>🔥 220 kcal</span>
-            <span>🥑 14g grasas</span>
-            <span>🍞 23g carbs</span>
-          </div>
-          <button class="btn-producto">Agregar al carrito</button>
-        </div>
-      </article>
-
-      <article class="producto" data-aos="zoom-in" data-aos-delay="100">
-        <div class="producto-imagen">
-          <img src="https://via.placeholder.com/200/4ECDC4/fff?text=Mixeos" alt="Mixeos Crispy Chips" loading="lazy">
-          <span class="producto-badge new">✨ Nuevo</span>
-        </div>
-        <div class="producto-info">
-          <h3 class="producto-titulo">Mixeos</h3>
-          <p class="producto-precio">$4.200</p>
-          <div class="producto-nutri">
-            <span>🔥 210 kcal</span>
-            <span>🥑 13g grasas</span>
-            <span>🍞 22g carbs</span>
-          </div>
-          <button class="btn-producto">Agregar al carrito</button>
-        </div>
-      </article>
-
-      <article class="producto" data-aos="zoom-in" data-aos-delay="200">
-        <div class="producto-imagen">
-          <img src="https://via.placeholder.com/200/FFD93D/333?text=Papas" alt="Papas fritas clásicas Crispy Chips" loading="lazy">
-          <span class="producto-badge">⭐ Best Seller</span>
-        </div>
-        <div class="producto-info">
-          <h3 class="producto-titulo">Papas Clásicas</h3>
-          <p class="producto-precio">$3.000</p>
-          <div class="producto-nutri">
-            <span>🔥 230 kcal</span>
-            <span>🥑 14g grasas</span>
-            <span>🍞 24g carbs</span>
-          </div>
-          <button class="btn-producto">Agregar al carrito</button>
-        </div>
-      </article>
+    <!-- Loading State -->
+    <div id="productos-loading" class="productos-loading" style="text-align: center; padding: 3rem;">
+      <p style="color: #636e72; font-size: 1.1rem;">⏳ Cargando productos destacados...</p>
+    </div>
+    
+    <!-- Grid de productos (se llenará dinámicamente) -->
+    <div class="productos-grid" id="productos-grid-destacados" style="display: none;">
+      <!-- Los productos destacados se cargarán aquí -->
+    </div>
+    
+    <!-- Empty State (si no hay productos destacados) -->
+    <div id="productos-empty" class="productos-empty" style="display: none; text-align: center; padding: 3rem;">
+      <p style="color: #636e72; font-size: 1.1rem;">No hay productos destacados disponibles</p>
     </div>
   </section>
 
@@ -301,10 +308,10 @@
       <div class="footer-social">
         <h4>Síguenos</h4>
         <div class="social-links">
-          <a href="#" aria-label="Facebook"><span>📘</span></a>
-          <a href="#" aria-label="Instagram"><span>📷</span></a>
-          <a href="#" aria-label="Twitter"><span>🐦</span></a>
-          <a href="#" aria-label="WhatsApp"><span>�</span></a>
+          <a href="#" aria-label="Facebook"><img src="../imgs/icon/brand-facebook.svg" alt="Icono de Facebook" class="social-icon"></a>
+          <a href="#" aria-label="Instagram"><img src="../imgs/icon/brand-instagram.svg" alt="Icono de Instagram" class="social-icon"></a>
+          <a href="#" aria-label="Twitter"><img src="../imgs/icon/brand-twitter.svg" alt="Icono de Twitter" class="social-icon"></a>
+          <a href="https://wa.me/59171794376" aria-label="WhatsApp"><img src="../imgs/icon/wapsap.svg" alt="Icono de WhatsApp" class="social-icon"></a>
         </div>
       </div>
       
@@ -534,5 +541,7 @@
 
   <script src="../javascript/menu.js"></script>
   <script src="../javascript/auth-modal.js"></script>
+  <script src="../javascript/notificaciones.js"></script>
+  <script src="../javascript/principal.js"></script>
 </body>
 </html>

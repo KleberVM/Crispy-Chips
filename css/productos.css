@@ -312,6 +312,17 @@
   opacity: 0.6;
 }
 
+/* Texto para ADMIN (no puede agregar al carrito) */
+.producto-vendedor {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-style: italic;
+  padding: 0.6rem 1rem;
+  background: #f8f9fa;
+  border-radius: 50px;
+  display: inline-block;
+}
+
 /* Carrito Modal */
 .carrito-modal {
   display: none;

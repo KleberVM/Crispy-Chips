@@ -18,6 +18,7 @@ model Usuario {
   apellido          String?
   telefono          String?
   fotoPerfil        String?   @db.Text
+  qrPago            String?   @db.Text
   emailVerificado   Boolean   @default(false)
   tokenVerificacion String?
   resetPasswordToken String?
@@ -31,6 +32,8 @@ model Usuario {
   cliente           Cliente?
   pedidos           Pedido[]
   carrito           Carrito[]
+  productos         Producto[]
+  notificaciones    Notificacion[]
   
   @@map("usuarios")
 }
@@ -83,6 +86,7 @@ model Producto {
   stock           Int       @default(0)
   imagen          String?
   categoriaId     Int?
+  vendedorId      Int
   destacado       Boolean   @default(false)
   activo          Boolean   @default(true)
   sku             String?   @unique
@@ -91,6 +95,7 @@ model Producto {
   
   // Relaciones
   categoria       Categoria?        @relation(fields: [categoriaId], references: [id], onDelete: SetNull)
+  vendedor        Usuario           @relation(fields: [vendedorId], references: [id], onDelete: Cascade)
   detalles        DetalleProducto[]
   itemsCarrito    ItemCarrito[]
   itemsPedido     ItemPedido[]
@@ -159,15 +164,17 @@ enum EstadoPedido {
 model Pedido {
   id                Int           @id @default(autoincrement())
   usuarioId         Int
+  vendedorId        Int
   total             Decimal       @db.Decimal(10, 2)
   subtotal          Decimal       @db.Decimal(10, 2)
   impuestos         Decimal       @db.Decimal(10, 2) @default(0)
   envio             Decimal       @db.Decimal(10, 2) @default(0)
   estado            EstadoPedido  @default(PENDIENTE)
-  direccionEnvio    String
-  ciudadEnvio       String
+  comprobantePago   String?       @db.Text
+  direccionEnvio    String?
+  ciudadEnvio       String?
   codigoPostalEnvio String?
-  telefonoContacto  String
+  telefonoContacto  String?
   notas             String?       @db.Text
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
@@ -179,19 +186,36 @@ model Pedido {
   @@map("pedidos")
 }
 
-// Modelo de ItemPedido
+// Modelo de Item del Pedido
 model ItemPedido {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   pedidoId    Int
   productoId  Int
   cantidad    Int
-  precio      Decimal   @db.Decimal(10, 2)
-  subtotal    Decimal   @db.Decimal(10, 2)
-  createdAt   DateTime  @default(now())
+  precio      Decimal  @db.Decimal(10, 2)
+  subtotal    Decimal  @db.Decimal(10, 2)
+  createdAt   DateTime @default(now())
   
   // Relaciones
-  pedido      Pedido    @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
-  producto    Producto  @relation(fields: [productoId], references: [id])
+  pedido      Pedido   @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+  producto    Producto @relation(fields: [productoId], references: [id])
   
   @@map("items_pedido")
+}
+
+// Modelo de Notificaciones
+model Notificacion {
+  id          Int      @id @default(autoincrement())
+  usuarioId   Int
+  tipo        String   // 'NUEVA_VENTA', 'ESTADO_PEDIDO', etc.
+  titulo      String
+  mensaje     String   @db.Text
+  leida       Boolean  @default(false)
+  pedidoId    Int?
+  createdAt   DateTime @default(now())
+  
+  // Relaciones
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  @@map("notificaciones")
 }

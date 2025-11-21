@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mis Ventas - Gestiona tus ventas y pedidos">
+  <title>Mis Ventas - Crispy Chips</title>
+  <link rel="stylesheet" href="../css/principal.css">
+  <link rel="stylesheet" href="../css/mis-ventas.css">
+  <link rel="stylesheet" href="../css/auth-modal.css">
+  <link rel="stylesheet" href="../css/notificaciones.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="encabezado">
+    <div class="header-container">
+      <button class="sidebar-toggle" id="sidebar-toggle">
+        <div class="hamburger"></div>
+        <div class="hamburger"></div>
+        <div class="hamburger"></div>
+      </button>
+      
+      <div class="logo">
+        <span class="logo-emoji">🍟</span>
+        <h1>CRISPY CHIPS</h1>
+      </div>
+
+      <div class="search-container">
+        <input 
+          type="text" 
+          id="search-input" 
+          placeholder="Buscar productos..." 
+          class="search-input"
+        >
+        <button class="search-btn" id="search-btn">
+          <span>🔍</span>
+        </button>
+      </div>
+
+      <div class="header-icons admin-only">
+        <button class="icon-btn" id="btn-notifications-admin">
+          <span class="icon">🔔</span>
+          <span class="badge" id="notif-badge-admin">0</span>
+        </button>
+        
+        <button class="btn-login" id="btn-login-nav">
+          <div class="user-icon">👤</div>
+        </button>
+      </div>
+
+      <!-- Dropdown de Notificaciones -->
+      <div class="notifications-dropdown" id="notifications-dropdown">
+        <div class="notifications-header">
+          <h3>Notificaciones</h3>
+          <button class="btn-mark-all-read" id="btn-mark-all-read">Marcar todas</button>
+        </div>
+        <div class="notifications-body" id="notifications-body">
+          <div class="notifications-empty">
+            <div class="notifications-empty-icon">🔔</div>
+            <p>No tienes notificaciones</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-dropdown" id="user-dropdown">
+        <div class="dropdown-header">
+          <div class="user-avatar user-icon">👤</div>
+          <div class="user-info">
+            <p class="user-name" id="dropdown-username">Usuario</p>
+            <p class="user-email" id="dropdown-email">usuario@email.com</p>
+          </div>
+        </div>
+        <div class="dropdown-menu">
+          <a href="../contenido/perfil.html" class="dropdown-item">
+            <span class="user-icon-small">👤</span>
+            <span>Ver Perfil</span>
+          </a>
+          <a href="#" class="dropdown-item" id="btn-cerrar-sesion">
+            <span>🚪</span>
+            <span>Cerrar Sesión</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <h2>Menú</h2>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="../contenido/principal.html" class="sidebar-link">
+          <span class="sidebar-icon">🏠</span>
+          <span class="sidebar-text">Inicio</span>
+        </a>
+        <a href="../contenido/productos.html" class="sidebar-link">
+          <span class="sidebar-icon">🛍️</span>
+          <span class="sidebar-text">Productos</span>
+        </a>
+        <a href="../contenido/informacion.html" class="sidebar-link">
+          <span class="sidebar-icon">ℹ️</span>
+          <span class="sidebar-text">Información</span>
+        </a>
+        <a href="../contenido/contacto.html" class="sidebar-link">
+          <span class="sidebar-icon">📞</span>
+          <span class="sidebar-text">Contacto</span>
+        </a>
+        
+        <div class="sidebar-divider"></div>
+        
+        <a href="../contenido/mis-productos.html" class="sidebar-link admin-only">
+          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-text">Mis Productos</span>
+        </a>
+        <a href="../contenido/mis-ventas.html" class="sidebar-link admin-only active">
+          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-text">Mis Ventas</span>
+        </a>
+        <a href="../contenido/usuarios.html" class="sidebar-link admin-only">
+          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-text">Usuarios</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+          <div class="user-info-sidebar">
+            <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
+            <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Overlay para cerrar sidebar en mobile -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="ventas-container">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href="../contenido/principal.html">🏠 Inicio</a>
+        <span class="separator">›</span>
+        <span class="current">💰 Mis Ventas</span>
+      </nav>
+
+      <!-- Header -->
+      <div class="ventas-header">
+        <div class="header-content">
+          <div class="header-icon">💰</div>
+          <div>
+            <h1>Mis Ventas</h1>
+            <p>Gestiona tus pedidos y comprobantes de pago</p>
+          </div>
+        </div>
+        
+        <div class="header-stats">
+          <div class="stat-card">
+            <span class="stat-icon">📦</span>
+            <div class="stat-info">
+              <p class="stat-label">Total Pedidos</p>
+              <p class="stat-value" id="total-pedidos">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">⏳</span>
+            <div class="stat-info">
+              <p class="stat-label">Pendientes</p>
+              <p class="stat-value" id="total-pendientes">0</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">✅</span>
+            <div class="stat-info">
+              <p class="stat-label">Completados</p>
+              <p class="stat-value" id="total-completados">0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="ventas-filters">
+        <div class="filter-group">
+          <label for="filter-estado">Estado:</label>
+          <select id="filter-estado" class="filter-select">
+            <option value="">Todos</option>
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="PROCESANDO">Procesando</option>
+            <option value="ENVIADO">Enviado</option>
+            <option value="ENTREGADO">Entregado</option>
+            <option value="CANCELADO">Cancelado</option>
+          </select>
+        </div>
+        <button class="btn-refresh" id="btn-refresh">
+          <span>🔄</span>
+          Actualizar
+        </button>
+      </div>
+
+      <!-- Estados -->
+      <div class="ventas-estados">
+        <!-- Estado: Cargando -->
+        <div class="estado-loading" id="loading-state">
+          <div class="loader"></div>
+          <p>Cargando ventas...</p>
+        </div>
+
+        <!-- Estado: Sin ventas -->
+        <div class="estado-empty" id="empty-state" style="display: none;">
+          <div class="empty-icon">📭</div>
+          <h3>No hay ventas todavía</h3>
+          <p>Cuando tus clientes realicen compras, aparecerán aquí</p>
+        </div>
+
+        <!-- Lista de Ventas -->
+        <div class="ventas-list" id="ventas-list" style="display: none;">
+          <!-- Las ventas se cargarán dinámicamente aquí -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Detalle de Venta -->
+  <div class="modal-overlay" id="modal-detalle" style="display: none;">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2>Detalle del Pedido</h2>
+        <button class="modal-close" id="close-modal">✕</button>
+      </div>
+      
+      <div class="modal-body" id="modal-body">
+        <!-- El contenido se cargará dinámicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="pie">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>Crispy Chips</h3>
+        <p>Los mejores snacks crujientes para ti. Calidad y sabor en cada bolsa.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Enlaces Rápidos</h4>
+        <ul>
+          <li><a href="../contenido/principal.html">🏠 Inicio</a></li>
+          <li><a href="../contenido/productos.html">🛍️ Productos</a></li>
+          <li><a href="../contenido/contacto.html">📞 Contacto</a></li>
+          <li><a href="../contenido/informacion.html">ℹ️ Información</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contacto</h4>
+        <p>📧 info@crispychips.com</p>
+        <p>📱 +591 123 456 789</p>
+        <p>📍 La Paz, Bolivia</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Crispy Chips. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="../javascript/menu.js"></script>
+  <script src="../javascript/auth-modal.js"></script>
+  <script src="../javascript/notificaciones.js"></script>
+  <script src="../javascript/mis-ventas.js"></script>
+</body>
+</html>

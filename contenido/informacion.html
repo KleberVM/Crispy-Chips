@@ -41,8 +41,8 @@
         <a href="../contenido/informacion.html" class="active">Información</a>
       </nav>
       
-      <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión) -->
-      <div class="header-icons" id="header-icons" style="display: none;">
+      <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión y NO es ADMIN) -->
+      <div class="header-icons cliente-only" id="header-icons" style="display: none;">
         <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
           <span class="icon">🔔</span>
           <span class="badge">3</span>
@@ -96,15 +96,39 @@
     
     <nav class="sidebar-nav">
       <a href="../contenido/principal.html" class="sidebar-item">
+        <span class="sidebar-icon">🏠</span>
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
+        <span class="sidebar-icon">🛍️</span>
         <span class="sidebar-text">Productos</span>
       </a>
+      
+      <!-- Opciones solo para ADMIN -->
+      <div class="admin-only" style="display: none;">
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Panel de Administración</div>
+        <a href="../contenido/mis-productos.html" class="sidebar-item">
+          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-text">Mis Productos</span>
+        </a>
+        <a href="../contenido/mis-ventas.html" class="sidebar-item">
+          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-text">Mis Ventas</span>
+        </a>
+        <a href="../contenido/usuarios.html" class="sidebar-item">
+          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-text">Usuarios</span>
+        </a>
+        <div class="sidebar-divider"></div>
+      </div>
+      
       <a href="../contenido/contacto.html" class="sidebar-item">
+        <span class="sidebar-icon">📧</span>
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item active">
+        <span class="sidebar-icon">ℹ️</span>
         <span class="sidebar-text">Información</span>
       </a>
     </nav>

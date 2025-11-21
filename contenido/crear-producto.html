@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Producto - Crispy Chips</title>
+  <link rel="stylesheet" href="../css/principal.css">
+  <link rel="stylesheet" href="../css/auth-modal.css">
+  <link rel="stylesheet" href="../css/crear-producto.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="encabezado">
+    <div class="header-container">
+      <!-- Botón hamburguesa para sidebar (solo visible cuando hay sesión) -->
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú lateral" style="display: none;">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+      </button>
+      
+      <div class="logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      
+      <div class="search-container">
+        <input type="search" class="buscar" placeholder="Buscar productos..." aria-label="Buscar productos">
+        <span class="search-icon">🔍</span>
+      </div>
+      
+      <!-- Menú de navegación (oculto cuando hay sesión) -->
+      <nav class="menu" id="menu" role="navigation">
+        <a href="../contenido/principal.html">Inicio</a>
+        <a href="../contenido/productos.html">Productos</a>
+        <a href="../contenido/contacto.html">Contacto</a>
+        <a href="../contenido/informacion.html">Información</a>
+      </nav>
+      
+      <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión y NO es ADMIN) -->
+      <div class="header-icons cliente-only" id="header-icons" style="display: none;">
+        <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
+          <img src="../imgs/icon/campana.svg" alt="Notificaciones" class="icon">
+          <span class="badge">3</span>
+        </button>
+        <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
+          <img src="../imgs/icon/shopping-cart.svg" alt="Carrito de compras" class="icon">
+          <span class="badge">0</span>
+        </button>
+      </div>
+      
+      <div class="user-section">
+        <button class="btn-login" id="btn-login-nav">
+          <span class="user-icon">👤</span>
+          <span class="user-text">Admin</span>
+        </button>
+        
+        <!-- Dropdown de usuario (oculto por defecto) -->
+        <div class="user-dropdown" id="userDropdown">
+          <div class="dropdown-header">
+            <div class="user-avatar user-icon">👤</div>
+            <div class="user-info">
+              <span class="user-name" id="userName">Usuario</span>
+              <span class="user-email" id="userEmail">usuario@email.com</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a href="../contenido/perfil.html" class="dropdown-item" id="btnPerfil">
+            <span class="item-icon user-icon-small">👤</span>
+            Ver Perfil
+          </a>
+          <a href="#" class="dropdown-item" id="btnCerrarSesion">
+            <span class="item-icon">🚪</span>
+            Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar (visible solo cuando hay sesión iniciada) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Cerrar menú">
+        <span>&times;</span>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="../contenido/principal.html" class="sidebar-item">
+        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-text">Inicio</span>
+      </a>
+      <a href="../contenido/productos.html" class="sidebar-item">
+        <span class="sidebar-icon">🛍️</span>
+        <span class="sidebar-text">Productos</span>
+      </a>
+      
+      <!-- Opciones solo para ADMIN -->
+      <div class="admin-only" style="display: none;">
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Panel de Administración</div>
+        <a href="../contenido/mis-productos.html" class="sidebar-item">
+          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-text">Mis Productos</span>
+        </a>
+        <a href="../contenido/mis-ventas.html" class="sidebar-item">
+          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-text">Mis Ventas</span>
+        </a>
+        <a href="../contenido/usuarios.html" class="sidebar-item">
+          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-text">Usuarios</span>
+        </a>
+        <div class="sidebar-divider"></div>
+      </div>
+      
+      <a href="../contenido/contacto.html" class="sidebar-item">
+        <span class="sidebar-icon">📧</span>
+        <span class="sidebar-text">Contacto</span>
+      </a>
+      <a href="../contenido/informacion.html" class="sidebar-item">
+        <span class="sidebar-icon">ℹ️</span>
+        <span class="sidebar-text">Información</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-info-sidebar">
+          <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
+          <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Overlay para cerrar sidebar en mobile -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Contenido Principal -->
+  <main class="main-container">
+    <div class="form-container">
+      <!-- Header del formulario -->
+      <div class="form-header">
+        <a href="mis-productos.html" class="btn-back">
+          ← Volver a mis productos
+        </a>
+        <h1 class="form-title">
+          <span class="icon-title">➕</span>
+          Crear Nuevo Producto
+        </h1>
+        <p class="form-subtitle">Completa la información para publicar tu producto</p>
+      </div>
+
+      <!-- Formulario -->
+      <form id="formCrearProducto" class="producto-form">
+        <!-- Información básica -->
+        <div class="form-section">
+          <h2 class="section-title">📝 Información Básica</h2>
+          
+          <div class="form-group">
+            <label for="nombre" class="form-label">
+              Nombre del Producto *
+            </label>
+            <input 
+              type="text" 
+              id="nombre" 
+              name="nombre" 
+              class="form-input" 
+              placeholder="Ej: Chips Sabor BBQ"
+              required
+            >
+            <span class="form-error" id="error-nombre"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="descripcion" class="form-label">
+              Descripción
+            </label>
+            <textarea 
+              id="descripcion" 
+              name="descripcion" 
+              class="form-textarea" 
+              rows="4"
+              placeholder="Describe tu producto..."
+            ></textarea>
+            <span class="form-hint">Opcional: Características, ingredientes, etc.</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="sku" class="form-label">
+                SKU (Código)
+              </label>
+              <input 
+                type="text" 
+                id="sku" 
+                name="sku" 
+                class="form-input" 
+                placeholder="Ej: CHIP-BBQ-001"
+              >
+              <span class="form-hint">Código único del producto</span>
+            </div>
+
+            <div class="form-group">
+              <label for="categoriaId" class="form-label">
+                Categoría
+              </label>
+              <select id="categoriaId" name="categoriaId" class="form-select">
+                <option value="">Sin categoría</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Precio y stock -->
+        <div class="form-section">
+          <h2 class="section-title">💰 Precio y Stock</h2>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="precio" class="form-label">
+                Precio *
+              </label>
+              <div class="input-with-prefix">
+                <span class="input-prefix">$</span>
+                <input 
+                  type="number" 
+                  id="precio" 
+                  name="precio" 
+                  class="form-input with-prefix" 
+                  placeholder="0.00"
+                  step="0.01"
+                  min="0.01"
+                  required
+                >
+              </div>
+              <span class="form-error" id="error-precio"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="stock" class="form-label">
+                Stock (Cantidad)
+              </label>
+              <input 
+                type="number" 
+                id="stock" 
+                name="stock" 
+                class="form-input" 
+                placeholder="0"
+                min="0"
+                value="0"
+              >
+              <span class="form-hint">Unidades disponibles</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Opciones adicionales -->
+        <div class="form-section">
+          <h2 class="section-title">⚙️ Opciones Adicionales</h2>
+          
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="destacado" name="destacado" class="form-checkbox">
+              <span class="checkbox-text">
+                <strong>⭐ Producto Destacado</strong>
+                <span class="checkbox-hint">Se mostrará en la sección de destacados</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="activo" name="activo" class="form-checkbox" checked>
+              <span class="checkbox-text">
+                <strong>✅ Producto Activo</strong>
+                <span class="checkbox-hint">Visible para los clientes</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Imagen del producto -->
+        <div class="form-section">
+          <h2 class="section-title">📷 Imagen del Producto</h2>
+          
+          <div class="form-group">
+            <label class="form-label">
+              Subir Imagen
+            </label>
+            <div class="upload-area" id="uploadArea">
+              <div class="upload-content">
+                <div class="upload-icon">📷</div>
+                <p class="upload-text">Haz clic o arrastra una imagen aquí</p>
+                <p class="upload-hint">PNG, JPG o GIF (máx. 5MB)</p>
+              </div>
+              <input 
+                type="file" 
+                id="imagen" 
+                name="imagen" 
+                class="upload-input" 
+                accept="image/*"
+              >
+            </div>
+            
+            <div id="imagePreview" class="image-preview" style="display: none;">
+              <img id="previewImg" src="" alt="Preview">
+              <button type="button" id="btnRemoveImage" class="btn-remove-preview">
+                ✕ Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="form-actions">
+          <a href="mis-productos.html" class="btn-cancelar">
+            Cancelar
+          </a>
+          <button type="submit" class="btn-guardar" id="btnGuardar">
+            <span class="btn-icon">💾</span>
+            Crear Producto
+          </button>
+        </div>
+      </form>
+
+      <!-- Mensaje de éxito -->
+      <div id="successMessage" class="success-message" style="display: none;">
+        <div class="success-icon">✅</div>
+        <h3>¡Producto creado exitosamente!</h3>
+        <p>Tu producto ha sido publicado y está disponible para la venta.</p>
+        <div class="success-actions">
+          <a href="mis-productos.html" class="btn-ver-productos">Ver mis productos</a>
+          <button type="button" id="btnCrearOtro" class="btn-crear-otro">Crear otro producto</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../javascript/auth-modal.js"></script>
+  <script src="../javascript/crear-producto.js"></script>
+</body>
+</html>

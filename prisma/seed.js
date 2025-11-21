@@ -4,25 +4,27 @@ const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Iniciando seed de la base de datos...');
+  console.log('Iniciando seed de la base de datos...');
 
-  // Crear usuario administrador
-  const hashedPassword = await bcrypt.hash('admin123', 10);
+  // Crear usuario ADMIN (vendedor)
+  const hashedPasswordAdmin = await bcrypt.hash('admin123', 10);
   const admin = await prisma.usuario.upsert({
-    where: { email: 'admin@crispychips.com' },
+    where: { email: 'admin@gmail.com' },
     update: {},
     create: {
-      email: 'admin@crispychips.com',
-      username: 'admin',
-      password: hashedPassword,
+      email: 'admin@gmail.com',
+      username: 'admin2',
+      password: hashedPasswordAdmin,
       nombre: 'Administrador',
-      apellido: 'Sistema',
+      apellido: 'Crispy Chips',
+      telefono: '71794376',
       rol: 'ADMIN',
-      emailVerificado: true
+      emailVerificado: true,
+      activo: true
     }
   });
 
-  console.log('✅ Usuario administrador creado:', admin.username);
+  console.log('Usuario ADMIN creado:', admin.username);
 
   // Crear categorías
   const categorias = await Promise.all([
@@ -52,16 +54,18 @@ async function main() {
     })
   ]);
 
-  console.log('✅ Categorías creadas:', categorias.length);
+  console.log('Categorías creadas:', categorias.length);
 
-  // Crear productos
+  // Crear productos del ADMIN
   const productos = [
     {
       nombre: 'Chips Original',
       descripcion: 'Papas chips sabor original, crujientes y deliciosas',
       precio: 3500,
       stock: 100,
+      imagen: '../imgs/papas1.jpg',
       categoriaId: categorias[0].id,
+      vendedorId: admin.id,
       destacado: true,
       sku: 'CHIP-001'
     },
@@ -70,7 +74,9 @@ async function main() {
       descripcion: 'Papas chips con sabor a BBQ ahumado',
       precio: 3500,
       stock: 80,
+      imagen: '/imgs/papas2.jpg',
       categoriaId: categorias[0].id,
+      vendedorId: admin.id,
       destacado: true,
       sku: 'CHIP-002'
     },
@@ -79,7 +85,9 @@ async function main() {
       descripcion: 'Papas chips con intenso sabor a queso',
       precio: 3500,
       stock: 90,
+      imagen: '/imgs/papas1.jpg',
       categoriaId: categorias[0].id,
+      vendedorId: admin.id,
       sku: 'CHIP-003'
     },
     {
@@ -87,7 +95,9 @@ async function main() {
       descripcion: 'Papas chips con chile picante',
       precio: 3800,
       stock: 75,
+      imagen: '/imgs/papas2.jpg',
       categoriaId: categorias[0].id,
+      vendedorId: admin.id,
       destacado: true,
       sku: 'CHIP-004'
     },
@@ -96,7 +106,9 @@ async function main() {
       descripcion: 'Mezcla de nueces, almendras y maní',
       precio: 5000,
       stock: 50,
+      imagen: '/imgs/papas1.jpg',
       categoriaId: categorias[1].id,
+      vendedorId: admin.id,
       sku: 'SNACK-001'
     },
     {
@@ -104,7 +116,9 @@ async function main() {
       descripcion: 'Pretzels salados tradicionales',
       precio: 2800,
       stock: 60,
+      imagen: '/imgs/papas2.jpg',
       categoriaId: categorias[1].id,
+      vendedorId: admin.id,
       sku: 'SNACK-002'
     },
     {
@@ -112,7 +126,9 @@ async function main() {
       descripcion: 'Refresco de cola clásico',
       precio: 2500,
       stock: 150,
+      imagen: '/imgs/papas1.jpg',
       categoriaId: categorias[2].id,
+      vendedorId: admin.id,
       sku: 'BEB-001'
     },
     {
@@ -120,7 +136,9 @@ async function main() {
       descripcion: 'Agua mineral natural',
       precio: 2000,
       stock: 200,
+      imagen: '/imgs/papas2.jpg',
       categoriaId: categorias[2].id,
+      vendedorId: admin.id,
       sku: 'BEB-002'
     }
   ];
@@ -133,7 +151,7 @@ async function main() {
     });
   }
 
-  console.log('✅ Productos creados:', productos.length);
+  console.log('Productos creados:', productos.length);
 
   // Agregar detalles a algunos productos
   const chipOriginal = await prisma.producto.findUnique({
@@ -159,18 +177,11 @@ async function main() {
       skipDuplicates: true
     });
   }
-
-  console.log('✅ Detalles de productos agregados');
-  console.log('🎉 Seed completado exitosamente!');
-  console.log('\n📝 Credenciales de administrador:');
-  console.log('   Email: admin@crispychips.com');
-  console.log('   Usuario: admin');
-  console.log('   Contraseña: admin123');
 }
 
 main()
   .catch((e) => {
-    console.error('❌ Error en el seed:', e);
+    console.error('Error en el seed:', e);
     process.exit(1);
   })
   .finally(async () => {

@@ -71,29 +71,46 @@ btnPerfil?.addEventListener('click', (e) => {
 });
 
 // Cerrar sesión
-btnCerrarSesion?.addEventListener('click', (e) => {
+btnCerrarSesion?.addEventListener('click', async (e) => {
   e.preventDefault();
   
   const confirmar = confirm('¿Estás seguro que deseas cerrar sesión?');
   
   if (confirmar) {
-    // Limpiar localStorage
-    localStorage.removeItem('username');
-    localStorage.removeItem('userEmail');
-    
-    // Cerrar dropdown
-    userDropdown?.classList.remove('active');
-    
-    // Actualizar UI
-    updateUserUI();
-    
-    // Mostrar notificación
-    showToast('Sesión cerrada exitosamente', 'success');
-    
-    // Opcional: recargar página
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
+    try {
+      // 1. Cerrar sesión en el servidor
+      await fetch('http://localhost:3000/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+      
+      // 2. Limpiar localStorage
+      localStorage.removeItem('username');
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userRol');
+      localStorage.removeItem('carrito');
+      
+      // 3. Limpiar sessionStorage (por si acaso)
+      sessionStorage.clear();
+      
+      // 4. Cerrar dropdown
+      userDropdown?.classList.remove('active');
+      
+      // 5. Mostrar notificación
+      showToast('Sesión cerrada exitosamente', 'success');
+      
+      // 6. Redirigir a la página principal
+      setTimeout(() => {
+        window.location.href = '../contenido/principal.html';
+      }, 1000);
+      
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+      // Aún así limpiar y redirigir
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = '../contenido/principal.html';
+    }
   }
 });
 
@@ -218,6 +235,9 @@ loginForm?.addEventListener('submit', async (e) => {
       localStorage.setItem('username', userData.username || username);
       if (userData.email) {
         localStorage.setItem('userEmail', userData.email);
+      }
+      if (userData.rol) {
+        localStorage.setItem('userRol', userData.rol);
       }
       
       showMessage(loginMessage, '¡Inicio de sesión exitoso!', 'success');
@@ -366,6 +386,14 @@ function isValidEmail(email) {
 async function updateUserUI() {
   const username = localStorage.getItem('username');
   const userEmail = localStorage.getItem('userEmail');
+  const userRol = localStorage.getItem('userRol');
+  
+  console.log('🔍 updateUserUI llamado');
+  console.log('Username:', username);
+  console.log('Email:', userEmail);
+  console.log('Rol:', userRol);
+  console.log('¿Es ADMIN?:', userRol === 'ADMIN');
+  
   const btnLoginNav = document.getElementById('btn-login-nav');
   const userNameEl = document.getElementById('userName');
   const userEmailEl = document.getElementById('userEmail');
@@ -383,6 +411,16 @@ async function updateUserUI() {
   if (username) {
     // Usuario logueado
     document.body.classList.add('logged-in');
+    
+    console.log('📌 Usuario logueado detectado');
+    
+    // Mostrar/ocultar opciones de ADMIN según el rol
+    const esAdmin = userRol === 'ADMIN';
+    console.log('🎯 Llamando mostrarMenuAdmin con:', esAdmin);
+    mostrarMenuAdmin(esAdmin);
+    
+    console.log('🎯 Llamando mostrarIconosCliente con:', !esAdmin);
+    mostrarIconosCliente(!esAdmin);
     
     // Actualizar dropdown del header
     if (userTextEl) {
@@ -541,6 +579,130 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && sidebar?.classList.contains('active')) {
     sidebar?.classList.remove('active');
     sidebarOverlay?.classList.remove('active');
+  }
+});
+
+// ========================================
+// MOSTRAR ICONOS DE CLIENTE (CARRITO)
+// ========================================
+function mostrarIconosCliente(esCliente) {
+  console.log('🛒 mostrarIconosCliente llamado con:', esCliente);
+  const headerIcons = document.querySelector('.header-icons.cliente-only');
+  console.log('🛒 headerIcons encontrado:', headerIcons !== null);
+  
+  if (headerIcons) {
+    if (esCliente) {
+      console.log('✅ Mostrando carrito (es CLIENTE)');
+      headerIcons.style.display = 'flex';
+    } else {
+      console.log('❌ Ocultando carrito (es ADMIN)');
+      headerIcons.style.display = 'none';
+    }
+  } else {
+    console.warn('⚠️ No se encontró .header-icons.cliente-only');
+  }
+}
+
+// ========================================
+// MOSTRAR MENÚ ADMIN
+// ========================================
+function mostrarMenuAdmin(esAdmin) {
+  console.log('👑 mostrarMenuAdmin llamado con:', esAdmin);
+  
+  // Mostrar/ocultar sección de ADMIN en sidebar
+  const adminSections = document.querySelectorAll('.admin-only');
+  console.log('👑 Secciones .admin-only encontradas:', adminSections.length);
+  
+  adminSections.forEach((section, index) => {
+    console.log(`👑 Sección ${index}:`, section, '- Display:', esAdmin ? 'block' : 'none');
+    // Verificar si es un contenedor de header-icons (que sí debe ser flex)
+    if (section.classList.contains('header-icons')) {
+      section.style.display = esAdmin ? 'flex' : 'none';
+    } else {
+      // Sidebar links y otros elementos deben ser block
+      section.style.display = esAdmin ? 'block' : 'none';
+    }
+  });
+  
+  // Ocultar header-icons de cliente si es admin
+  const headerIconsCliente = document.getElementById('header-icons');
+  if (headerIconsCliente) {
+    headerIconsCliente.style.display = esAdmin ? 'none' : 'flex';
+  }
+  
+  // Buscar o crear enlace de "Mis Productos" en el menú principal
+  const menu = document.getElementById('menu');
+  let linkMisProductos = document.getElementById('link-mis-productos');
+  
+  if (esAdmin) {
+    // Si es admin y no existe el link, crearlo
+    if (!linkMisProductos && menu) {
+      linkMisProductos = document.createElement('a');
+      linkMisProductos.id = 'link-mis-productos';
+      linkMisProductos.href = '../contenido/mis-productos.html';
+      linkMisProductos.textContent = 'Mis Productos';
+      
+      // Insertar después del enlace de "Productos"
+      const productosLink = Array.from(menu.children).find(a => a.textContent === 'Productos');
+      if (productosLink && productosLink.nextSibling) {
+        menu.insertBefore(linkMisProductos, productosLink.nextSibling);
+      } else {
+        menu.appendChild(linkMisProductos);
+      }
+    }
+    
+    // Mostrar el enlace si existe
+    if (linkMisProductos) {
+      linkMisProductos.style.display = 'block';
+    }
+    
+    // También agregar al sidebar si existe
+    const sidebarNav = document.querySelector('.sidebar-nav');
+    let sidebarLinkMisProductos = document.getElementById('sidebar-link-mis-productos');
+    
+    if (!sidebarLinkMisProductos && sidebarNav) {
+      sidebarLinkMisProductos = document.createElement('a');
+      sidebarLinkMisProductos.id = 'sidebar-link-mis-productos';
+      sidebarLinkMisProductos.href = '../contenido/mis-productos.html';
+      sidebarLinkMisProductos.className = 'sidebar-item';
+      sidebarLinkMisProductos.innerHTML = '<span class="sidebar-icon">📦</span> Mis Productos';
+      
+      // Insertar después del enlace de "Productos" en sidebar
+      const productosItem = Array.from(sidebarNav.children).find(a => a.textContent.includes('Productos'));
+      if (productosItem && productosItem.nextSibling) {
+        sidebarNav.insertBefore(sidebarLinkMisProductos, productosItem.nextSibling);
+      } else {
+        sidebarNav.appendChild(sidebarLinkMisProductos);
+      }
+    }
+    
+    // Mostrar el enlace en sidebar si existe
+    if (sidebarLinkMisProductos) {
+      sidebarLinkMisProductos.style.display = 'flex';
+    }
+  } else {
+    // Si no es admin, ocultar el enlace
+    if (linkMisProductos) {
+      linkMisProductos.style.display = 'none';
+    }
+    
+    const sidebarLinkMisProductos = document.getElementById('sidebar-link-mis-productos');
+    if (sidebarLinkMisProductos) {
+      sidebarLinkMisProductos.style.display = 'none';
+    }
+  }
+}
+
+// ========================================
+// EVENT LISTENER PARA BOTÓN DEL CARRITO
+// ========================================
+document.addEventListener('DOMContentLoaded', () => {
+  const btnCart = document.getElementById('btn-cart');
+  if (btnCart) {
+    btnCart.addEventListener('click', () => {
+      // Redirigir a la página de compra
+      window.location.href = '../contenido/compra.html';
+    });
   }
 });
 

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Usuario - Crispy Chips</title>
+  <link rel="stylesheet" href="../css/principal.css">
+  <link rel="stylesheet" href="../css/auth-modal.css">
+  <link rel="stylesheet" href="../css/editar-usuario.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="encabezado">
+    <div class="header-container">
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú lateral" style="display: none;">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+      </button>
+      
+      <div class="logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      
+      <div class="search-container">
+        <input type="search" class="buscar" placeholder="Buscar productos..." aria-label="Buscar productos">
+        <span class="search-icon">🔍</span>
+      </div>
+      
+      <nav class="menu" id="menu" role="navigation">
+        <a href="../contenido/principal.html">Inicio</a>
+        <a href="../contenido/productos.html">Productos</a>
+        <a href="../contenido/contacto.html">Contacto</a>
+        <a href="../contenido/informacion.html">Información</a>
+      </nav>
+      
+      <div class="header-icons cliente-only" id="header-icons" style="display: none;">
+        <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
+          <img src="../imgs/icon/campana.svg" alt="Notificaciones" class="icon">
+          <span class="badge">3</span>
+        </button>
+        <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
+          <img src="../imgs/icon/shopping-cart.svg" alt="Carrito de compras" class="icon">
+          <span class="badge">0</span>
+        </button>
+      </div>
+      
+      <div class="user-section">
+        <button class="btn-login" id="btn-login-nav">
+          <span class="user-icon">👤</span>
+          <span class="user-text">Admin</span>
+        </button>
+        
+        <div class="user-dropdown" id="userDropdown">
+          <div class="dropdown-header">
+            <div class="user-avatar user-icon">👤</div>
+            <div class="user-info">
+              <span class="user-name" id="userName">Usuario</span>
+              <span class="user-email" id="userEmail">usuario@email.com</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a href="../contenido/perfil.html" class="dropdown-item" id="btnPerfil">
+            <span class="item-icon user-icon-small">👤</span>
+            Ver Perfil
+          </a>
+          <a href="#" class="dropdown-item" id="btnCerrarSesion">
+            <span class="item-icon">🚪</span>
+            Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Cerrar menú">
+        <span>&times;</span>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="../contenido/principal.html" class="sidebar-item">
+        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-text">Inicio</span>
+      </a>
+      <a href="../contenido/productos.html" class="sidebar-item">
+        <span class="sidebar-icon">🛍️</span>
+        <span class="sidebar-text">Productos</span>
+      </a>
+      
+      <div class="admin-only" style="display: none;">
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Panel de Administración</div>
+        <a href="../contenido/mis-productos.html" class="sidebar-item">
+          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-text">Mis Productos</span>
+        </a>
+        <a href="../contenido/mis-ventas.html" class="sidebar-item">
+          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-text">Mis Ventas</span>
+        </a>
+        <a href="../contenido/usuarios.html" class="sidebar-item active">
+          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-text">Usuarios</span>
+        </a>
+        <div class="sidebar-divider"></div>
+      </div>
+      
+      <a href="../contenido/contacto.html" class="sidebar-item">
+        <span class="sidebar-icon">📧</span>
+        <span class="sidebar-text">Contacto</span>
+      </a>
+      <a href="../contenido/informacion.html" class="sidebar-item">
+        <span class="sidebar-icon">ℹ️</span>
+        <span class="sidebar-text">Información</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-info-sidebar">
+          <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
+          <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="usuarios.html" class="breadcrumb-link">👥 Usuarios</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">Editar Usuario</span>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="loading-state" style="display: none;">
+      <div class="spinner"></div>
+      <p>Cargando usuario...</p>
+    </div>
+
+    <!-- Formulario -->
+    <div id="formContainer" class="form-container" style="display: none;">
+      <!-- Header Card -->
+      <div class="user-header-card">
+        <div class="user-avatar-section">
+          <div class="user-avatar-large" id="userAvatarLarge">
+            👤
+          </div>
+          <div class="user-basic-info">
+            <h1 class="user-name" id="displayUsername">Usuario</h1>
+            <p class="user-email" id="displayEmail">email@ejemplo.com</p>
+            <span class="user-badge" id="displayBadge">CLIENTE</span>
+          </div>
+        </div>
+        <button class="btn-back-icon" onclick="window.location.href='usuarios.html'" title="Volver a usuarios">
+          <span>←</span>
+        </button>
+      </div>
+
+      <!-- Form -->
+      <form id="formEditarUsuario" class="edit-form">
+        <!-- Información Personal -->
+        <div class="form-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span class="card-icon">👤</span>
+              Información Personal
+            </h2>
+          </div>
+          
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">
+                  <span class="label-icon">✍️</span>
+                  Nombre
+                </label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingresa el nombre">
+              </div>
+              
+              <div class="form-group">
+                <label for="apellido">
+                  <span class="label-icon">✍️</span>
+                  Apellido
+                </label>
+                <input type="text" id="apellido" name="apellido" placeholder="Ingresa el apellido">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Información de Cuenta -->
+        <div class="form-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <span class="card-icon">🔐</span>
+              Información de Cuenta
+            </h2>
+          </div>
+          
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="username">
+                  <span class="label-icon">@</span>
+                  Nombre de Usuario
+                  <span class="required">*</span>
+                </label>
+                <input type="text" id="username" name="username" placeholder="username" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">
+                  <span class="label-icon">📧</span>
+                  Correo Electrónico
+                  <span class="required">*</span>
+                </label>
+                <input type="email" id="email" name="email" placeholder="email@ejemplo.com" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="switch-container">
+                <label class="switch">
+                  <input type="checkbox" id="emailVerificado" name="emailVerificado">
+                  <span class="slider"></span>
+                </label>
+                <div class="switch-label">
+                  <span class="switch-text">Email Verificado</span>
+                  <span class="switch-description">El usuario ha verificado su correo electrónico</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="form-actions-sticky">
+          <button type="button" class="btn-cancel-modern" onclick="window.location.href='usuarios.html'">
+            <span class="btn-icon">✕</span>
+            Cancelar
+          </button>
+          <button type="submit" class="btn-submit-modern">
+            <span class="btn-icon">💾</span>
+            Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Mensaje de Éxito -->
+    <div id="successMessage" class="success-message" style="display: none;">
+      <div class="success-icon">✅</div>
+      <h2>¡Usuario Actualizado!</h2>
+      <p>Los cambios se han guardado correctamente</p>
+      <button class="btn-primary" onclick="window.location.href='usuarios.html'">
+        Volver a Usuarios
+      </button>
+    </div>
+  </main>
+
+  <script src="../javascript/auth-modal.js"></script>
+  <script src="../javascript/editar-usuario.js"></script>
+</body>
+</html>

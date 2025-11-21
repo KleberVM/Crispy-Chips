@@ -41,8 +41,8 @@
         <a href="../contenido/informacion.html">Información</a>
       </nav>
       
-      <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión) -->
-      <div class="header-icons" id="header-icons" style="display: none;">
+      <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión y NO es ADMIN) -->
+      <div class="header-icons cliente-only" id="header-icons" style="display: none;">
         <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
           <span class="icon">🔔</span>
           <span class="badge">3</span>
@@ -96,15 +96,39 @@
     
     <nav class="sidebar-nav">
       <a href="../contenido/principal.html" class="sidebar-item">
+        <span class="sidebar-icon">🏠</span>
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
+        <span class="sidebar-icon">🛍️</span>
         <span class="sidebar-text">Productos</span>
       </a>
+      
+      <!-- Opciones solo para ADMIN -->
+      <div class="admin-only" style="display: none;">
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Panel de Administración</div>
+        <a href="../contenido/mis-productos.html" class="sidebar-item">
+          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-text">Mis Productos</span>
+        </a>
+        <a href="../contenido/mis-ventas.html" class="sidebar-item">
+          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-text">Mis Ventas</span>
+        </a>
+        <a href="../contenido/usuarios.html" class="sidebar-item">
+          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-text">Usuarios</span>
+        </a>
+        <div class="sidebar-divider"></div>
+      </div>
+      
       <a href="../contenido/contacto.html" class="sidebar-item">
+        <span class="sidebar-icon">📧</span>
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item">
+        <span class="sidebar-icon">ℹ️</span>
         <span class="sidebar-text">Información</span>
       </a>
     </nav>
@@ -147,6 +171,9 @@
             </button>
             <button class="profile-nav-item" data-section="photo">
               <span class="nav-text">Foto de Perfil</span>
+            </button>
+            <button class="profile-nav-item admin-only" data-section="qr" style="display: none;">
+              <span class="nav-text">QR de Pago</span>
             </button>
             <button class="profile-nav-item" data-section="password">
               <span class="nav-text">Cambiar Contraseña</span>
@@ -283,6 +310,55 @@
                 </div>
 
                 <div class="form-message" id="photo-message"></div>
+              </form>
+            </div>
+          </section>
+
+          <!-- Sección: QR de Pago (Solo para ADMIN) -->
+          <section class="profile-section admin-only" id="section-qr" style="display: none;">
+            <div class="section-header">
+              <h2>QR de Pago</h2>
+              <p>Sube tu código QR para recibir pagos de los clientes</p>
+            </div>
+
+            <div class="photo-container">
+              <div class="photo-preview">
+                <div class="qr-preview" id="qr-preview">
+                  <img src="" alt="QR de Pago" id="qr-img" style="display: none;">
+                  <span class="qr-placeholder">📱</span>
+                </div>
+                <div class="photo-info">
+                  <p class="photo-name">Tu QR de Pago</p>
+                  <p class="photo-email">Los clientes verán este QR al comprar tus productos</p>
+                </div>
+              </div>
+
+              <form id="form-qr" class="photo-form">
+                <div class="photo-upload">
+                  <input 
+                    type="file" 
+                    id="qr-input" 
+                    accept="image/jpeg,image/png,image/jpg"
+                    hidden
+                  >
+                  <label for="qr-input" class="btn-upload">
+                    <span class="upload-icon">📱</span>
+                    <span class="upload-text">Seleccionar QR</span>
+                  </label>
+                  <p class="upload-hint">JPG, PNG. Máximo 5MB</p>
+                </div>
+
+                <div class="photo-actions">
+                  <button type="button" class="btn-secondary" id="btn-remove-qr">
+                    Eliminar QR
+                  </button>
+                  <button type="submit" class="btn-primary" id="btn-save-qr" disabled>
+                    <span class="btn-text">Guardar QR</span>
+                    <span class="btn-loader"></span>
+                  </button>
+                </div>
+
+                <div class="form-message" id="qr-message"></div>
               </form>
             </div>
           </section>

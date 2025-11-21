@@ -4,6 +4,7 @@
 let currentUserId = null;
 let currentUserData = null;
 let selectedPhotoFile = null;
+let selectedQrFile = null;
 
 // ========================================
 // VERIFICAR AUTENTICACIÓN
@@ -120,6 +121,17 @@ function populateUserData(data) {
     photoImg.src = `http://localhost:3000${data.fotoPerfil}`;
     photoImg.style.display = 'block';
     document.querySelector('.photo-placeholder').style.display = 'none';
+  }
+  
+  // QR de pago (solo para ADMIN)
+  if (data.rol === 'ADMIN' && data.qrPago) {
+    const qrImg = document.getElementById('qr-img');
+    const qrPlaceholder = document.querySelector('.qr-placeholder');
+    if (qrImg) {
+      qrImg.src = `http://localhost:3000${data.qrPago}`;
+      qrImg.style.display = 'block';
+      if (qrPlaceholder) qrPlaceholder.style.display = 'none';
+    }
   }
 }
 
@@ -527,6 +539,121 @@ function hideFormMessage(elementId) {
 }
 
 // ========================================
+// FORMULARIO QR DE PAGO
+// ========================================
+function initFormQr() {
+  const formQr = document.getElementById('form-qr');
+  const qrInput = document.getElementById('qr-input');
+  const btnSaveQr = document.getElementById('btn-save-qr');
+  const btnRemoveQr = document.getElementById('btn-remove-qr');
+  const qrPreview = document.getElementById('qr-preview');
+  const qrImg = document.getElementById('qr-img');
+  const qrPlaceholder = qrPreview.querySelector('.qr-placeholder');
+
+  // Manejar selección de archivo
+  qrInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    
+    if (!file) return;
+    
+    // Validar tipo de archivo
+    if (!file.type.startsWith('image/')) {
+      showFormMessage('qr-message', 'Por favor selecciona una imagen válida', 'error');
+      return;
+    }
+    
+    // Validar tamaño (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      showFormMessage('qr-message', 'La imagen no debe superar 5MB', 'error');
+      return;
+    }
+    
+    selectedQrFile = file;
+    
+    // Previsualizar imagen
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      qrImg.src = e.target.result;
+      qrImg.style.display = 'block';
+      if (qrPlaceholder) qrPlaceholder.style.display = 'none';
+      btnSaveQr.disabled = false;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Enviar QR
+  formQr.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    if (!selectedQrFile) {
+      showFormMessage('qr-message', 'Por favor selecciona un QR', 'error');
+      return;
+    }
+    
+    const btnText = btnSaveQr.querySelector('.btn-text');
+    const btnLoader = btnSaveQr.querySelector('.btn-loader');
+    btnSaveQr.disabled = true;
+    btnText.style.display = 'none';
+    btnLoader.style.display = 'inline-block';
+    
+    try {
+      const formData = new FormData();
+      formData.append('qr', selectedQrFile);
+      
+      const response = await fetch('http://localhost:3000/api/user/upload-qr', {
+        method: 'POST',
+        credentials: 'include',
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        showFormMessage('qr-message', 'QR actualizado correctamente', 'success');
+        selectedQrFile = null;
+        btnSaveQr.disabled = true;
+      } else {
+        showFormMessage('qr-message', data.message || 'Error al subir el QR', 'error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showFormMessage('qr-message', 'Error al actualizar el QR', 'error');
+    } finally {
+      btnText.style.display = 'inline';
+      btnLoader.style.display = 'none';
+    }
+  });
+
+  // Eliminar QR
+  btnRemoveQr.addEventListener('click', async () => {
+    if (!confirm('¿Estás seguro de eliminar tu QR de pago?')) return;
+    
+    try {
+      const response = await fetch('http://localhost:3000/api/user/remove-qr', {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        qrImg.src = '';
+        qrImg.style.display = 'none';
+        if (qrPlaceholder) qrPlaceholder.style.display = 'flex';
+        qrInput.value = '';
+        selectedQrFile = null;
+        showFormMessage('qr-message', 'QR eliminado correctamente', 'success');
+      } else {
+        showFormMessage('qr-message', data.message || 'Error al eliminar el QR', 'error');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showFormMessage('qr-message', 'Error al eliminar el QR', 'error');
+    }
+  });
+}
+
+// ========================================
 // INICIALIZACIÓN
 // ========================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -541,6 +668,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Inicializar formularios
   initFormInfo();
   initFormPhoto();
+  initFormQr();
   initFormPassword();
   
   // Cargar datos del usuario

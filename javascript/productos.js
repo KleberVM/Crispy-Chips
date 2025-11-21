@@ -2,6 +2,7 @@
 // VARIABLES GLOBALES
 // ========================================
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+let productosData = []; // Almacenar productos cargados de la API
 const carritoModal = document.getElementById('carritoModal');
 const cartBtn = document.getElementById('cartBtn');
 const modalClose = document.getElementById('modalClose');
@@ -12,12 +13,12 @@ const searchInput = document.getElementById('searchInput');
 // ========================================
 // INICIALIZACIÓN
 // ========================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   actualizarContadorCarrito();
   renderizarCarrito();
+  await cargarProductos(); // Cargar productos desde API
   inicializarFiltros();
   inicializarBusqueda();
-  inicializarBotonesAgregar();
 });
 
 // ========================================
@@ -34,6 +35,128 @@ modalOverlay?.addEventListener('click', cerrarModal);
 function cerrarModal() {
   carritoModal.classList.remove('active');
   document.body.style.overflow = 'auto';
+}
+
+// ========================================
+// CARGAR PRODUCTOS DESDE API
+// ========================================
+async function cargarProductos() {
+  try {
+    const response = await fetch('http://localhost:3000/api/productos?page=1&limit=50');
+    
+    if (!response.ok) {
+      throw new Error('Error al cargar productos');
+    }
+    
+    const data = await response.json();
+    productosData = data.productos || [];
+    
+    renderizarProductos(productosData);
+  } catch (error) {
+    console.error('Error al cargar productos:', error);
+    mostrarError('No se pudieron cargar los productos. Intenta recargar la página.');
+  }
+}
+
+// ========================================
+// RENDERIZAR PRODUCTOS
+// ========================================
+function renderizarProductos(productos) {
+  const productosGrid = document.querySelector('.productos-grid');
+  
+  if (!productosGrid) {
+    console.error('No se encontró .productos-grid');
+    return;
+  }
+  
+  if (productos.length === 0) {
+    productosGrid.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+        <h3>No hay productos disponibles</h3>
+        <p>Pronto agregaremos nuevos productos. ¡Vuelve pronto!</p>
+      </div>
+    `;
+    return;
+  }
+  
+  productosGrid.innerHTML = '';
+  
+  productos.forEach(producto => {
+    const card = crearCardProducto(producto);
+    productosGrid.appendChild(card);
+  });
+  
+  // Reinicializar botones de agregar
+  inicializarBotonesAgregar();
+}
+
+// ========================================
+// CREAR CARD DE PRODUCTO
+// ========================================
+function crearCardProducto(producto) {
+  const article = document.createElement('article');
+  article.className = 'producto-card';
+  article.dataset.category = producto.categoria?.nombre?.toLowerCase() || 'otros';
+  
+  const imagenUrl = producto.imagen 
+    ? `http://localhost:3000${producto.imagen}` 
+    : 'https://i.imgur.com/vkSbQzW.png';
+  
+  // Verificar si el usuario es ADMIN
+  const userRol = localStorage.getItem('userRol');
+  const isAdmin = userRol === 'ADMIN';
+  
+  // Botón de acción según el rol
+  let botonAccion = '';
+  if (isAdmin) {
+    // Para ADMIN: mostrar solo el precio, sin botón de agregar
+    botonAccion = '<span class="producto-vendedor">Disponible para clientes</span>';
+  } else {
+    // Para CLIENTE: mostrar botón de agregar al carrito
+    botonAccion = `<button class="btn-agregar" data-producto-id="${producto.id}" data-producto="${producto.nombre}" data-precio="${producto.precio}">
+      Agregar
+    </button>`;
+  }
+  
+  article.innerHTML = `
+    ${producto.destacado ? '<div class="producto-badge hot">Popular</div>' : ''}
+    <div class="producto-imagen">
+      <img src="${imagenUrl}" alt="${producto.nombre}" loading="lazy" onerror="this.src='https://i.imgur.com/vkSbQzW.png'">
+    </div>
+    <div class="producto-info">
+      <h3 class="producto-titulo">${producto.nombre}</h3>
+      <p class="producto-peso">(${producto.peso || '100g'})</p>
+      <p class="producto-desc">${producto.descripcion || 'Delicioso snack crujiente'}</p>
+      ${producto.calorias || producto.grasas || producto.carbohidratos || producto.proteinas ? `
+        <div class="producto-nutri">
+          ${producto.calorias ? `<span>${producto.calorias} kcal</span>` : ''}
+          ${producto.grasas ? `<span>${producto.grasas}g grasas</span>` : ''}
+          ${producto.carbohidratos ? `<span>${producto.carbohidratos}g carbs</span>` : ''}
+          ${producto.proteinas ? `<span>${producto.proteinas}g proteínas</span>` : ''}
+        </div>
+      ` : ''}
+      <div class="producto-footer">
+        <span class="producto-precio">Bs. ${parseFloat(producto.precio).toFixed(2)}</span>
+        ${botonAccion}
+      </div>
+    </div>
+  `;
+  
+  return article;
+}
+
+// ========================================
+// MOSTRAR ERROR
+// ========================================
+function mostrarError(mensaje) {
+  const productosSection = document.getElementById('productos-section');
+  if (productosSection) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.style.cssText = 'grid-column: 1/-1; text-align: center; padding: 2rem; background: #fee; color: #c33; border-radius: 8px; margin: 2rem 0;';
+    errorDiv.innerHTML = `<p><strong>⚠️ ${mensaje}</strong></p>`;
+    productosSection.prepend(errorDiv);
+  }
 }
 
 // ========================================
@@ -95,30 +218,54 @@ function inicializarBotonesAgregar() {
 
   botonesAgregar.forEach(boton => {
     boton.addEventListener('click', async (e) => {
-      const card = e.target.closest('.producto-card');
+      e.preventDefault();
+      
+      // Deshabilitar botón temporalmente
+      boton.disabled = true;
+      const textoOriginal = boton.textContent;
+      boton.textContent = 'Agregando...';
+      
+      const productoId = boton.dataset.productoId;
       const nombre = boton.dataset.producto;
-      const precio = parseFloat(boton.dataset.precio);
-      const imagen = card.querySelector('img').src;
+      const cantidad = 1;
 
-      const producto = {
-        nombre,
-        precio,
-        cantidad: 1,
-        imagen
-      };
-
-      agregarAlCarrito(producto);
-      mostrarNotificacion(`${nombre} agregado al carrito ✅`);
-
-      // Opcional: Enviar a backend
       try {
-        await fetch("http://localhost:3000/agregar-carrito", {
+        // Enviar a backend
+        const response = await fetch("http://localhost:3000/api/carrito/agregar", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(producto)
+          credentials: 'include',
+          headers: { 
+            "Content-Type": "application/json" 
+          },
+          body: JSON.stringify({ 
+            productoId: parseInt(productoId),
+            cantidad: cantidad
+          })
         });
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Error al agregar al carrito');
+        }
+        
+        // Actualizar contador del carrito
+        actualizarContadorCarrito();
+        
+        mostrarNotificacion(`${nombre} agregado al carrito ✅`);
+        
       } catch (error) {
-        console.log("Backend no disponible, guardando solo en localStorage");
+        console.error("Error al agregar al carrito:", error);
+        
+        // Verificar si es error de autenticación
+        if (error.message.includes('autenticación') || error.message.includes('sesión')) {
+          alert('Debes iniciar sesión para agregar productos al carrito');
+        } else {
+          mostrarNotificacion(`Error: ${error.message}`, 'error');
+        }
+      } finally {
+        // Rehabilitar botón
+        boton.disabled = false;
+        boton.textContent = textoOriginal;
       }
     });
   });
@@ -264,9 +411,30 @@ function guardarCarrito() {
   localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
-function actualizarContadorCarrito() {
-  const total = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-  cartCount.textContent = total;
+async function actualizarContadorCarrito() {
+  try {
+    const response = await fetch('http://localhost:3000/api/carrito', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      const total = data.items ? data.items.reduce((sum, item) => sum + item.cantidad, 0) : 0;
+      if (cartCount) {
+        cartCount.textContent = total;
+      }
+    }
+  } catch (error) {
+    console.log('Error al actualizar contador del carrito:', error);
+    // Si hay error, mantener contador en 0
+    if (cartCount) {
+      cartCount.textContent = '0';
+    }
+  }
 }
 
 function mostrarNotificacion(mensaje, tipo = "success") {
