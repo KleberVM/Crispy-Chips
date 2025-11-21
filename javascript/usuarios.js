@@ -142,7 +142,7 @@ function crearFilaUsuario(usuario) {
     </td>
     <td>
       <span class="status-badge ${usuario.emailVerificado ? 'verificado' : 'no-verificado'}">
-        ${usuario.emailVerificado ? '✅ Verificado' : '⚠️ No verificado'}
+        ${usuario.emailVerificado ? ' Verificado' : ' No verificado'}
       </span>
     </td>
     <td>${fechaRegistro}</td>
@@ -289,7 +289,7 @@ function verUsuario(id) {
   if (!usuario) return;
   
   alert(`
-    📋 Información de Usuario ADMIN
+     Información de Usuario ADMIN
     
     Nombre: ${usuario.nombre || 'N/A'}
     Apellido: ${usuario.apellido || 'N/A'}
@@ -299,7 +299,7 @@ function verUsuario(id) {
     Estado: ${usuario.emailVerificado ? 'Verificado' : 'No verificado'}
     Registrado: ${new Date(usuario.createdAt).toLocaleDateString('es-ES')}
     
-    ⚠️ No puedes editar usuarios ADMIN
+     No puedes editar usuarios ADMIN
   `);
 }
 

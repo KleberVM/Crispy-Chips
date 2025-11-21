@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mis Productos - Crispy Chips</title>
@@ -28,7 +29,7 @@
       
       <div class="search-container">
         <input type="search" class="buscar" placeholder="Buscar productos..." aria-label="Buscar productos">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon"></span>
       </div>
       
       <!-- Menú de navegación (oculto cuando hay sesión) -->
@@ -53,14 +54,14 @@
       
       <div class="user-section">
         <button class="btn-login" id="btn-login-nav">
-          <span class="user-icon">👤</span>
+          <span class="user-icon"></span>
           <span class="user-text">Admin</span>
         </button>
         
         <!-- Dropdown de usuario (oculto por defecto) -->
         <div class="user-dropdown" id="userDropdown">
           <div class="dropdown-header">
-            <div class="user-avatar user-icon">👤</div>
+            <div class="user-avatar user-icon"></div>
             <div class="user-info">
               <span class="user-name" id="userName">Usuario</span>
               <span class="user-email" id="userEmail">usuario@email.com</span>
@@ -68,11 +69,11 @@
           </div>
           <div class="dropdown-divider"></div>
           <a href="../contenido/perfil.html" class="dropdown-item" id="btnPerfil">
-            <span class="item-icon user-icon-small">👤</span>
+            <span class="item-icon user-icon-small"></span>
             Ver Perfil
           </a>
           <a href="#" class="dropdown-item" id="btnCerrarSesion">
-            <span class="item-icon">🚪</span>
+            <span class="item-icon"></span>
             Cerrar Sesión
           </a>
         </div>
@@ -93,11 +94,11 @@
     
     <nav class="sidebar-nav">
       <a href="../contenido/principal.html" class="sidebar-item">
-        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
-        <span class="sidebar-icon">🛍️</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Productos</span>
       </a>
       
@@ -106,33 +107,33 @@
         <div class="sidebar-divider"></div>
         <div class="sidebar-section-title">Panel de Administración</div>
         <a href="../contenido/mis-productos.html" class="sidebar-item active">
-          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-icon"></span>
           <span class="sidebar-text">Mis Productos</span>
         </a>
         <a href="../contenido/mis-ventas.html" class="sidebar-item">
-          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-icon"></span>
           <span class="sidebar-text">Mis Ventas</span>
         </a>
         <a href="../contenido/usuarios.html" class="sidebar-item">
-          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-icon"></span>
           <span class="sidebar-text">Usuarios</span>
         </a>
         <div class="sidebar-divider"></div>
       </div>
       
       <a href="../contenido/contacto.html" class="sidebar-item">
-        <span class="sidebar-icon">📧</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item">
-        <span class="sidebar-icon">ℹ️</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Información</span>
       </a>
     </nav>
     
     <div class="sidebar-footer">
       <div class="sidebar-user">
-        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-avatar-sidebar sidebar-user-icon"></div>
         <div class="user-info-sidebar">
           <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
           <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
@@ -150,13 +151,13 @@
     <div class="page-header">
       <div class="header-content">
         <h1 class="page-title">
-          <span class="icon-title">📦</span>
+          <span class="icon-title"></span>
           Mis Productos
         </h1>
         <p class="page-subtitle">Gestiona tus productos publicados</p>
       </div>
       <a href="crear-producto.html" class="btn-crear-producto">
-        <span class="btn-icon">➕</span>
+        <span class="btn-icon"></span>
         Crear Producto
       </a>
     </div>
@@ -165,7 +166,7 @@
     <div class="filters-section">
       <div class="search-box">
         <input type="search" id="searchInput" placeholder="Buscar productos..." class="input-search">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon"></span>
       </div>
       
       <div class="filters">
@@ -193,11 +194,11 @@
 
     <!-- Estado vacío -->
     <div id="emptyState" class="empty-state" style="display: none;">
-      <div class="empty-icon">📦</div>
+      <div class="empty-icon"></div>
       <h2>No tienes productos publicados</h2>
       <p>Comienza a vender creando tu primer producto</p>
       <a href="crear-producto.html" class="btn-crear-producto">
-        <span class="btn-icon">➕</span>
+        <span class="btn-icon"></span>
         Crear mi primer producto
       </a>
     </div>
@@ -205,7 +206,7 @@
     <!-- Estadísticas -->
     <div id="statsSection" class="stats-section" style="display: none;">
       <div class="stat-card">
-        <div class="stat-icon">📊</div>
+        <div class="stat-icon"></div>
         <div class="stat-info">
           <span class="stat-value" id="totalProductos">0</span>
           <span class="stat-label">Total Productos</span>
@@ -213,7 +214,7 @@
       </div>
       
       <div class="stat-card">
-        <div class="stat-icon">⭐</div>
+        <div class="stat-icon"></div>
         <div class="stat-info">
           <span class="stat-value" id="productosDestacados">0</span>
           <span class="stat-label">Destacados</span>
@@ -221,7 +222,7 @@
       </div>
       
       <div class="stat-card">
-        <div class="stat-icon">📦</div>
+        <div class="stat-icon"></div>
         <div class="stat-info">
           <span class="stat-value" id="totalStock">0</span>
           <span class="stat-label">Total Stock</span>
@@ -254,7 +255,7 @@
   <div id="deleteModal" class="modal" style="display: none;">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>⚠️ Confirmar eliminación</h2>
+        <h2> Confirmar eliminación</h2>
       </div>
       <div class="modal-body">
         <p>¿Estás seguro de que deseas eliminar este producto?</p>

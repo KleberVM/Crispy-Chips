@@ -28,7 +28,7 @@
       
       <div class="search-container">
         <input type="search" class="buscar" id="searchInput" placeholder="Buscar usuarios..." aria-label="Buscar usuarios">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon"></span>
       </div>
       
       <!-- Menú de navegación (oculto cuando hay sesión) -->
@@ -53,14 +53,14 @@
       
       <div class="user-section">
         <button class="btn-login" id="btn-login-nav">
-          <span class="user-icon">👤</span>
+          <span class="user-icon"></span>
           <span class="user-text">Admin</span>
         </button>
         
         <!-- Dropdown de usuario (oculto por defecto) -->
         <div class="user-dropdown" id="userDropdown">
           <div class="dropdown-header">
-            <div class="user-avatar user-icon">👤</div>
+            <div class="user-avatar user-icon"></div>
             <div class="user-info">
               <span class="user-name" id="userName">Usuario</span>
               <span class="user-email" id="userEmail">usuario@email.com</span>
@@ -68,11 +68,11 @@
           </div>
           <div class="dropdown-divider"></div>
           <a href="../contenido/perfil.html" class="dropdown-item" id="btnPerfil">
-            <span class="item-icon user-icon-small">👤</span>
+            <span class="item-icon user-icon-small"></span>
             Ver Perfil
           </a>
           <a href="#" class="dropdown-item" id="btnCerrarSesion">
-            <span class="item-icon">🚪</span>
+            <span class="item-icon"></span>
             Cerrar Sesión
           </a>
         </div>
@@ -93,11 +93,11 @@
     
     <nav class="sidebar-nav">
       <a href="../contenido/principal.html" class="sidebar-item">
-        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
-        <span class="sidebar-icon">🛍️</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Productos</span>
       </a>
       
@@ -106,26 +106,26 @@
         <div class="sidebar-divider"></div>
         <div class="sidebar-section-title">Panel de Administración</div>
         <a href="../contenido/mis-productos.html" class="sidebar-item">
-          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-icon"></span>
           <span class="sidebar-text">Mis Productos</span>
         </a>
         <a href="../contenido/mis-ventas.html" class="sidebar-item">
-          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-icon"></span>
           <span class="sidebar-text">Mis Ventas</span>
         </a>
         <a href="../contenido/usuarios.html" class="sidebar-item active">
-          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-icon"></span>
           <span class="sidebar-text">Usuarios</span>
         </a>
         <div class="sidebar-divider"></div>
       </div>
       
       <a href="../contenido/contacto.html" class="sidebar-item">
-        <span class="sidebar-icon">📧</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item">
-        <span class="sidebar-icon">ℹ️</span>
+        <span class="sidebar-icon">ℹ</span>
         <span class="sidebar-text">Información</span>
       </a>
     </nav>
@@ -151,7 +151,7 @@
     <div class="filters-section">
       <div class="search-box">
         <input type="search" id="searchInputUsers" placeholder="Buscar por nombre, email o username..." class="input-search">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon"></span>
       </div>
       
       <div class="filters">
@@ -181,7 +181,7 @@
 
     <!-- Estado vacío -->
     <div id="emptyState" class="empty-state" style="display: none;">
-      <div class="empty-icon">👥</div>
+      <div class="empty-icon"></div>
       <h2>No se encontraron usuarios</h2>
       <p>Intenta cambiar los filtros de búsqueda</p>
     </div>
@@ -189,7 +189,7 @@
     <!-- Estadísticas -->
     <div id="statsSection" class="stats-section" style="display: none;">
       <div class="stat-card">
-        <div class="stat-icon">👥</div>
+        <div class="stat-icon"></div>
         <div class="stat-info">
           <span class="stat-value" id="totalUsuarios">0</span>
           <span class="stat-label">Total Usuarios</span>
@@ -197,7 +197,7 @@
       </div>
       
       <div class="stat-card">
-        <div class="stat-icon">👑</div>
+        <div class="stat-icon"></div>
         <div class="stat-info">
           <span class="stat-value" id="totalAdmins">0</span>
           <span class="stat-label">Administradores</span>
@@ -205,7 +205,7 @@
       </div>
       
       <div class="stat-card">
-        <div class="stat-icon">🛍️</div>
+        <div class="stat-icon"></div>
         <div class="stat-info">
           <span class="stat-value" id="totalClientes">0</span>
           <span class="stat-label">Clientes</span>
@@ -213,7 +213,7 @@
       </div>
 
       <div class="stat-card">
-        <div class="stat-icon">✅</div>
+        <div class="stat-icon"></div>
         <div class="stat-info">
           <span class="stat-value" id="totalVerificados">0</span>
           <span class="stat-label">Verificados</span>
@@ -261,7 +261,7 @@
   <div id="deleteModal" class="modal" style="display: none;">
     <div class="modal-content">
       <div class="modal-header">
-        <h2>⚠️ Confirmar Eliminación</h2>
+        <h2>Confirmar Eliminación</h2>
       </div>
       <div class="modal-body">
         <p>¿Estás seguro de que deseas eliminar este usuario?</p>

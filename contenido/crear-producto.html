@@ -28,7 +28,7 @@
       
       <div class="search-container">
         <input type="search" class="buscar" placeholder="Buscar productos..." aria-label="Buscar productos">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon"></span>
       </div>
       
       <!-- Menú de navegación (oculto cuando hay sesión) -->
@@ -53,14 +53,14 @@
       
       <div class="user-section">
         <button class="btn-login" id="btn-login-nav">
-          <span class="user-icon">👤</span>
+          <span class="user-icon"></span>
           <span class="user-text">Admin</span>
         </button>
         
         <!-- Dropdown de usuario (oculto por defecto) -->
         <div class="user-dropdown" id="userDropdown">
           <div class="dropdown-header">
-            <div class="user-avatar user-icon">👤</div>
+            <div class="user-avatar user-icon"></div>
             <div class="user-info">
               <span class="user-name" id="userName">Usuario</span>
               <span class="user-email" id="userEmail">usuario@email.com</span>
@@ -68,11 +68,11 @@
           </div>
           <div class="dropdown-divider"></div>
           <a href="../contenido/perfil.html" class="dropdown-item" id="btnPerfil">
-            <span class="item-icon user-icon-small">👤</span>
+            <span class="item-icon user-icon-small"></span>
             Ver Perfil
           </a>
           <a href="#" class="dropdown-item" id="btnCerrarSesion">
-            <span class="item-icon">🚪</span>
+            <span class="item-icon"></span>
             Cerrar Sesión
           </a>
         </div>
@@ -93,11 +93,11 @@
     
     <nav class="sidebar-nav">
       <a href="../contenido/principal.html" class="sidebar-item">
-        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
-        <span class="sidebar-icon">🛍️</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Productos</span>
       </a>
       
@@ -106,33 +106,33 @@
         <div class="sidebar-divider"></div>
         <div class="sidebar-section-title">Panel de Administración</div>
         <a href="../contenido/mis-productos.html" class="sidebar-item">
-          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-icon"></span>
           <span class="sidebar-text">Mis Productos</span>
         </a>
         <a href="../contenido/mis-ventas.html" class="sidebar-item">
-          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-icon"></span>
           <span class="sidebar-text">Mis Ventas</span>
         </a>
         <a href="../contenido/usuarios.html" class="sidebar-item">
-          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-icon"></span>
           <span class="sidebar-text">Usuarios</span>
         </a>
         <div class="sidebar-divider"></div>
       </div>
       
       <a href="../contenido/contacto.html" class="sidebar-item">
-        <span class="sidebar-icon">📧</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item">
-        <span class="sidebar-icon">ℹ️</span>
+        <span class="sidebar-icon"></span>
         <span class="sidebar-text">Información</span>
       </a>
     </nav>
     
     <div class="sidebar-footer">
       <div class="sidebar-user">
-        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-avatar-sidebar sidebar-user-icon"></div>
         <div class="user-info-sidebar">
           <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
           <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
@@ -153,7 +153,7 @@
           ← Volver a mis productos
         </a>
         <h1 class="form-title">
-          <span class="icon-title">➕</span>
+          <span class="icon-title"></span>
           Crear Nuevo Producto
         </h1>
         <p class="form-subtitle">Completa la información para publicar tu producto</p>
@@ -163,7 +163,7 @@
       <form id="formCrearProducto" class="producto-form">
         <!-- Información básica -->
         <div class="form-section">
-          <h2 class="section-title">📝 Información Básica</h2>
+          <h2 class="section-title"> Información Básica</h2>
           
           <div class="form-group">
             <label for="nombre" class="form-label">
@@ -222,7 +222,7 @@
 
         <!-- Precio y stock -->
         <div class="form-section">
-          <h2 class="section-title">💰 Precio y Stock</h2>
+          <h2 class="section-title">Precio y Stock</h2>
           
           <div class="form-row">
             <div class="form-group">
@@ -230,7 +230,7 @@
                 Precio *
               </label>
               <div class="input-with-prefix">
-                <span class="input-prefix">$</span>
+                <span class="input-prefix">bs</span>
                 <input 
                   type="number" 
                   id="precio" 
@@ -265,13 +265,13 @@
 
         <!-- Opciones adicionales -->
         <div class="form-section">
-          <h2 class="section-title">⚙️ Opciones Adicionales</h2>
+          <h2 class="section-title"> Opciones Adicionales</h2>
           
           <div class="form-group">
             <label class="checkbox-label">
               <input type="checkbox" id="destacado" name="destacado" class="form-checkbox">
               <span class="checkbox-text">
-                <strong>⭐ Producto Destacado</strong>
+                <strong> Producto Destacado</strong>
                 <span class="checkbox-hint">Se mostrará en la sección de destacados</span>
               </span>
             </label>
@@ -281,7 +281,7 @@
             <label class="checkbox-label">
               <input type="checkbox" id="activo" name="activo" class="form-checkbox" checked>
               <span class="checkbox-text">
-                <strong>✅ Producto Activo</strong>
+                <strong>Producto Activo</strong>
                 <span class="checkbox-hint">Visible para los clientes</span>
               </span>
             </label>
@@ -290,7 +290,7 @@
 
         <!-- Imagen del producto -->
         <div class="form-section">
-          <h2 class="section-title">📷 Imagen del Producto</h2>
+          <h2 class="section-title"> Imagen del Producto</h2>
           
           <div class="form-group">
             <label class="form-label">
@@ -298,7 +298,7 @@
             </label>
             <div class="upload-area" id="uploadArea">
               <div class="upload-content">
-                <div class="upload-icon">📷</div>
+                <div class="upload-icon"></div>
                 <p class="upload-text">Haz clic o arrastra una imagen aquí</p>
                 <p class="upload-hint">PNG, JPG o GIF (máx. 5MB)</p>
               </div>
@@ -326,7 +326,7 @@
             Cancelar
           </a>
           <button type="submit" class="btn-guardar" id="btnGuardar">
-            <span class="btn-icon">💾</span>
+            <span class="btn-icon"></span>
             Crear Producto
           </button>
         </div>
@@ -334,7 +334,7 @@
 
       <!-- Mensaje de éxito -->
       <div id="successMessage" class="success-message" style="display: none;">
-        <div class="success-icon">✅</div>
+        <div class="success-icon"></div>
         <h3>¡Producto creado exitosamente!</h3>
         <p>Tu producto ha sido publicado y está disponible para la venta.</p>
         <div class="success-actions">

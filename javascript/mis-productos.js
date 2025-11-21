@@ -145,11 +145,11 @@ function renderizarProductos() {
   
   grid.innerHTML = state.productos.map(producto => `
     <div class="producto-card" data-id="${producto.id}">
-      ${producto.destacado ? '<div class="producto-badge">⭐ Destacado</div>' : ''}
+      ${producto.destacado ? '<div class="producto-badge">Destacado</div>' : ''}
       
       ${producto.imagen 
         ? `<img src="${API_URL}${producto.imagen}" alt="${producto.nombre}" class="producto-imagen">`
-        : `<div class="producto-imagen no-image">📦</div>`
+        : `<div class="producto-imagen no-image"></div>`
       }
       
       <div class="producto-info">
@@ -177,13 +177,13 @@ function renderizarProductos() {
         
         <div class="producto-acciones">
           <button class="btn-accion btn-editar" onclick="editarProducto(${producto.id})">
-            ✏️ Editar
+             Editar
           </button>
           <button class="btn-accion btn-imagen" onclick="subirImagen(${producto.id})">
-            📷 Imagen
+             Imagen
           </button>
           <button class="btn-accion btn-eliminar" onclick="confirmarEliminar(${producto.id})">
-            🗑️ Eliminar
+             Eliminar
           </button>
         </div>
       </div>
