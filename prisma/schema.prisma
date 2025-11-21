@@ -30,7 +30,8 @@ model Usuario {
   
   // Relaciones
   cliente           Cliente?
-  pedidos           Pedido[]
+  pedidosComprador  Pedido[]  @relation("PedidosComprador")
+  pedidosVendedor   Pedido[]  @relation("PedidosVendedor")
   carrito           Carrito[]
   productos         Producto[]
   notificaciones    Notificacion[]
@@ -180,7 +181,8 @@ model Pedido {
   updatedAt         DateTime      @updatedAt
   
   // Relaciones
-  usuario           Usuario       @relation(fields: [usuarioId], references: [id])
+  usuario           Usuario       @relation(fields: [usuarioId], references: [id], name: "PedidosComprador")
+  vendedor          Usuario       @relation(fields: [vendedorId], references: [id], name: "PedidosVendedor")
   items             ItemPedido[]
   
   @@map("pedidos")

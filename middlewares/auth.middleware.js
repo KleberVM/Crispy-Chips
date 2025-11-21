@@ -1,8 +1,17 @@
 // Middleware de autenticación
 const isAuthenticated = (req, res, next) => {
+  console.log('🔐 isAuthenticated middleware');
+  console.log('   - URL:', req.url);
+  console.log('   - Method:', req.method);
+  console.log('   - req.isAuthenticated():', req.isAuthenticated ? req.isAuthenticated() : 'N/A');
+  console.log('   - req.user:', req.user);
+  console.log('   - req.session:', req.session);
+  
   if (req.isAuthenticated()) {
+    console.log('✅ Usuario autenticado, continuando...');
     return next();
   }
+  console.log('❌ Usuario NO autenticado, devolviendo 401');
   res.status(401).json({ message: "No autorizado" });
 };
 

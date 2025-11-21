@@ -16,7 +16,7 @@ menuBtn?.addEventListener('click', () => {
 
 // Cerrar menú al hacer clic fuera
 document.addEventListener('click', (e) => {
-  if (menu && !menu.contains(e.target) && !menuBtn.contains(e.target)) {
+  if (menu && menuBtn && !menu.contains(e.target) && !menuBtn.contains(e.target)) {
     menu.classList.remove('active');
     menuBtn.setAttribute('aria-expanded', 'false');
     const hamburgers = menuBtn.querySelectorAll('.hamburger');
