@@ -1,7 +1,7 @@
-/* Este archivo ya no se usa - El login ahora es un modal en principal.html */
+/* Este archivo ya no se usa - El login ahora es un modal en index.html */
 /* Se mantiene como respaldo por compatibilidad */
 
-/* Redirigir a principal.html */
+/* Redirigir a index.html */
 body::before {
   content: "Redirigiendo a la página principal...";
   display: flex;

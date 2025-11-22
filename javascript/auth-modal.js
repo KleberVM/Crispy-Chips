@@ -101,7 +101,7 @@ btnCerrarSesion?.addEventListener('click', async (e) => {
       
       // 6. Redirigir a la página principal
       setTimeout(() => {
-        window.location.href = '../contenido/principal.html';
+        window.location.href = '../contenido/index.html';
       }, 1000);
       
     } catch (error) {
@@ -109,7 +109,7 @@ btnCerrarSesion?.addEventListener('click', async (e) => {
       // Aún así limpiar y redirigir
       localStorage.clear();
       sessionStorage.clear();
-      window.location.href = '../contenido/principal.html';
+      window.location.href = '../contenido/index.html';
     }
   }
 });

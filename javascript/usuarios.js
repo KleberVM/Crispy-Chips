@@ -26,7 +26,7 @@ function verificarAutenticacion() {
   
   if (!username || userRol !== 'ADMIN') {
     alert('Debes iniciar sesión como administrador');
-    window.location.href = '../contenido/principal.html';
+    window.location.href = '../contenido/index.html';
     return false;
   }
   

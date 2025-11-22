@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Redirigir después de un breve retraso
         setTimeout(() => {
-          window.location.href = "contenido/principal.html";
+          window.location.href = "contenido/index.html";
         }, 1000);
       } else {
         message.textContent = data.message;

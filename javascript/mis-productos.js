@@ -42,7 +42,7 @@ async function verificarAutenticacion() {
     });
     
     if (!response.ok) {
-      window.location.href = '../contenido/principal.html';
+      window.location.href = '../contenido/index.html';
       return;
     }
     
@@ -50,11 +50,11 @@ async function verificarAutenticacion() {
     
     if (data.user.rol !== 'ADMIN') {
       alert('Acceso denegado. Solo administradores pueden acceder a esta página.');
-      window.location.href = '../contenido/principal.html';
+      window.location.href = '../contenido/index.html';
     }
   } catch (error) {
     console.error('Error al verificar autenticación:', error);
-    window.location.href = '../contenido/principal.html';
+    window.location.href = '../contenido/index.html';
   }
 }
 

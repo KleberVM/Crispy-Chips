@@ -14,7 +14,7 @@ function checkAuthentication() {
   
   if (!username) {
     // Redirigir a principal si no hay sesión
-    window.location.href = '../contenido/principal.html';
+    window.location.href = '../contenido/index.html';
     return false;
   }
   
@@ -74,7 +74,7 @@ async function loadUserData() {
       const errorData = await response.json().catch(() => ({}));
       console.error('Error al obtener perfil:', response.status, errorData);
       alert('Error de autenticación. Por favor, inicia sesión nuevamente.');
-      window.location.href = '../contenido/principal.html';
+      window.location.href = '../contenido/index.html';
     }
   } catch (error) {
     console.error('Error al cargar datos:', error);

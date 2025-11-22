@@ -21,14 +21,14 @@ function verificarAutenticacion() {
   if (!username) {
     console.error('❌ Usuario no autenticado');
     alert('Debes iniciar sesión para ver esta sección.');
-    window.location.href = '../contenido/principal.html';
+    window.location.href = '../contenido/index.html';
     return false;
   }
   
   if (userRol !== 'ADMIN') {
     console.error('❌ Usuario no es ADMIN');
     alert('Acceso no autorizado. Solo administradores pueden ver esta sección.');
-    window.location.href = '../contenido/principal.html';
+    window.location.href = '../contenido/index.html';
     return false;
   }
   

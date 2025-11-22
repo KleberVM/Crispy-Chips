@@ -124,7 +124,7 @@ async function procederAlPago() {
     
     // Esperar 2 segundos y redirigir
     setTimeout(() => {
-      window.location.href = '../contenido/principal.html';
+      window.location.href = '../contenido/index.html';
     }, 2000);
     
   } catch (error) {
@@ -160,14 +160,14 @@ function verificarAutenticacion() {
   
   if (!username) {
     alert('Debes iniciar sesión para ver tu carrito');
-    window.location.href = '../contenido/principal.html';
+    window.location.href = '../contenido/index.html';
     return false;
   }
   
   // Verificar que NO sea ADMIN
   if (userRol === 'ADMIN') {
     alert('Los administradores no tienen carrito de compras');
-    window.location.href = '../contenido/principal.html';
+    window.location.href = '../contenido/index.html';
     return false;
   }
   
