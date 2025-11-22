@@ -148,6 +148,52 @@ class PedidosController {
       res.status(500).json({ message: error.message });
     }
   }
+
+  // Obtener compras del cliente
+  async obtenerMisCompras(req, res) {
+    try {
+      const usuarioId = req.user.id;
+      const { estado } = req.query;
+
+      console.log('Obteniendo compras del cliente:', usuarioId);
+
+      const compras = await pedidosService.obtenerComprasCliente(usuarioId, estado);
+
+      res.json({
+        success: true,
+        compras
+      });
+
+    } catch (error) {
+      console.error('Error al obtener compras del cliente:', error);
+      res.status(500).json({ message: error.message });
+    }
+  }
+
+  // Obtener detalle de una compra del cliente
+  async obtenerDetalleCompra(req, res) {
+    try {
+      const usuarioId = req.user.id;
+      const { pedidoId } = req.params;
+
+      console.log('Obteniendo detalle de compra:', pedidoId, 'para cliente:', usuarioId);
+
+      const compra = await pedidosService.obtenerDetalleCompraCliente(parseInt(pedidoId), usuarioId);
+
+      if (!compra) {
+        return res.status(404).json({ message: 'Compra no encontrada' });
+      }
+
+      res.json({
+        success: true,
+        pedido: compra
+      });
+
+    } catch (error) {
+      console.error('Error al obtener detalle de compra:', error);
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = new PedidosController();

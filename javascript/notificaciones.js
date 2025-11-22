@@ -38,18 +38,28 @@ function crearDropdownNotificaciones() {
 // ========================================
 // INICIALIZAR NOTIFICACIONES
 // ========================================
+let notificacionesInicializadas = false;
+
 function inicializarNotificaciones() {
   const userRol = localStorage.getItem('userRol');
   
   // Solo para usuarios autenticados
-  if (!localStorage.getItem('username')) return;
+  if (!localStorage.getItem('username')) {
+    console.log('⚠️ No hay usuario autenticado, saltando inicialización de notificaciones');
+    return;
+  }
+  
+  console.log('🔔 Inicializando notificaciones...');
   
   // Determinar qué botón de notificaciones usar
   const btnNotifications = userRol === 'ADMIN' 
     ? document.getElementById('btn-notifications-admin')
     : document.getElementById('btn-notifications');
   
-  if (!btnNotifications) return;
+  if (!btnNotifications) {
+    console.log('⚠️ Botón de notificaciones no encontrado');
+    return;
+  }
   
   // Crear dropdown si no existe
   let notificationsDropdown = document.getElementById('notifications-dropdown');
@@ -60,6 +70,15 @@ function inicializarNotificaciones() {
   const btnMarkAllRead = document.getElementById('btn-mark-all-read');
   
   if (!notificationsDropdown) return;
+  
+  // Si ya se inicializaron los event listeners, solo actualizar el contador
+  if (notificacionesInicializadas) {
+    console.log('✅ Notificaciones ya inicializadas, solo actualizando contador');
+    actualizarContadorNotificaciones();
+    return;
+  }
+  
+  console.log('✅ Configurando event listeners de notificaciones');
   
   // Toggle dropdown
   btnNotifications.addEventListener('click', (e) => {
@@ -84,6 +103,14 @@ function inicializarNotificaciones() {
     btnMarkAllRead.addEventListener('click', marcarTodasComoLeidas);
   }
   
+  // Marcar como inicializadas
+  notificacionesInicializadas = true;
+  
+  // Limpiar interval anterior si existe
+  if (intervalId) {
+    clearInterval(intervalId);
+  }
+  
   // Cargar contador inicial
   actualizarContadorNotificaciones();
   
@@ -91,6 +118,8 @@ function inicializarNotificaciones() {
   intervalId = setInterval(() => {
     actualizarContadorNotificaciones();
   }, 30000);
+  
+  console.log('✅ Notificaciones inicializadas correctamente');
 }
 
 // ========================================
@@ -318,6 +347,36 @@ function calcularTiempoAtras(fecha) {
   if (horas > 0) return `Hace ${horas} hora${horas > 1 ? 's' : ''}`;
   if (minutos > 0) return `Hace ${minutos} minuto${minutos > 1 ? 's' : ''}`;
   return 'Justo ahora';
+}
+
+// ========================================
+// LIMPIAR NOTIFICACIONES
+// ========================================
+function limpiarNotificaciones() {
+  console.log('🧹 Limpiando notificaciones...');
+  
+  // Limpiar interval
+  if (intervalId) {
+    clearInterval(intervalId);
+    intervalId = null;
+  }
+  
+  // Resetear bandera
+  notificacionesInicializadas = false;
+  
+  // Limpiar array de notificaciones
+  notificacionesData = [];
+  
+  // Ocultar badges
+  const badges = document.querySelectorAll('#notif-badge, #notif-badge-admin');
+  badges.forEach(badge => {
+    if (badge) {
+      badge.textContent = '0';
+      badge.style.display = 'none';
+    }
+  });
+  
+  console.log('✅ Notificaciones limpiadas');
 }
 
 // ========================================

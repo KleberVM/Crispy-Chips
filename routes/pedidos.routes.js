@@ -23,4 +23,10 @@ router.put('/ventas/:pedidoId/estado', isAuthenticated, pedidosController.cambia
 // Obtener estadísticas (ADMIN)
 router.get('/estadisticas', isAuthenticated, pedidosController.obtenerEstadisticas);
 
+// Obtener pedidos del cliente (CLIENTE)
+router.get('/mis-compras', isAuthenticated, pedidosController.obtenerMisCompras);
+
+// Obtener detalle de un pedido del cliente (CLIENTE)
+router.get('/mis-compras/:pedidoId', isAuthenticated, pedidosController.obtenerDetalleCompra);
+
 module.exports = router;

@@ -276,6 +276,96 @@ class PedidosService {
       throw new Error('Error al obtener estadísticas');
     }
   }
+
+  // Obtener compras del cliente
+  async obtenerComprasCliente(usuarioId, estado = null) {
+    try {
+      const where = {
+        usuarioId: parseInt(usuarioId)
+      };
+
+      if (estado) {
+        where.estado = estado;
+      }
+
+      const compras = await prisma.pedido.findMany({
+        where,
+        include: {
+          vendedor: {
+            select: {
+              id: true,
+              username: true,
+              nombre: true,
+              apellido: true
+            }
+          },
+          items: {
+            include: {
+              producto: {
+                select: {
+                  id: true,
+                  nombre: true,
+                  precio: true,
+                  imagen: true
+                }
+              }
+            }
+          }
+        },
+        orderBy: {
+          createdAt: 'desc'
+        }
+      });
+
+      return compras;
+    } catch (error) {
+      console.error('Error al obtener compras del cliente:', error);
+      throw new Error('Error al obtener compras');
+    }
+  }
+
+  // Obtener detalle de una compra del cliente
+  async obtenerDetalleCompraCliente(pedidoId, usuarioId) {
+    try {
+      const compra = await prisma.pedido.findFirst({
+        where: {
+          id: pedidoId,
+          usuarioId: parseInt(usuarioId)
+        },
+        include: {
+          vendedor: {
+            select: {
+              id: true,
+              username: true,
+              nombre: true,
+              apellido: true,
+              email: true,
+              telefono: true
+            }
+          },
+          items: {
+            include: {
+              producto: {
+                select: {
+                  id: true,
+                  nombre: true,
+                  descripcion: true,
+                  precio: true,
+                  imagen: true,
+                  categoria: true
+                }
+              }
+            }
+          }
+        }
+      });
+
+      return compra;
+    } catch (error) {
+      console.error('Error al obtener detalle de compra:', error);
+      throw new Error('Error al obtener detalle de compra');
+    }
+  }
 }
 
 module.exports = new PedidosService();

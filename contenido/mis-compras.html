@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Compras - Crispy Chips</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <link rel="stylesheet" href="../css/principal.css">
+  <link rel="stylesheet" href="../css/icons.css">
+  <link rel="stylesheet" href="../css/auth-modal.css">
+  <link rel="stylesheet" href="../css/mis-compras.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="encabezado">
+    <div class="header-container">
+      <!-- Botón hamburguesa para sidebar -->
+      <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú lateral">
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+        <span class="hamburger"></span>
+      </button>
+      
+      <div class="logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      
+      <div class="search-container">
+        <input type="search" class="buscar" placeholder="Buscar productos..." aria-label="Buscar productos">
+        <span class="search-icon"><i data-lucide="search" class="lucide"></i></span>
+      </div>
+      
+      <!-- Menú de navegación -->
+      <nav class="menu" id="menu" role="navigation">
+        <a href="../contenido/index.html">Inicio</a>
+        <a href="../contenido/productos.html">Productos</a>
+        <a href="../contenido/contacto.html">Contacto</a>
+        <a href="../contenido/informacion.html">Información</a>
+      </nav>
+      
+      <!-- Iconos de carrito y notificaciones (solo visibles para CLIENTE) -->
+      <div class="header-icons cliente-only" id="header-icons" style="display: none;">
+        <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
+          <i data-lucide="bell" class="lucide icon-white"></i>
+          <span class="badge" id="notif-badge">0</span>
+        </button>
+        <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
+          <i data-lucide="shopping-cart" class="lucide icon-white"></i>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+      </div>
+      
+      <div class="user-section">
+        <button class="btn-login" id="btn-login-nav">
+          <span class="user-icon"><i data-lucide="user" class="lucide"></i></span>
+          <span class="user-text">Usuario</span>
+        </button>
+        
+        <!-- Dropdown de usuario -->
+        <div class="user-dropdown" id="userDropdown">
+          <div class="dropdown-header">
+            <div class="user-avatar user-icon"><i data-lucide="user" class="lucide"></i></div>
+            <div class="user-info">
+              <span class="user-name" id="userName">Usuario</span>
+              <span class="user-email" id="userEmail">usuario@email.com</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a href="perfil.html" class="dropdown-item">
+            <span class="item-icon user-icon-small"><i data-lucide="user" class="lucide"></i></span>
+            Ver Perfil
+          </a>
+          <a href="mis-compras.html" class="dropdown-item cliente-only" style="display: none;">
+            <span class="item-icon"><i data-lucide="shopping-bag" class="lucide"></i></span>
+            Mis Compras
+          </a>
+          <a href="#" class="dropdown-item" id="btnCerrarSesion">
+            Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="logo-text">CRISPY CHIPS</span>
+      </div>
+      <button class="sidebar-close" id="sidebar-close" aria-label="Cerrar menú">
+        <span>&times;</span>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="../contenido/index.html" class="sidebar-item">
+        <span class="sidebar-icon"><i data-lucide="home" class="lucide"></i></span>
+        <span class="sidebar-text">Inicio</span>
+      </a>
+      <a href="../contenido/productos.html" class="sidebar-item">
+        <span class="sidebar-icon"><i data-lucide="shopping-bag" class="lucide"></i></span>
+        <span class="sidebar-text">Productos</span>
+      </a>
+      
+      <!-- Opciones solo para ADMIN -->
+      <div class="admin-only" style="display: none;">
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Administración</div>
+        <a href="../contenido/mis-ventas.html" class="sidebar-item">
+          <span class="sidebar-icon"><i data-lucide="dollar-sign" class="lucide"></i></span>
+          <span class="sidebar-text">Mis Ventas</span>
+        </a>
+        <a href="../contenido/mis-productos.html" class="sidebar-item">
+          <span class="sidebar-icon"><i data-lucide="package" class="lucide"></i></span>
+          <span class="sidebar-text">Mis Productos</span>
+        </a>
+        <a href="../contenido/usuarios.html" class="sidebar-item">
+          <span class="sidebar-icon"><i data-lucide="users" class="lucide"></i></span>
+          <span class="sidebar-text">Usuarios</span>
+        </a>
+      </div>
+
+      <!-- Opciones solo para CLIENTE -->
+      <div class="cliente-only" style="display: none;">
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Mi Cuenta</div>
+        <a href="../contenido/mis-compras.html" class="sidebar-item active">
+          <span class="sidebar-icon"><i data-lucide="shopping-bag" class="lucide"></i></span>
+          <span class="sidebar-text">Mis Compras</span>
+        </a>
+      </div>
+      
+      <div class="sidebar-divider"></div>
+      <a href="../contenido/contacto.html" class="sidebar-item">
+        <span class="sidebar-icon"><i data-lucide="phone" class="lucide"></i></span>
+        <span class="sidebar-text">Contacto</span>
+      </a>
+      <a href="../contenido/informacion.html" class="sidebar-item">
+        <span class="sidebar-icon"><i data-lucide="info" class="lucide"></i></span>
+        <span class="sidebar-text">Información</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Overlay para cerrar sidebar en mobile -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <!-- Header de Página -->
+    <div class="page-header">
+      <div class="header-content">
+        <h1 class="page-title">
+          <span class="icon-title"><i data-lucide="shopping-bag" class="lucide"></i></span>
+          Mis Compras
+        </h1>
+        <p class="page-subtitle">Revisa el historial y estado de tus pedidos</p>
+      </div>
+    </div>
+
+    <!-- Filtros y búsqueda -->
+    <div class="filters-section">
+      <div class="search-box">
+        <input type="search" id="searchInput" placeholder="Buscar por ID de pedido..." class="input-search">
+        <span class="search-icon"><i data-lucide="search" class="lucide"></i></span>
+      </div>
+      
+      <div class="filters">
+        <select id="filtro-estado" class="filter-select">
+          <option value="">Todos los estados</option>
+          <option value="PENDIENTE">Pendiente</option>
+          <option value="ACEPTADO">Aceptado</option>
+          <option value="EN_CAMINO">En Camino</option>
+          <option value="ENTREGADO">Entregado</option>
+          <option value="CANCELADO">Cancelado</option>
+        </select>
+        
+        <button id="btnClearFilters" class="btn-clear-filters">
+          <i data-lucide="x" class="lucide"></i>
+          Limpiar filtros
+        </button>
+      </div>
+    </div>
+
+    <!-- Estado de carga -->
+    <div id="loading-state" class="loading-state" style="display: none;">
+      <div class="spinner"></div>
+      <p>Cargando compras...</p>
+    </div>
+
+    <!-- Estado vacío -->
+    <div id="empty-state" class="empty-state" style="display: none;">
+      <div class="empty-icon"><i data-lucide="shopping-bag" class="lucide"></i></div>
+      <h2>No tienes compras realizadas</h2>
+      <p>Explora nuestros productos y realiza tu primera compra</p>
+      <a href="../contenido/productos.html" class="btn-primary">
+        <i data-lucide="shopping-cart" class="lucide"></i>
+        Ver Productos
+      </a>
+    </div>
+
+    <!-- Estadísticas -->
+    <div id="statsSection" class="stats-section" style="display: none;">
+      <div class="stat-card">
+        <div class="stat-icon"><i data-lucide="shopping-bag" class="lucide"></i></div>
+        <div class="stat-info">
+          <span class="stat-value" id="totalCompras">0</span>
+          <span class="stat-label">Total Compras</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon"><i data-lucide="clock" class="lucide"></i></div>
+        <div class="stat-info">
+          <span class="stat-value" id="comprasPendientes">0</span>
+          <span class="stat-label">Pendientes</span>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon"><i data-lucide="check-circle" class="lucide"></i></div>
+        <div class="stat-info">
+          <span class="stat-value" id="comprasEntregadas">0</span>
+          <span class="stat-label">Entregadas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de compras -->
+    <div id="compras-list" class="compras-grid"></div>
+  </main>
+
+  <!-- Modal de Detalle -->
+  <div id="modal-detalle" class="modal-detalle" style="display: none;">
+    <div class="modal-content-detalle">
+      <div class="modal-header-detalle">
+        <h2><i data-lucide="file-text" class="lucide"></i> Detalle de la Compra</h2>
+        <button id="close-modal" class="close-btn" aria-label="Cerrar modal">
+          <i data-lucide="x" class="lucide"></i>
+        </button>
+      </div>
+      <div id="modal-body" class="modal-body-detalle"></div>
+    </div>
+  </div>
+
+<script src="../javascript/mis-compras.js"></script>
+  <script src="../javascript/header-search.js"></script>
+  <script src="../javascript/auth-modal.js"></script>
+  
+  <script>
+    // Inicializar Lucide Icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

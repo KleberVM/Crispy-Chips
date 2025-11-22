@@ -93,10 +93,15 @@ btnCerrarSesion?.addEventListener('click', async (e) => {
       // 3. Limpiar sessionStorage (por si acaso)
       sessionStorage.clear();
       
-      // 4. Cerrar dropdown
+      // 4. Limpiar notificaciones
+      if (typeof limpiarNotificaciones === 'function') {
+        limpiarNotificaciones();
+      }
+      
+      // 5. Cerrar dropdown
       userDropdown?.classList.remove('active');
       
-      // 5. Mostrar notificación
+      // 6. Mostrar notificación
       showToast('Sesión cerrada exitosamente', 'success');
       
       // 6. Redirigir a la página principal
@@ -333,6 +338,8 @@ registerForm?.addEventListener('submit', async (e) => {
       // Guardar usuario
       localStorage.setItem('username', username);
       localStorage.setItem('userEmail', email);
+      // Los nuevos usuarios son CLIENTE por defecto
+      localStorage.setItem('userRol', 'CLIENTE');
       
       // Actualizar UI
       updateUserUI();
@@ -482,6 +489,17 @@ async function updateUserUI() {
         actualizarContadorCarrito();
       }, 300);
     }
+    
+    // Inicializar notificaciones después del login
+    setTimeout(() => {
+      console.log('🔔 Intentando inicializar notificaciones desde updateUserUI...');
+      if (typeof inicializarNotificaciones === 'function') {
+        console.log('✅ Función inicializarNotificaciones encontrada, llamando...');
+        inicializarNotificaciones();
+      } else {
+        console.warn('⚠️ Función inicializarNotificaciones no disponible');
+      }
+    }, 300);
   } else {
     // Usuario no logueado
     document.body.classList.remove('logged-in');
