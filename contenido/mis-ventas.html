@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../css/principal.css">
   <link rel="stylesheet" href="../css/mis-ventas.css">
   <link rel="stylesheet" href="../css/auth-modal.css">
+  <link rel="stylesheet" href="../css/modal-estado.css">
   <link rel="stylesheet" href="../css/notificaciones.css">
   <link rel="stylesheet" href="../css/icons.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +31,7 @@
       
       <div class="search-container">
         <input type="search" class="buscar" placeholder="Buscar productos..." aria-label="Buscar productos">
-        <span class="search-icon">🔍</span>
+        
       </div>
       
       <!-- Menú de navegación -->
@@ -182,7 +183,7 @@
       <!-- Header de Ventas -->
       <div class="ventas-header">
         <div class="header-content">
-          <div class="header-icon"><i data-lucide="dollar-sign" class="lucide icon-xl icon-primary"></i></div>
+          
           <div class="header-text">
             <h2>Mis Ventas</h2>
             <p>Gestiona tus pedidos y comprobantes de pago</p>
@@ -297,6 +298,38 @@
       <p>&copy; 2024 Crispy Chips. Todos los derechos reservados.</p>
     </div>
   </footer>
+
+  <!-- Modal de Cambio de Estado -->
+  <div class="modal-estado-overlay" id="modalEstado">
+    <div class="modal-estado-container">
+      <div class="modal-estado-header">
+        <h3>Cambiar Estado del Pedido</h3>
+        <button class="modal-estado-close" id="btnCerrarModalEstado" aria-label="Cerrar">
+          &times;
+        </button>
+      </div>
+      
+      <div class="estado-actual">
+        <div class="estado-actual-label">Estado Actual</div>
+        <div class="estado-actual-valor" id="estadoActualText">PENDIENTE</div>
+      </div>
+      
+      <div class="estados-opciones" id="estadosOpciones">
+        <!-- Se generarán dinámicamente -->
+      </div>
+      
+      <div class="modal-estado-footer">
+        <button class="btn-modal-estado btn-modal-cancelar" id="btnCancelarEstado">
+          Cancelar
+        </button>
+        <button class="btn-modal-estado btn-modal-confirmar" id="btnConfirmarEstado" disabled>
+          <i data-lucide="check" class="lucide"></i>
+          Confirmar Cambio
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="../javascript/mis-ventas.js"></script>
   <script src="../javascript/menu.js"></script>
   <script src="../javascript/header-search.js"></script>

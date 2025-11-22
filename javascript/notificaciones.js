@@ -6,6 +6,36 @@ let notificacionesData = [];
 let intervalId = null;
 
 // ========================================
+// CREAR DROPDOWN DE NOTIFICACIONES
+// ========================================
+function crearDropdownNotificaciones() {
+  const dropdown = document.createElement('div');
+  dropdown.className = 'notifications-dropdown';
+  dropdown.id = 'notifications-dropdown';
+  dropdown.innerHTML = `
+    <div class="notifications-header">
+      <h3>Notificaciones</h3>
+      <button class="btn-mark-all-read" id="btn-mark-all-read">Marcar todas</button>
+    </div>
+    <div class="notifications-list" id="notifications-list">
+      <div class="notification-loading">
+        Cargando notificaciones...
+      </div>
+    </div>
+  `;
+  
+  // Insertar después del header
+  const header = document.querySelector('.encabezado');
+  if (header) {
+    header.parentNode.insertBefore(dropdown, header.nextSibling);
+  } else {
+    document.body.appendChild(dropdown);
+  }
+  
+  return dropdown;
+}
+
+// ========================================
 // INICIALIZAR NOTIFICACIONES
 // ========================================
 function inicializarNotificaciones() {
@@ -19,10 +49,17 @@ function inicializarNotificaciones() {
     ? document.getElementById('btn-notifications-admin')
     : document.getElementById('btn-notifications');
   
-  const notificationsDropdown = document.getElementById('notifications-dropdown');
+  if (!btnNotifications) return;
+  
+  // Crear dropdown si no existe
+  let notificationsDropdown = document.getElementById('notifications-dropdown');
+  if (!notificationsDropdown) {
+    notificationsDropdown = crearDropdownNotificaciones();
+  }
+  
   const btnMarkAllRead = document.getElementById('btn-mark-all-read');
   
-  if (!btnNotifications || !notificationsDropdown) return;
+  if (!notificationsDropdown) return;
   
   // Toggle dropdown
   btnNotifications.addEventListener('click', (e) => {
@@ -119,10 +156,18 @@ function crearNotificacionElement(notif) {
   
   const tiempoAtras = calcularTiempoAtras(notif.createdAt);
   
-  const icono = notif.tipo === 'NUEVA_VENTA' ? '🛒' : '';
+  // Mapeo de iconos según el tipo de notificación
+  const iconos = {
+    'NUEVA_VENTA': 'shopping-cart',
+    'ESTADO_PEDIDO': 'package'
+  };
+  
+  const iconoNombre = iconos[notif.tipo] || 'bell';
   
   div.innerHTML = `
-    <div class="notification-icon">${icono}</div>
+    <div class="notification-icon">
+      <i data-lucide="${iconoNombre}" class="lucide"></i>
+    </div>
     <div class="notification-content">
       <h4 class="notification-title">${notif.titulo}</h4>
       <p class="notification-message">${notif.mensaje}</p>
@@ -137,11 +182,28 @@ function crearNotificacionElement(notif) {
       marcarComoLeida(notif.id);
     }
     
-    // Si tiene pedidoId, redirigir a mis ventas
+    // Redirigir según el rol y tipo de notificación
     if (notif.pedidoId) {
-      window.location.href = '../contenido/mis-ventas.html';
+      const userRol = localStorage.getItem('userRol');
+      
+      // Solo admins pueden acceder a Mis Ventas
+      if (userRol === 'ADMIN') {
+        window.location.href = '../contenido/mis-ventas.html';
+      } else {
+        // Para clientes, solo cerrar el dropdown
+        // En el futuro, aquí se puede redirigir a "Mis Pedidos" cuando exista
+        const dropdown = document.getElementById('notifications-dropdown');
+        if (dropdown) {
+          dropdown.classList.remove('active');
+        }
+      }
     }
   });
+  
+  // Inicializar iconos de Lucide para esta notificación
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons({ nameAttr: 'data-lucide' });
+  }
   
   return div;
 }

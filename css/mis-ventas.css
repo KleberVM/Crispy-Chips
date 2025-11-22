@@ -339,6 +339,11 @@ body {
   color: #856404;
 }
 
+.estado-aceptado {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
 .estado-procesando {
   background: #cfe2ff;
   color: #084298;

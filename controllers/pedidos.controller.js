@@ -96,17 +96,32 @@ class PedidosController {
   // Cambiar estado del pedido
   async cambiarEstado(req, res) {
     try {
+      console.log('Controller - req.user:', req.user);
+      console.log('Controller - req.params:', req.params);
+      console.log('Controller - req.body:', req.body);
+      
       const vendedorId = req.user.id;
       const { pedidoId } = req.params;
       const { estado } = req.body;
 
+      console.log('Controller - vendedorId:', vendedorId, 'tipo:', typeof vendedorId);
+      console.log('Controller - pedidoId:', pedidoId, 'tipo:', typeof pedidoId);
+      console.log('Controller - estado:', estado);
+
+      // Validar que pedidoId sea válido
+      const pedidoIdInt = parseInt(pedidoId);
+      if (isNaN(pedidoIdInt)) {
+        return res.status(400).json({ message: 'ID de pedido inválido' });
+      }
+
       // Validar estado
-      const estadosValidos = ['PENDIENTE', 'PROCESANDO', 'ENVIADO', 'ENTREGADO', 'CANCELADO'];
+      const estadosValidos = ['PENDIENTE', 'ACEPTADO', 'PROCESANDO', 'ENVIADO', 'ENTREGADO', 'CANCELADO'];
       if (!estadosValidos.includes(estado)) {
         return res.status(400).json({ message: 'Estado inválido' });
       }
 
-      const pedido = await pedidosService.cambiarEstado(parseInt(pedidoId), vendedorId, estado);
+      console.log('Controller - Llamando a cambiarEstado con:', pedidoIdInt, vendedorId, estado);
+      const pedido = await pedidosService.cambiarEstado(pedidoIdInt, vendedorId, estado);
 
       res.json({
         message: 'Estado actualizado correctamente',
@@ -114,7 +129,7 @@ class PedidosController {
       });
 
     } catch (error) {
-      console.error('Error al cambiar estado:', error);
+      console.error('Error al cambiar estado (Controller):', error);
       res.status(500).json({ message: error.message });
     }
   }

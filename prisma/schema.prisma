@@ -155,6 +155,7 @@ model ItemCarrito {
 // Enum para estado de pedido
 enum EstadoPedido {
   PENDIENTE
+  ACEPTADO
   PROCESANDO
   ENVIADO
   ENTREGADO

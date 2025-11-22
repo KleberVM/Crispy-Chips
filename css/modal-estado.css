@@ -1,0 +1,271 @@
+/* ========================================
+   MODAL DE CAMBIO DE ESTADO
+======================================== */
+
+.modal-estado-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-estado-overlay.active {
+  display: flex;
+}
+
+.modal-estado-container {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+  position: relative;
+}
+
+.modal-estado-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-estado-header h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.modal-estado-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-light);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.modal-estado-close:hover {
+  background: #f0f0f0;
+  color: var(--text-dark);
+}
+
+.estado-actual {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+.estado-actual-label {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.estado-actual-valor {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.estados-opciones {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.estado-option {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.estado-option:hover {
+  border-color: var(--primary-color);
+  background: #fff8f0;
+  transform: translateX(4px);
+}
+
+.estado-option.selected {
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, #fff8f0 0%, #fff 100%);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
+}
+
+.estado-option input[type="radio"] {
+  margin-right: 1rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--primary-color);
+}
+
+.estado-option-content {
+  flex: 1;
+}
+
+.estado-option-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.25rem;
+}
+
+.estado-option-desc {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.estado-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+}
+
+.estado-icon .lucide {
+  width: 20px;
+  height: 20px;
+}
+
+.estado-option.pendiente .estado-icon {
+  background: #fff3cd;
+}
+
+.estado-option.aceptado .estado-icon {
+  background: #d1ecf1;
+}
+
+.estado-option.procesando .estado-icon {
+  background: #cfe2ff;
+}
+
+.estado-option.enviado .estado-icon {
+  background: #e2e3e5;
+}
+
+.estado-option.entregado .estado-icon {
+  background: #d1e7dd;
+}
+
+.estado-option.cancelado .estado-icon {
+  background: #f8d7da;
+}
+
+.modal-estado-footer {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.btn-modal-estado {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-modal-cancelar {
+  background: #f8f9fa;
+  color: var(--text-dark);
+}
+
+.btn-modal-cancelar:hover {
+  background: #e9ecef;
+}
+
+.btn-modal-confirmar {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-modal-confirmar:hover {
+  background: #e65a2e;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.btn-modal-confirmar:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .modal-estado-container {
+    width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .modal-estado-header h3 {
+    font-size: 1.25rem;
+  }
+  
+  .estado-option {
+    padding: 0.875rem 1rem;
+  }
+  
+  .estado-option-label {
+    font-size: 0.95rem;
+  }
+  
+  .estado-option-desc {
+    font-size: 0.8rem;
+  }
+}

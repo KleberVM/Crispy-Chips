@@ -163,11 +163,23 @@ class PedidosService {
   // Cambiar estado del pedido
   async cambiarEstado(pedidoId, vendedorId, nuevoEstado) {
     try {
+      console.log('Cambiando estado - pedidoId:', pedidoId, 'tipo:', typeof pedidoId);
+      console.log('Cambiando estado - vendedorId:', vendedorId, 'tipo:', typeof vendedorId);
+      console.log('Cambiando estado - nuevoEstado:', nuevoEstado);
+      
+      // Asegurar que sean enteros
+      const pedidoIdInt = parseInt(pedidoId);
+      const vendedorIdInt = parseInt(vendedorId);
+      
+      if (isNaN(pedidoIdInt) || isNaN(vendedorIdInt)) {
+        throw new Error('IDs inválidos');
+      }
+      
       // Verificar que el pedido pertenece al vendedor
       const pedido = await prisma.pedido.findFirst({
         where: {
-          id: pedidoId,
-          vendedorId: vendedorId
+          id: pedidoIdInt,
+          vendedorId: vendedorIdInt
         }
       });
 
@@ -177,17 +189,60 @@ class PedidosService {
 
       // Actualizar estado
       const pedidoActualizado = await prisma.pedido.update({
-        where: { id: pedidoId },
+        where: { id: pedidoIdInt },
         data: { estado: nuevoEstado },
         include: {
           usuario: {
             select: {
+              id: true,
               username: true,
               email: true
             }
           }
         }
       });
+
+      // Enviar notificación al cliente si el estado cambió (excepto PENDIENTE)
+      if (nuevoEstado !== 'PENDIENTE') {
+        const mensajes = {
+          'ACEPTADO': {
+            titulo: 'Pedido Aceptado',
+            mensaje: `Tu pedido #${pedidoIdInt} ha sido aceptado y será procesado pronto.`
+          },
+          'PROCESANDO': {
+            titulo: 'Pedido en Proceso',
+            mensaje: `Tu pedido #${pedidoIdInt} está siendo preparado para el envío.`
+          },
+          'ENVIADO': {
+            titulo: 'Pedido Enviado',
+            mensaje: `Tu pedido #${pedidoIdInt} está en camino. ¡Pronto lo recibirás!`
+          },
+          'ENTREGADO': {
+            titulo: 'Pedido Entregado',
+            mensaje: `Tu pedido #${pedidoIdInt} ha sido entregado exitosamente. ¡Gracias por tu compra!`
+          },
+          'CANCELADO': {
+            titulo: 'Pedido Cancelado',
+            mensaje: `Tu pedido #${pedidoIdInt} ha sido cancelado. Si tienes dudas, contáctanos.`
+          }
+        };
+
+        const notifData = mensajes[nuevoEstado];
+        
+        if (notifData) {
+          await prisma.notificacion.create({
+            data: {
+              usuarioId: pedidoActualizado.usuario.id,
+              tipo: 'ESTADO_PEDIDO',
+              titulo: notifData.titulo,
+              mensaje: notifData.mensaje,
+              pedidoId: pedidoId
+            }
+          });
+          
+          console.log(`📬 Notificación enviada al usuario ${pedidoActualizado.usuario.username} sobre pedido #${pedidoId}`);
+        }
+      }
 
       return pedidoActualizado;
     } catch (error) {

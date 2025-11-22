@@ -4,23 +4,23 @@ Plataforma de e-commerce para venta de productos con autenticación por correo e
 
 ## 🚀 Características
 
-- ✅ **Autenticación completa** con Passport.js
-- ✅ **Verificación por correo electrónico**
-- ✅ **Recuperación de contraseña**
-- ✅ **Gestión de productos** con categorías y detalles
-- ✅ **Carrito de compras** para usuarios autenticados e invitados
-- ✅ **Sistema de pedidos** con cálculo de impuestos y envío
-- ✅ **Base de datos robusta** con Prisma ORM
-- ✅ **Control de stock** automático
-- ✅ **Roles de usuario** (Admin, Empleado, Cliente)
+-  **Autenticación completa** con Passport.js
+-  **Verificación por correo electrónico**
+-  **Recuperación de contraseña**
+-  **Gestión de productos** con categorías y detalles
+-  **Carrito de compras** para usuarios autenticados e invitados
+-  **Sistema de pedidos** con cálculo de impuestos y envío
+-  **Base de datos robusta** con Prisma ORM
+-  **Control de stock** automático
+-  **Roles de usuario** (Admin, Empleado, Cliente)
 
-## 📋 Requisitos Previos
+## Requisitos Previos
 
 - Node.js (v16 o superior)
 - MySQL (v5.7 o superior)
 - npm o yarn
 
-## 🛠️ Instalación
+## Instalación
 
 ### 1. Clonar o descargar el proyecto
 
@@ -96,7 +96,7 @@ Esto creará:
 - 8 productos de ejemplo
 - Detalles de productos
 
-## 🎯 Uso
+## Uso
 
 ### Iniciar el servidor
 
@@ -122,7 +122,7 @@ El servidor estará disponible en: http://localhost:3000
 | `npm run prisma:studio` | Abre Prisma Studio (GUI para la BD) |
 | `npm run prisma:seed` | Pobla la BD con datos de ejemplo |
 
-## 📚 Estructura de la Base de Datos
+## Estructura de la Base de Datos
 
 ### Modelos principales:
 
@@ -136,7 +136,7 @@ El servidor estará disponible en: http://localhost:3000
 - **Pedido**: Órdenes de compra
 - **ItemPedido**: Productos en el pedido
 
-## 🔐 API Endpoints
+## API Endpoints
 
 ### Autenticación
 
@@ -166,7 +166,7 @@ El servidor estará disponible en: http://localhost:3000
 - `POST /pedidos` - Crear nuevo pedido (requiere autenticación)
 - `GET /mis-pedidos` - Obtener pedidos del usuario (requiere autenticación)
 
-## 🔧 Prisma Studio
+## Prisma Studio
 
 Para visualizar y editar los datos de forma gráfica:
 
@@ -176,7 +176,7 @@ npm run prisma:studio
 
 Abre automáticamente una interfaz web en http://localhost:5555
 
-## 📝 Notas Importantes
+## Notas Importantes
 
 ### Seguridad
 
@@ -203,7 +203,7 @@ En producción, asegúrate de:
 5. Implementar rate limiting
 6. Agregar logging profesional
 
-## 🐛 Solución de Problemas
+## Solución de Problemas
 
 ### Error de conexión a MySQL
 
@@ -234,7 +234,7 @@ Si usas Gmail, asegúrate de usar una "Contraseña de Aplicación" y no tu contr
 - [ ] Dashboard de estadísticas
 - [ ] Notificaciones push
 
-## 👥 Contribuir
+## Contribuir
 
 Las contribuciones son bienvenidas. Por favor:
 1. Haz fork del proyecto
@@ -243,7 +243,7 @@ Las contribuciones son bienvenidas. Por favor:
 4. Push a la rama
 5. Abre un Pull Request
 
-## 📄 Licencia
+## Licencia
 
 ISC
 

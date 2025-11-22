@@ -128,6 +128,9 @@ function renderizarVentas() {
 // CREAR CARD DE VENTA
 // ========================================
 function crearVentaCard(pedido) {
+  console.log('📦 crearVentaCard - pedido:', pedido);
+  console.log('📦 crearVentaCard - pedido.id:', pedido.id);
+  
   const div = document.createElement('div');
   div.className = 'venta-card';
   
@@ -146,6 +149,7 @@ function crearVentaCard(pedido) {
   const estadoClass = `estado-${pedido.estado.toLowerCase()}`;
   const estadoTexto = {
     'PENDIENTE': 'Pendiente',
+    'ACEPTADO': 'Aceptado',
     'PROCESANDO': 'Procesando',
     'ENVIADO': 'Enviado',
     'ENTREGADO': 'Entregado',
@@ -339,42 +343,131 @@ async function mostrarDetallePedido(pedidoId) {
 }
 
 // ========================================
-// CAMBIAR ESTADO DEL PEDIDO
+// CAMBIAR ESTADO DEL PEDIDO CON MODAL
 // ========================================
+let pedidoIdActual = null;
+
 function cambiarEstadoPedido(pedidoId, estadoActual) {
+  console.log('🔵 cambiarEstadoPedido llamado con:');
+  console.log('  - pedidoId recibido:', pedidoId, 'tipo:', typeof pedidoId);
+  console.log('  - estadoActual recibido:', estadoActual, 'tipo:', typeof estadoActual);
+  
+  pedidoIdActual = pedidoId;
+  console.log('  - pedidoIdActual establecido:', pedidoIdActual);
+  
   const estados = [
-    { value: 'PENDIENTE', label: 'Pendiente' },
-    { value: 'PROCESANDO', label: 'Procesando' },
-    { value: 'ENVIADO', label: 'Enviado' },
-    { value: 'ENTREGADO', label: 'Entregado' },
-    { value: 'CANCELADO', label: 'Cancelado' }
+    { value: 'PENDIENTE', label: 'Pendiente', desc: 'El pedido está en espera de ser procesado', icon: 'clock', class: 'pendiente' },
+    { value: 'ACEPTADO', label: 'Aceptado', desc: 'El pedido ha sido confirmado y aceptado', icon: 'check-circle', class: 'aceptado' },
+    { value: 'PROCESANDO', label: 'Procesando', desc: 'El pedido está siendo preparado', icon: 'package', class: 'procesando' },
+    { value: 'ENVIADO', label: 'Enviado', desc: 'El pedido está en camino', icon: 'truck', class: 'enviado' },
+    { value: 'ENTREGADO', label: 'Entregado', desc: 'El pedido ha sido entregado exitosamente', icon: 'check', class: 'entregado' },
+    { value: 'CANCELADO', label: 'Cancelado', desc: 'El pedido ha sido cancelado', icon: 'x-circle', class: 'cancelado' }
   ];
   
-  const opciones = estados
+  // Mostrar modal
+  const modal = document.getElementById('modalEstado');
+  const estadoActualText = document.getElementById('estadoActualText');
+  const estadosOpciones = document.getElementById('estadosOpciones');
+  const btnConfirmar = document.getElementById('btnConfirmarEstado');
+  
+  estadoActualText.textContent = estadoActual;
+  btnConfirmar.disabled = true;
+  
+  // Generar opciones (excluyendo el estado actual)
+  estadosOpciones.innerHTML = '';
+  estados
     .filter(e => e.value !== estadoActual)
-    .map((e, i) => `${i + 1}. ${e.label}`)
-    .join('\n');
+    .forEach(estado => {
+      const option = document.createElement('div');
+      option.className = `estado-option ${estado.class}`;
+      option.innerHTML = `
+        <input type="radio" name="nuevoEstado" value="${estado.value}" id="estado-${estado.value}">
+        <div class="estado-option-content">
+          <div class="estado-option-label">${estado.label}</div>
+          <div class="estado-option-desc">${estado.desc}</div>
+        </div>
+        <div class="estado-icon">
+          <i data-lucide="${estado.icon}" class="lucide"></i>
+        </div>
+      `;
+      
+      const radio = option.querySelector('input[type="radio"]');
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.estado-option').forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        btnConfirmar.disabled = false;
+      });
+      
+      option.addEventListener('click', (e) => {
+        if (e.target !== radio) {
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change'));
+        }
+      });
+      
+      estadosOpciones.appendChild(option);
+    });
   
-  const seleccion = prompt(`Estado actual: ${estadoActual}\n\nSelecciona el nuevo estado:\n${opciones}\n\nIngresa el número:`);
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
   
-  if (!seleccion) return;
-  
-  const indice = parseInt(seleccion) - 1;
-  const estadosFiltrados = estados.filter(e => e.value !== estadoActual);
-  
-  if (indice < 0 || indice >= estadosFiltrados.length) {
-    alert('Selección inválida');
-    return;
+  // Reinicializar iconos de Lucide
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
   }
-  
-  const nuevoEstado = estadosFiltrados[indice].value;
-  
-  confirmarCambioEstado(pedidoId, nuevoEstado);
 }
+
+// Inicializar botones del modal
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('modalEstado');
+  const btnCerrar = document.getElementById('btnCerrarModalEstado');
+  const btnCancelar = document.getElementById('btnCancelarEstado');
+  const btnConfirmar = document.getElementById('btnConfirmarEstado');
+  
+  const cerrarModal = () => {
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    pedidoIdActual = null;
+  };
+  
+  btnCerrar?.addEventListener('click', cerrarModal);
+  btnCancelar?.addEventListener('click', cerrarModal);
+  
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      cerrarModal();
+    }
+  });
+  
+  btnConfirmar?.addEventListener('click', () => {
+    const radioSeleccionado = document.querySelector('input[name="nuevoEstado"]:checked');
+    if (radioSeleccionado && pedidoIdActual) {
+      const nuevoEstado = radioSeleccionado.value;
+      const pedidoId = pedidoIdActual; // Guardar antes de cerrar el modal
+      cerrarModal();
+      confirmarCambioEstado(pedidoId, nuevoEstado);
+    }
+  });
+});
 
 async function confirmarCambioEstado(pedidoId, nuevoEstado) {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/pedidos/ventas/${pedidoId}/estado`, {
+    console.log('Frontend - Confirmando cambio de estado...');
+    console.log('Frontend - pedidoId:', pedidoId, 'tipo:', typeof pedidoId);
+    console.log('Frontend - nuevoEstado:', nuevoEstado);
+    
+    // Asegurar que pedidoId sea un número
+    const pedidoIdNumber = parseInt(pedidoId);
+    if (isNaN(pedidoIdNumber)) {
+      throw new Error('ID de pedido inválido');
+    }
+    
+    console.log('Frontend - pedidoIdNumber:', pedidoIdNumber, 'tipo:', typeof pedidoIdNumber);
+    
+    const url = `${API_BASE_URL}/api/pedidos/ventas/${pedidoIdNumber}/estado`;
+    console.log('Frontend - URL:', url);
+    
+    const response = await fetch(url, {
       method: 'PUT',
       credentials: 'include',
       headers: {
@@ -383,16 +476,22 @@ async function confirmarCambioEstado(pedidoId, nuevoEstado) {
       body: JSON.stringify({ estado: nuevoEstado })
     });
     
+    console.log('Frontend - Response status:', response.status);
+    
     if (!response.ok) {
-      throw new Error('Error al cambiar estado');
+      const errorData = await response.json().catch(() => ({ message: 'Error desconocido' }));
+      console.error('Error del servidor:', errorData);
+      throw new Error(errorData.message || 'Error al cambiar estado');
     }
     
+    const data = await response.json();
+    console.log('Estado actualizado exitosamente:', data);
     alert('Estado actualizado correctamente');
     cargarVentas();
     
   } catch (error) {
-    console.error('Error:', error);
-    alert('Error al cambiar el estado');
+    console.error('Error completo:', error);
+    alert('Error al cambiar el estado: ' + error.message);
   }
 }
 

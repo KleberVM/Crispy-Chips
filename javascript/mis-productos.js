@@ -177,13 +177,13 @@ function renderizarProductos() {
         
         <div class="producto-acciones">
           <button class="btn-accion btn-editar" onclick="editarProducto(${producto.id})">
-            ✏️ Editar
+             Editar
           </button>
           <button class="btn-accion btn-imagen" onclick="subirImagen(${producto.id})">
-            📷 Imagen
+             Imagen
           </button>
           <button class="btn-accion btn-eliminar" onclick="confirmarEliminar(${producto.id})">
-            🗑️ Eliminar
+             Eliminar
           </button>
         </div>
       </div>

@@ -151,12 +151,24 @@ const togglePasswordBtns = document.querySelectorAll('.toggle-password');
 togglePasswordBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const input = btn.previousElementSibling;
+    const icon = btn.querySelector('i[data-lucide]');
+    
     if (input.type === 'password') {
       input.type = 'text';
-      btn.textContent = '🙈';
+      if (icon) {
+        icon.setAttribute('data-lucide', 'eye-off');
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      }
     } else {
       input.type = 'password';
-      btn.textContent = '👁️';
+      if (icon) {
+        icon.setAttribute('data-lucide', 'eye');
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      }
     }
   });
 });

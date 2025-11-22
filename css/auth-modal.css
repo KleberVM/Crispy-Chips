@@ -349,14 +349,26 @@
   right: 1rem;
   background: none;
   border: none;
-  font-size: 1.3rem;
   cursor: pointer;
   padding: 0.5rem;
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-password .lucide {
+  width: 20px;
+  height: 20px;
+  color: var(--text-light);
 }
 
 .toggle-password:hover {
   transform: scale(1.1);
+}
+
+.toggle-password:hover .lucide {
+  color: var(--primary-color);
 }
 
 /* Password Strength */
