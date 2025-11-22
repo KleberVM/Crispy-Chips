@@ -17,19 +17,31 @@ function crearDropdownNotificaciones() {
       <h3>Notificaciones</h3>
       <button class="btn-mark-all-read" id="btn-mark-all-read">Marcar todas</button>
     </div>
-    <div class="notifications-list" id="notifications-list">
-      <div class="notification-loading">
-        Cargando notificaciones...
+    <div class="notifications-body" id="notifications-body">
+      <div class="notifications-empty">
+        <div class="notifications-empty-icon"><i data-lucide="bell" class="lucide icon-lg icon-light"></i></div>
+        <p>No tienes notificaciones</p>
       </div>
     </div>
   `;
   
-  // Insertar después del header
-  const header = document.querySelector('.encabezado');
-  if (header) {
-    header.parentNode.insertBefore(dropdown, header.nextSibling);
+  // Insertar dentro del header container, al final
+  const headerContainer = document.querySelector('.header-container');
+  if (headerContainer) {
+    headerContainer.appendChild(dropdown);
   } else {
-    document.body.appendChild(dropdown);
+    // Fallback: insertar después del header
+    const header = document.querySelector('.encabezado');
+    if (header) {
+      header.parentNode.insertBefore(dropdown, header.nextSibling);
+    } else {
+      document.body.appendChild(dropdown);
+    }
+  }
+  
+  // Inicializar iconos de Lucide para el dropdown
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
   }
   
   return dropdown;

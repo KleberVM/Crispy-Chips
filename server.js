@@ -49,8 +49,8 @@ app.use(passport.session());
 // ========================================
 
 prisma.$connect()
-  .then(() => console.log("✅ Conectado a MySQL con Prisma"))
-  .catch(err => console.error("❌ Error de conexión:", err));
+  .then(() => console.log("Conectado a MySQL con Prisma"))
+  .catch(err => console.error(" Error de conexión:", err));
 
 // ========================================
 // RUTAS
