@@ -8,10 +8,12 @@
   <title>Mi Carrito - Crispy Chips</title>
   <link rel="stylesheet" href="../css/compra.css">
   <link rel="stylesheet" href="../css/principal.css">
+  <link rel="stylesheet" href="../css/icons.css">
   <link rel="stylesheet" href="../css/auth-modal.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <!-- Header con navegación -->
@@ -30,7 +32,7 @@
       
       <div class="search-container">
         <input type="search" class="buscar" id="searchInput" placeholder="Buscar productos..." aria-label="Buscar productos">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon"><i data-lucide="search" class="lucide"></i></span>
       </div>
       
       <!-- Menú de navegación (oculto cuando hay sesión) -->
@@ -44,26 +46,34 @@
       <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión y NO es ADMIN) -->
       <div class="header-icons cliente-only" id="header-icons" style="display: none;">
         <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
-          <span class="icon">🔔</span>
-          <span class="badge">3</span>
+          <i data-lucide="bell" class="lucide icon-white"></i>
+          <span class="badge" id="notif-badge">0</span>
         </button>
         <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
-          <span class="icon">🛒</span>
+          <i data-lucide="shopping-cart" class="lucide icon-white"></i>
           <span class="badge" id="cartCount">0</span>
+        </button>
+      </div>
+
+      <!-- Iconos para ADMIN (solo notificaciones) -->
+      <div class="header-icons admin-only" id="header-icons-admin" style="display: none;">
+        <button class="icon-btn" id="btn-notifications-admin" aria-label="Notificaciones">
+          <i data-lucide="bell" class="lucide icon-white"></i>
+          <span class="badge" id="notif-badge-admin">0</span>
         </button>
       </div>
       
       <!-- Botón de Login / Usuario -->
       <div class="user-section">
         <button class="btn-login" id="btn-login-nav">
-          <span class="user-icon">👤</span>
+          <span class="user-icon"><i data-lucide="user" class="lucide"></i></span>
           <span class="user-text">Iniciar Sesión</span>
         </button>
         
         <!-- Dropdown de usuario (oculto por defecto) -->
         <div class="user-dropdown" id="userDropdown">
           <div class="dropdown-header">
-            <div class="user-avatar user-icon">👤</div>
+            <div class="user-avatar user-icon"><i data-lucide="user" class="lucide"></i></div>
             <div class="user-info">
               <span class="user-name" id="userName">Usuario</span>
               <span class="user-email" id="userEmail">usuario@email.com</span>
@@ -71,11 +81,11 @@
           </div>
           <div class="dropdown-divider"></div>
           <a href="../contenido/perfil.html" class="dropdown-item" id="btnPerfil">
-            <span class="item-icon user-icon-small">👤</span>
+            <span class="item-icon user-icon-small"><i data-lucide="user" class="lucide"></i></span>
             Ver Perfil
           </a>
           <a href="#" class="dropdown-item" id="btnCerrarSesion">
-            <span class="item-icon">🚪</span>
+            <span class="item-icon"><i data-lucide="log-out" class="lucide"></i></span>
             Cerrar Sesión
           </a>
         </div>
@@ -94,75 +104,73 @@
       </button>
     </div>
     
-    <div class="sidebar-user">
-      <div class="sidebar-user-icon">👤</div>
-      <div class="sidebar-user-info">
-        <span class="sidebar-user-name" id="sidebar-username">Usuario</span>
-        <span class="sidebar-user-role" id="sidebar-role">Cliente</span>
-      </div>
-    </div>
-    
     <nav class="sidebar-nav">
       <a href="../contenido/principal.html" class="sidebar-item">
-        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-icon"><i data-lucide="home" class="lucide"></i></span>
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
-        <span class="sidebar-icon">🛍️</span>
+        <span class="sidebar-icon"><i data-lucide="shopping-bag" class="lucide"></i></span>
         <span class="sidebar-text">Productos</span>
       </a>
-      <a href="../contenido/perfil.html" class="sidebar-item">
-        <span class="sidebar-icon">👤</span>
-        <span class="sidebar-text">Mi Perfil</span>
-      </a>
-      <a href="../contenido/compra.html" class="sidebar-item active">
-        <span class="sidebar-icon">🛒</span>
-        <span class="sidebar-text">Mi Carrito</span>
-      </a>
       
-      <!-- Sección Admin (oculta para clientes) -->
-      <div class="sidebar-section admin-only" style="display: none;">
-        <div class="sidebar-section-title">Administración</div>
+      <!-- Opciones solo para ADMIN -->
+      <div class="admin-only" style="display: none;">
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-title">Panel de Administración</div>
         <a href="../contenido/mis-productos.html" class="sidebar-item">
-          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-icon"><i data-lucide="package" class="lucide"></i></span>
           <span class="sidebar-text">Mis Productos</span>
         </a>
         <a href="../contenido/mis-ventas.html" class="sidebar-item">
-          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-icon"><i data-lucide="dollar-sign" class="lucide"></i></span>
           <span class="sidebar-text">Mis Ventas</span>
         </a>
         <a href="../contenido/usuarios.html" class="sidebar-item">
-          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-icon"><i data-lucide="users" class="lucide"></i></span>
           <span class="sidebar-text">Usuarios</span>
         </a>
+        <div class="sidebar-divider"></div>
       </div>
       
       <a href="../contenido/contacto.html" class="sidebar-item">
-        <span class="sidebar-icon">📞</span>
+        <span class="sidebar-icon"><i data-lucide="mail" class="lucide"></i></span>
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item">
-        <span class="sidebar-icon">ℹ️</span>
+        <span class="sidebar-icon"><i data-lucide="info" class="lucide"></i></span>
         <span class="sidebar-text">Información</span>
       </a>
     </nav>
+    
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="user-avatar-sidebar sidebar-user-icon"><i data-lucide="user" class="lucide icon-lg icon-primary"></i></div>
+        <div class="user-info-sidebar">
+          <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
+          <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
+        </div>
+      </div>
+    </div>
   </aside>
+
+  <!-- Overlay para cerrar sidebar en mobile -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <!-- Main Content -->
   <main class="checkout-container">
     <!-- Breadcrumb -->
     <div class="breadcrumb">
-      <a href="../contenido/principal.html" class="breadcrumb-link">🏠 Inicio</a>
+      <a href="../contenido/principal.html" class="breadcrumb-link">Inicio</a>
       <span class="breadcrumb-separator">/</span>
-      <a href="../contenido/productos.html" class="breadcrumb-link">🛍️ Productos</a>
+      <a href="../contenido/productos.html" class="breadcrumb-link">Productos</a>
       <span class="breadcrumb-separator">/</span>
-      <span class="breadcrumb-current">🛒 Mi Carrito</span>
+      <span class="breadcrumb-current">Mi Carrito</span>
     </div>
 
     <!-- Header del Carrito -->
     <div class="checkout-header">
       <h1 class="checkout-title">
-        <span class="title-icon">🛒</span>
         Mi Carrito de Compras
       </h1>
       <p class="checkout-subtitle">Revisa y confirma tu pedido</p>
@@ -176,11 +184,10 @@
 
     <!-- Empty State -->
     <div id="empty-state" class="empty-state" style="display: none;">
-      <div class="empty-icon">🛒</div>
       <h2>Tu carrito está vacío</h2>
       <p>¡Agrega productos para comenzar tu compra!</p>
       <a href="../contenido/productos.html" class="btn-primary">
-        <span class="btn-icon">🛍️</span>
+        <span class="btn-icon"><i data-lucide="shopping-bag" class="lucide"></i></span>
         Ver Productos
       </a>
     </div>
@@ -193,7 +200,6 @@
           <div class="cart-products-header">
             <h2>Productos en tu carrito</h2>
             <button id="btn-clear-cart" class="btn-clear-cart">
-              <span class="btn-icon">🗑️</span>
               Vaciar Carrito
             </button>
           </div>
@@ -206,7 +212,6 @@
         <div class="cart-summary">
           <div class="summary-card">
             <h2 class="summary-title">
-              <span class="title-icon">📝</span>
               Resumen del Pedido
             </h2>
 
@@ -227,14 +232,14 @@
             </div>
 
             <div class="summary-info">
-              <span class="info-icon">ℹ️</span>
+              <span class="info-icon"><i data-lucide="info" class="lucide"></i></span>
               <p>El envío se calcula según la dirección de entrega</p>
             </div>
 
             <!-- Subir Comprobante -->
             <div class="comprobante-upload" id="comprobante-section" style="display: none;">
               <h4 class="comprobante-title">
-                <span>📎</span>
+                <span><i data-lucide="paperclip" class="lucide"></i></span>
                 Subir Comprobante de Pago
               </h4>
               <p class="comprobante-desc">Sube una captura o foto de tu transferencia/pago</p>
@@ -245,7 +250,7 @@
                 hidden
               >
               <label for="comprobante-input" class="btn-upload-comprobante">
-                <span>📤</span>
+                
                 <span id="comprobante-label">Seleccionar Comprobante</span>
               </label>
               <div id="comprobante-preview" class="comprobante-preview" style="display: none;">
@@ -255,12 +260,12 @@
             </div>
 
             <button id="btn-checkout" class="btn-checkout">
-              <span class="btn-icon">💳</span>
+              <span class="btn-icon"><i data-lucide="credit-card" class="lucide"></i></span>
               Proceder al Pago
             </button>
 
             <button id="btn-continue-shopping" class="btn-continue">
-              <span class="btn-icon">🛍️</span>
+              <span class="btn-icon"><i data-lucide="shopping-bag" class="lucide"></i></span>
               Seguir Comprando
             </button>
           </div>
@@ -268,14 +273,13 @@
           <!-- Información Adicional -->
           <div class="info-cards">
             <div class="info-card">
-              <span class="info-card-icon">🚚</span>
               <div class="info-card-content">
                 <h3>Envío Rápido</h3>
                 <p>Entrega en 24-48 horas</p>
               </div>
             </div>
             <div class="info-card">
-              <span class="info-card-icon">🔒</span>
+              <span class="info-card-icon"><i data-lucide="lock" class="lucide"></i></span>
               <div class="info-card-content">
                 <h3>Pago Seguro</h3>
                 <p>Transacciones protegidas</p>
@@ -304,17 +308,17 @@
       <div class="footer-section">
         <h4>Enlaces Rápidos</h4>
         <ul>
-          <li><a href="../contenido/principal.html">🏠 Inicio</a></li>
-          <li><a href="../contenido/productos.html">🛍️ Productos</a></li>
-          <li><a href="../contenido/contacto.html">📞 Contacto</a></li>
-          <li><a href="../contenido/informacion.html">ℹ️ Información</a></li>
+          <li><a href="../contenido/principal.html"><i data-lucide="home" class="lucide"></i> Inicio</a></li>
+          <li><a href="../contenido/productos.html"><i data-lucide="shopping-bag" class="lucide"></i> Productos</a></li>
+          <li><a href="../contenido/contacto.html"><i data-lucide="phone" class="lucide"></i> Contacto</a></li>
+          <li><a href="../contenido/informacion.html"><i data-lucide="info" class="lucide"></i> Información</a></li>
         </ul>
       </div>
       <div class="footer-contact">
         <h4>Contacto</h4>
-        <p>📧 info@crispychips.com</p>
-        <p>📱 +591 123 456 789</p>
-        <p>📍 La Paz, Bolivia</p>
+        <p><i data-lucide="mail" class="lucide"></i> info@crispychips.com</p>
+        <p><i data-lucide="smartphone" class="lucide"></i> +591 123 456 789</p>
+        <p><i data-lucide="map-pin" class="lucide"></i> La Paz, Bolivia</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -323,7 +327,12 @@
   </footer>
 
   <script src="../javascript/menu.js"></script>
+  <script src="../javascript/header-search.js"></script>
   <script src="../javascript/auth-modal.js"></script>
   <script src="../javascript/compra.js"></script>
+  <script>
+    // Inicializar Lucide Icons
+    lucide.createIcons();
+  </script>
 </body>
 </html>

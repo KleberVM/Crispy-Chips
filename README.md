@@ -223,7 +223,7 @@ npm run prisma:generate
 
 Si usas Gmail, asegúrate de usar una "Contraseña de Aplicación" y no tu contraseña normal.
 
-## 📦 Próximas Mejoras
+## Próximas Mejoras
 
 - [ ] Panel de administración
 - [ ] Métodos de pago (Stripe, PayPal)

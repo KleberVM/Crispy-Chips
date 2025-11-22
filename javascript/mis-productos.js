@@ -149,7 +149,7 @@ function renderizarProductos() {
       
       ${producto.imagen 
         ? `<img src="${API_URL}${producto.imagen}" alt="${producto.nombre}" class="producto-imagen">`
-        : `<div class="producto-imagen no-image">📦</div>`
+        : `<div class="producto-imagen no-image"></div>`
       }
       
       <div class="producto-info">

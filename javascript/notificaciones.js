@@ -119,7 +119,7 @@ function crearNotificacionElement(notif) {
   
   const tiempoAtras = calcularTiempoAtras(notif.createdAt);
   
-  const icono = notif.tipo === 'NUEVA_VENTA' ? '🛒' : '📦';
+  const icono = notif.tipo === 'NUEVA_VENTA' ? '🛒' : '';
   
   div.innerHTML = `
     <div class="notification-icon">${icono}</div>

@@ -8,10 +8,10 @@ const isAuthenticated = (req, res, next) => {
   console.log('   - req.session:', req.session);
   
   if (req.isAuthenticated()) {
-    console.log('✅ Usuario autenticado, continuando...');
+    console.log('Usuario autenticado, continuando...');
     return next();
   }
-  console.log('❌ Usuario NO autenticado, devolviendo 401');
+  console.log('Usuario NO autenticado, devolviendo 401');
   res.status(401).json({ message: "No autorizado" });
 };
 

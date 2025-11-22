@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   cargarProductosDestacados();
+  // El contador del carrito se actualiza automáticamente desde auth-modal.js
 });
 
 // ========================================
@@ -202,37 +203,9 @@ function agregarAlCarrito(producto) {
   }
   
   localStorage.setItem('carrito', JSON.stringify(carrito));
-  actualizarContadorCarrito();
-}
-
-// ========================================
-// ACTUALIZAR CONTADOR DE CARRITO
-// ========================================
-async function actualizarContadorCarrito() {
-  try {
-    const response = await fetch('http://localhost:3000/api/carrito', {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    
-    if (response.ok) {
-      const data = await response.json();
-      const totalItems = data.items ? data.items.reduce((sum, item) => sum + item.cantidad, 0) : 0;
-      
-      const cartCount = document.getElementById('cartCount');
-      if (cartCount) {
-        cartCount.textContent = totalItems;
-      }
-    }
-  } catch (error) {
-    console.log('Error al actualizar contador del carrito:', error);
-    const cartCount = document.getElementById('cartCount');
-    if (cartCount) {
-      cartCount.textContent = '0';
-    }
+  // La función actualizarContadorCarrito() está definida en auth-modal.js (global)
+  if (typeof actualizarContadorCarrito === 'function') {
+    actualizarContadorCarrito();
   }
 }
 

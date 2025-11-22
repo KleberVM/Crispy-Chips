@@ -9,9 +9,11 @@
   <link rel="stylesheet" href="../css/mis-ventas.css">
   <link rel="stylesheet" href="../css/auth-modal.css">
   <link rel="stylesheet" href="../css/notificaciones.css">
+  <link rel="stylesheet" href="../css/icons.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <!-- Header con navegación -->
@@ -42,19 +44,19 @@
       <!-- Iconos de carrito y notificaciones (solo visibles para CLIENTE) -->
       <div class="header-icons cliente-only" id="header-icons" style="display: none;">
         <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
-          <img src="../imgs/icon/campana.svg" alt="Notificaciones" class="icon">
+          <i data-lucide="bell" class="lucide icon-white"></i>
           <span class="badge" id="notif-badge">0</span>
         </button>
         <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
-          <img src="../imgs/icon/shopping-cart.svg" alt="Carrito de compras" class="icon">
-          <span class="badge">0</span>
+          <i data-lucide="shopping-cart" class="lucide icon-white"></i>
+          <span class="badge" id="cartCount">0</span>
         </button>
       </div>
 
       <!-- Iconos para ADMIN (solo notificaciones) -->
       <div class="header-icons admin-only" id="header-icons-admin" style="display: none;">
         <button class="icon-btn" id="btn-notifications-admin" aria-label="Notificaciones">
-          <img src="../imgs/icon/campana.svg" alt="Notificaciones" class="icon">
+          <i data-lucide="bell" class="lucide icon-white"></i>
           <span class="badge" id="notif-badge-admin">0</span>
         </button>
       </div>
@@ -67,7 +69,7 @@
         </div>
         <div class="notifications-body" id="notifications-body">
           <div class="notifications-empty">
-            <div class="notifications-empty-icon">🔔</div>
+            <div class="notifications-empty-icon"><i data-lucide="bell" class="lucide icon-lg icon-light"></i></div>
             <p>No tienes notificaciones</p>
           </div>
         </div>
@@ -76,14 +78,14 @@
       <!-- Botón de Login / Usuario -->
       <div class="user-section">
         <button class="btn-login" id="btn-login-nav">
-          <span class="user-icon">👤</span>
+          <span class="user-icon"><i data-lucide="user" class="lucide icon-white"></i></span>
           <span class="user-text">Iniciar Sesión</span>
         </button>
         
         <!-- Dropdown de usuario (oculto por defecto) -->
         <div class="user-dropdown" id="userDropdown">
           <div class="dropdown-header">
-            <div class="user-avatar user-icon">👤</div>
+            <div class="user-avatar user-icon"><i data-lucide="user" class="lucide icon-lg icon-primary"></i></div>
             <div class="user-info">
               <span class="user-name" id="userName">Usuario</span>
               <span class="user-email" id="userEmail">usuario@email.com</span>
@@ -91,11 +93,11 @@
           </div>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item" id="btnPerfil">
-            <span class="item-icon user-icon-small">👤</span>
+            <span class="item-icon user-icon-small"><i data-lucide="user" class="lucide icon-sm"></i></span>
             Ver Perfil
           </a>
           <a href="#" class="dropdown-item" id="btnCerrarSesion">
-            <span class="item-icon">🚪</span>
+            <span class="item-icon"><i data-lucide="log-out" class="lucide icon-sm"></i></span>
             Cerrar Sesión
           </a>
         </div>
@@ -116,11 +118,11 @@
     
     <nav class="sidebar-nav">
       <a href="../contenido/principal.html" class="sidebar-item">
-        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-icon"><i data-lucide="home" class="lucide"></i></span>
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
-        <span class="sidebar-icon">🛍️</span>
+        <span class="sidebar-icon"><i data-lucide="shopping-bag" class="lucide"></i></span>
         <span class="sidebar-text">Productos</span>
       </a>
       
@@ -129,33 +131,33 @@
         <div class="sidebar-divider"></div>
         <div class="sidebar-section-title">Panel de Administración</div>
         <a href="../contenido/mis-productos.html" class="sidebar-item">
-          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-icon"><i data-lucide="package" class="lucide"></i></span>
           <span class="sidebar-text">Mis Productos</span>
         </a>
         <a href="../contenido/mis-ventas.html" class="sidebar-item active">
-          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-icon"><i data-lucide="dollar-sign" class="lucide"></i></span>
           <span class="sidebar-text">Mis Ventas</span>
         </a>
         <a href="../contenido/usuarios.html" class="sidebar-item">
-          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-icon"><i data-lucide="users" class="lucide"></i></span>
           <span class="sidebar-text">Usuarios</span>
         </a>
         <div class="sidebar-divider"></div>
       </div>
       
       <a href="../contenido/contacto.html" class="sidebar-item">
-        <span class="sidebar-icon">📧</span>
+        <span class="sidebar-icon"><i data-lucide="mail" class="lucide"></i></span>
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item">
-        <span class="sidebar-icon">ℹ️</span>
+        <span class="sidebar-icon"><i data-lucide="info" class="lucide"></i></span>
         <span class="sidebar-text">Información</span>
       </a>
     </nav>
     
     <div class="sidebar-footer">
       <div class="sidebar-user">
-        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-avatar-sidebar sidebar-user-icon"><i data-lucide="user" class="lucide icon-lg icon-primary"></i></div>
         <div class="user-info-sidebar">
           <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
           <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
@@ -172,15 +174,15 @@
     <div class="ventas-container">
       <!-- Breadcrumb -->
       <nav class="breadcrumb">
-        <a href="../contenido/principal.html">🏠 Inicio</a>
+        <a href="../contenido/principal.html"><i data-lucide="home" class="lucide icon-sm"></i> Inicio</a>
         <span class="separator">›</span>
-        <span class="current">💰 Mis Ventas</span>
+        <span class="current"><i data-lucide="dollar-sign" class="lucide icon-sm"></i> Mis Ventas</span>
       </nav>
 
       <!-- Header de Ventas -->
       <div class="ventas-header">
         <div class="header-content">
-          <div class="header-icon">💰</div>
+          <div class="header-icon"><i data-lucide="dollar-sign" class="lucide icon-xl icon-primary"></i></div>
           <div class="header-text">
             <h2>Mis Ventas</h2>
             <p>Gestiona tus pedidos y comprobantes de pago</p>
@@ -189,21 +191,21 @@
         
         <div class="header-stats">
           <div class="stat-card">
-            <span class="stat-icon">📦</span>
+            <span class="stat-icon"><i data-lucide="package" class="lucide icon-md icon-white"></i></span>
             <div class="stat-info">
               <p class="stat-label">Total Pedidos</p>
               <p class="stat-value" id="total-pedidos">0</p>
             </div>
           </div>
           <div class="stat-card">
-            <span class="stat-icon">⏳</span>
+            <span class="stat-icon"><i data-lucide="clock" class="lucide icon-md icon-white"></i></span>
             <div class="stat-info">
               <p class="stat-label">Pendientes</p>
               <p class="stat-value" id="total-pendientes">0</p>
             </div>
           </div>
           <div class="stat-card">
-            <span class="stat-icon">✅</span>
+            <span class="stat-icon"><i data-lucide="check-circle" class="lucide icon-md icon-white"></i></span>
             <div class="stat-info">
               <p class="stat-label">Completados</p>
               <p class="stat-value" id="total-completados">0</p>
@@ -226,7 +228,7 @@
           </select>
         </div>
         <button class="btn-refresh" id="btn-refresh">
-          <span>🔄</span>
+          <i data-lucide="refresh-cw" class="lucide icon-sm"></i>
           Actualizar
         </button>
       </div>
@@ -241,7 +243,7 @@
 
         <!-- Estado: Sin ventas -->
         <div class="estado-empty" id="empty-state" style="display: none;">
-          <div class="empty-icon">📭</div>
+          <div class="empty-icon"><i data-lucide="inbox" class="lucide icon-xl icon-light"></i></div>
           <h3>No hay ventas todavía</h3>
           <p>Cuando tus clientes realicen compras, aparecerán aquí</p>
         </div>
@@ -286,9 +288,9 @@
       </div>
       <div class="footer-contact">
         <h4>Contacto</h4>
-        <p>📧 info@crispychips.com</p>
-        <p>📱 +591 123 456 789</p>
-        <p>📍 La Paz, Bolivia</p>
+        <p><i data-lucide="mail" class="lucide icon-sm icon-light"></i> info@crispychips.com</p>
+        <p><i data-lucide="phone" class="lucide icon-sm icon-light"></i> +591 123 456 789</p>
+        <p><i data-lucide="map-pin" class="lucide icon-sm icon-light"></i> La Paz, Bolivia</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -297,8 +299,12 @@
   </footer>
   <script src="../javascript/mis-ventas.js"></script>
   <script src="../javascript/menu.js"></script>
+  <script src="../javascript/header-search.js"></script>
   <script src="../javascript/auth-modal.js"></script>
   <script src="../javascript/notificaciones.js"></script>
-  
+  <script>
+    // Inicializar Lucide Icons
+    lucide.createIcons();
+  </script>
 </body>
 </html>

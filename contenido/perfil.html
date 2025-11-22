@@ -9,9 +9,11 @@
   <link rel="stylesheet" href="../css/perfil.css">
   <link rel="stylesheet" href="../css/principal.css">
   <link rel="stylesheet" href="../css/auth-modal.css">
+  <link rel="stylesheet" href="../css/icons.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <!-- Header con navegación -->
@@ -44,26 +46,34 @@
       <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión y NO es ADMIN) -->
       <div class="header-icons cliente-only" id="header-icons" style="display: none;">
         <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
-          <span class="icon">🔔</span>
-          <span class="badge">3</span>
+          <i data-lucide="bell" class="lucide icon-white"></i>
+          <span class="badge" id="notif-badge">0</span>
         </button>
         <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
-          <span class="icon">🛒</span>
-          <span class="badge">0</span>
+          <i data-lucide="shopping-cart" class="lucide icon-white"></i>
+          <span class="badge" id="cartCount">0</span>
+        </button>
+      </div>
+
+      <!-- Iconos para ADMIN (solo notificaciones) -->
+      <div class="header-icons admin-only" id="header-icons-admin" style="display: none;">
+        <button class="icon-btn" id="btn-notifications-admin" aria-label="Notificaciones">
+          <i data-lucide="bell" class="lucide icon-white"></i>
+          <span class="badge" id="notif-badge-admin">0</span>
         </button>
       </div>
       
       <!-- Botón de Login / Usuario -->
       <div class="user-section">
         <button class="btn-login" id="btn-login-nav">
-          <span class="user-icon">👤</span>
+          <span class="user-icon"><i data-lucide="user" class="lucide icon-white"></i></span>
           <span class="user-text">Iniciar Sesión</span>
         </button>
         
         <!-- Dropdown de usuario (oculto por defecto) -->
         <div class="user-dropdown" id="userDropdown">
           <div class="dropdown-header">
-            <div class="user-avatar user-icon">👤</div>
+            <div class="user-avatar user-icon"><i data-lucide="user" class="lucide icon-lg icon-primary"></i></div>
             <div class="user-info">
               <span class="user-name" id="userName">Usuario</span>
               <span class="user-email" id="userEmail">usuario@email.com</span>
@@ -71,11 +81,11 @@
           </div>
           <div class="dropdown-divider"></div>
           <a href="../contenido/perfil.html" class="dropdown-item" id="btnPerfil">
-            <span class="item-icon user-icon-small">👤</span>
+            <span class="item-icon user-icon-small"><i data-lucide="user" class="lucide icon-sm"></i></span>
             Ver Perfil
           </a>
           <a href="#" class="dropdown-item" id="btnCerrarSesion">
-            <span class="item-icon">🚪</span>
+            <span class="item-icon"><i data-lucide="log-out" class="lucide icon-sm"></i></span>
             Cerrar Sesión
           </a>
         </div>
@@ -96,11 +106,11 @@
     
     <nav class="sidebar-nav">
       <a href="../contenido/principal.html" class="sidebar-item">
-        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-icon"><i data-lucide="home" class="lucide"></i></span>
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
-        <span class="sidebar-icon">🛍️</span>
+        <span class="sidebar-icon"><i data-lucide="shopping-bag" class="lucide"></i></span>
         <span class="sidebar-text">Productos</span>
       </a>
       
@@ -109,33 +119,33 @@
         <div class="sidebar-divider"></div>
         <div class="sidebar-section-title">Panel de Administración</div>
         <a href="../contenido/mis-productos.html" class="sidebar-item">
-          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-icon"><i data-lucide="package" class="lucide"></i></span>
           <span class="sidebar-text">Mis Productos</span>
         </a>
         <a href="../contenido/mis-ventas.html" class="sidebar-item">
-          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-icon"><i data-lucide="dollar-sign" class="lucide"></i></span>
           <span class="sidebar-text">Mis Ventas</span>
         </a>
         <a href="../contenido/usuarios.html" class="sidebar-item">
-          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-icon"><i data-lucide="users" class="lucide"></i></span>
           <span class="sidebar-text">Usuarios</span>
         </a>
         <div class="sidebar-divider"></div>
       </div>
       
       <a href="../contenido/contacto.html" class="sidebar-item">
-        <span class="sidebar-icon">📧</span>
+        <span class="sidebar-icon"><i data-lucide="mail" class="lucide"></i></span>
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item">
-        <span class="sidebar-icon">ℹ️</span>
+        <span class="sidebar-icon"><i data-lucide="info" class="lucide"></i></span>
         <span class="sidebar-text">Información</span>
       </a>
     </nav>
     
     <div class="sidebar-footer">
       <div class="sidebar-user">
-        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-avatar-sidebar sidebar-user-icon"><i data-lucide="user" class="lucide icon-lg icon-primary"></i></div>
         <div class="user-info-sidebar">
           <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
           <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
@@ -157,7 +167,7 @@
           <!-- Usuario con foto -->
           <div class="profile-sidebar-user">
             <div class="profile-sidebar-avatar" id="profile-sidebar-avatar">
-              👤
+              <i data-lucide="user" class="lucide icon-xl icon-light"></i>
             </div>
             <div class="profile-sidebar-info">
               <p class="profile-sidebar-name" id="profile-sidebar-name">Usuario</p>
@@ -276,7 +286,7 @@
               <div class="photo-preview">
                 <div class="photo-circle" id="photo-preview">
                   <img src="" alt="Foto de perfil" id="photo-img" style="display: none;">
-                  <span class="photo-placeholder">👤</span>
+                  <span class="photo-placeholder"><i data-lucide="user" class="lucide icon-xl icon-light"></i></span>
                 </div>
                 <div class="photo-info">
                   <p class="photo-name" id="photo-name">Usuario</p>
@@ -325,7 +335,7 @@
               <div class="photo-preview">
                 <div class="qr-preview" id="qr-preview">
                   <img src="" alt="QR de Pago" id="qr-img" style="display: none;">
-                  <span class="qr-placeholder">📱</span>
+                  <span class="qr-placeholder"><i data-lucide="qr-code" class="lucide icon-xl icon-light"></i></span>
                 </div>
                 <div class="photo-info">
                   <p class="photo-name">Tu QR de Pago</p>
@@ -342,7 +352,7 @@
                     hidden
                   >
                   <label for="qr-input" class="btn-upload">
-                    <span class="upload-icon">📱</span>
+                    <span class="upload-icon"><i data-lucide="qr-code" class="lucide icon-sm"></i></span>
                     <span class="upload-text">Seleccionar QR</span>
                   </label>
                   <p class="upload-hint">JPG, PNG. Máximo 5MB</p>
@@ -520,7 +530,7 @@
         <form id="loginForm" class="auth-form" novalidate>
           <div class="form-group">
             <label for="login-username">
-              <span class="icon">👤</span>
+              <span class="icon"><i data-lucide="user" class="lucide icon-sm icon-light"></i></span>
               Correo o Usuario
             </label>
             <input 
@@ -536,7 +546,7 @@
 
           <div class="form-group">
             <label for="login-password">
-              <span class="icon">🔒</span>
+              <span class="icon"><i data-lucide="lock" class="lucide icon-sm icon-light"></i></span>
               Contraseña
             </label>
             <div class="password-wrapper">
@@ -692,7 +702,12 @@
   </div>
 
   <script src="../javascript/menu.js"></script>
+  <script src="../javascript/header-search.js"></script>
   <script src="../javascript/auth-modal.js"></script>
   <script src="../javascript/perfil.js"></script>
+  <script>
+    // Inicializar Lucide Icons
+    lucide.createIcons();
+  </script>
 </body>
 </html>

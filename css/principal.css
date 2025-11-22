@@ -1087,6 +1087,34 @@ a {
   display: none;
 }
 
+/* Reglas para ocultar elementos según el rol */
+body.logged-in.admin-user .cliente-only {
+  display: none !important;
+}
+
+body.logged-in.admin-user .admin-only {
+  display: block !important;
+}
+
+body.logged-in.admin-user .header-icons.admin-only {
+  display: flex !important;
+}
+
+body.logged-in.cliente-user .admin-only {
+  display: none !important;
+}
+
+body.logged-in.cliente-user .cliente-only {
+  display: block !important;
+}
+
+/* Header icons debe usar flex para alineación horizontal */
+body.logged-in.cliente-user .header-icons.cliente-only {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
 /* Fix: Asegurar que admin-only en sidebar sea block, no flex */
 .sidebar .admin-only {
   display: block !important;
@@ -1239,6 +1267,9 @@ a {
   border-radius: 10px;
   min-width: 20px;
   text-align: center;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* Ajustes cuando hay sesión iniciada */

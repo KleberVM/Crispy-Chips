@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editar Producto - Crispy Chips</title>
   <link rel="stylesheet" href="../css/principal.css">
+  <link rel="stylesheet" href="../css/icons.css">
   <link rel="stylesheet" href="../css/auth-modal.css">
   <link rel="stylesheet" href="../css/crear-producto.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <!-- Header -->
@@ -28,7 +30,7 @@
       
       <div class="search-container">
         <input type="search" class="buscar" placeholder="Buscar productos..." aria-label="Buscar productos">
-        <span class="search-icon">🔍</span>
+        <span class="search-icon"><i data-lucide="search" class="lucide"></i></span>
       </div>
       
       <!-- Menú de navegación (oculto cuando hay sesión) -->
@@ -42,25 +44,25 @@
       <!-- Iconos de carrito y notificaciones (solo visibles cuando hay sesión y NO es ADMIN) -->
       <div class="header-icons cliente-only" id="header-icons" style="display: none;">
         <button class="icon-btn" id="btn-notifications" aria-label="Notificaciones">
-          <img src="../imgs/icon/campana.svg" alt="Notificaciones" class="icon">
-          <span class="badge">3</span>
+          <i data-lucide="bell" class="lucide icon-white"></i>
+          <span class="badge" id="notif-badge">0</span>
         </button>
         <button class="icon-btn" id="btn-cart" aria-label="Carrito de compras">
-          <img src="../imgs/icon/shopping-cart.svg" alt="Carrito de compras" class="icon">
-          <span class="badge">0</span>
+          <i data-lucide="shopping-cart" class="lucide icon-white"></i>
+          <span class="badge" id="cartCount">0</span>
         </button>
       </div>
       
       <div class="user-section">
         <button class="btn-login" id="btn-login-nav">
-          <span class="user-icon">👤</span>
+          <span class="user-icon"><i data-lucide="user" class="lucide"></i></span>
           <span class="user-text">Admin</span>
         </button>
         
         <!-- Dropdown de usuario (oculto por defecto) -->
         <div class="user-dropdown" id="userDropdown">
           <div class="dropdown-header">
-            <div class="user-avatar user-icon">👤</div>
+            <div class="user-avatar user-icon"><i data-lucide="user" class="lucide"></i></div>
             <div class="user-info">
               <span class="user-name" id="userName">Usuario</span>
               <span class="user-email" id="userEmail">usuario@email.com</span>
@@ -68,11 +70,11 @@
           </div>
           <div class="dropdown-divider"></div>
           <a href="../contenido/perfil.html" class="dropdown-item" id="btnPerfil">
-            <span class="item-icon user-icon-small">👤</span>
+            <span class="item-icon user-icon-small"><i data-lucide="user" class="lucide"></i></span>
             Ver Perfil
           </a>
           <a href="#" class="dropdown-item" id="btnCerrarSesion">
-            <span class="item-icon">🚪</span>
+            <span class="item-icon"><i data-lucide="log-out" class="lucide"></i></span>
             Cerrar Sesión
           </a>
         </div>
@@ -93,11 +95,11 @@
     
     <nav class="sidebar-nav">
       <a href="../contenido/principal.html" class="sidebar-item">
-        <span class="sidebar-icon">🏠</span>
+        <span class="sidebar-icon"><i data-lucide="home" class="lucide"></i></span>
         <span class="sidebar-text">Inicio</span>
       </a>
       <a href="../contenido/productos.html" class="sidebar-item">
-        <span class="sidebar-icon">🛍️</span>
+        <span class="sidebar-icon"><i data-lucide="shopping-bag" class="lucide"></i></span>
         <span class="sidebar-text">Productos</span>
       </a>
       
@@ -106,33 +108,33 @@
         <div class="sidebar-divider"></div>
         <div class="sidebar-section-title">Panel de Administración</div>
         <a href="../contenido/mis-productos.html" class="sidebar-item">
-          <span class="sidebar-icon">📦</span>
+          <span class="sidebar-icon"><i data-lucide="package" class="lucide"></i></span>
           <span class="sidebar-text">Mis Productos</span>
         </a>
         <a href="../contenido/mis-ventas.html" class="sidebar-item">
-          <span class="sidebar-icon">💰</span>
+          <span class="sidebar-icon"><i data-lucide="dollar-sign" class="lucide"></i></span>
           <span class="sidebar-text">Mis Ventas</span>
         </a>
         <a href="../contenido/usuarios.html" class="sidebar-item">
-          <span class="sidebar-icon">👥</span>
+          <span class="sidebar-icon"><i data-lucide="users" class="lucide"></i></span>
           <span class="sidebar-text">Usuarios</span>
         </a>
         <div class="sidebar-divider"></div>
       </div>
       
       <a href="../contenido/contacto.html" class="sidebar-item">
-        <span class="sidebar-icon">📧</span>
+        <span class="sidebar-icon"><i data-lucide="mail" class="lucide"></i></span>
         <span class="sidebar-text">Contacto</span>
       </a>
       <a href="../contenido/informacion.html" class="sidebar-item">
-        <span class="sidebar-icon">ℹ️</span>
+        <span class="sidebar-icon"><i data-lucide="info" class="lucide"></i></span>
         <span class="sidebar-text">Información</span>
       </a>
     </nav>
     
     <div class="sidebar-footer">
       <div class="sidebar-user">
-        <div class="user-avatar-sidebar sidebar-user-icon">👤</div>
+        <div class="user-avatar-sidebar sidebar-user-icon"><i data-lucide="user" class="lucide"></i></div>
         <div class="user-info-sidebar">
           <span class="user-name-sidebar" id="sidebarUserName">Usuario</span>
           <span class="user-email-sidebar" id="sidebarUserEmail">usuario@email.com</span>
@@ -153,7 +155,7 @@
           ← Volver a mis productos
         </a>
         <h1 class="form-title">
-          <span class="icon-title">✏️</span>
+          <span class="icon-title"><i data-lucide="edit" class="lucide"></i></span>
           Editar Producto
         </h1>
         <p class="form-subtitle">Modifica la información de tu producto</p>
@@ -222,7 +224,7 @@
 
         <!-- Precio y stock -->
         <div class="form-section">
-          <h2 class="section-title">💰 Precio y Stock</h2>
+          <h2 class="section-title"><i data-lucide="dollar-sign" class="lucide"></i> Precio y Stock</h2>
           
           <div class="form-row">
             <div class="form-group">
@@ -265,13 +267,13 @@
 
         <!-- Opciones adicionales -->
         <div class="form-section">
-          <h2 class="section-title">⚙️ Opciones Adicionales</h2>
+          <h2 class="section-title"><i data-lucide="settings" class="lucide"></i> Opciones Adicionales</h2>
           
           <div class="form-group">
             <label class="checkbox-label">
               <input type="checkbox" id="destacado" name="destacado" class="form-checkbox">
               <span class="checkbox-text">
-                <strong>⭐ Producto Destacado</strong>
+                <strong><i data-lucide="star" class="lucide"></i> Producto Destacado</strong>
                 <span class="checkbox-hint">Se mostrará en la sección de destacados</span>
               </span>
             </label>
@@ -281,7 +283,7 @@
             <label class="checkbox-label">
               <input type="checkbox" id="activo" name="activo" class="form-checkbox" checked>
               <span class="checkbox-text">
-                <strong>✅ Producto Activo</strong>
+                <strong><i data-lucide="check-circle" class="lucide"></i> Producto Activo</strong>
                 <span class="checkbox-hint">Visible para los clientes</span>
               </span>
             </label>
@@ -290,7 +292,7 @@
 
         <!-- Imagen del producto -->
         <div class="form-section">
-          <h2 class="section-title">📷 Imagen del Producto</h2>
+          <h2 class="section-title"><i data-lucide="camera" class="lucide"></i> Imagen del Producto</h2>
           
           <div class="form-group">
             <label class="form-label">
@@ -298,7 +300,7 @@
             </label>
             <div class="upload-area" id="uploadArea">
               <div class="upload-content">
-                <div class="upload-icon">📷</div>
+                <div class="upload-icon"><i data-lucide="camera" class="lucide"></i></div>
                 <p class="upload-text">Haz clic o arrastra una imagen aquí</p>
                 <p class="upload-hint">PNG, JPG o GIF (máx. 5MB)</p>
               </div>
@@ -334,7 +336,7 @@
 
       <!-- Mensaje de éxito -->
       <div id="successMessage" class="success-message" style="display: none;">
-        <div class="success-icon">✅</div>
+        <div class="success-icon"><i data-lucide="check-circle" class="lucide"></i></div>
         <h3>¡Producto actualizado exitosamente!</h3>
         <p>Los cambios se han guardado correctamente.</p>
         <div class="success-actions">
@@ -344,7 +346,12 @@
     </div>
   </main>
 
+  <script src="../javascript/header-search.js"></script>
   <script src="../javascript/auth-modal.js"></script>
   <script src="../javascript/editar-producto.js"></script>
+  <script>
+    // Inicializar Lucide Icons
+    lucide.createIcons();
+  </script>
 </body>
 </html>

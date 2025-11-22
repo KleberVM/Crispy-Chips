@@ -1,0 +1,233 @@
+/* ========================================
+   ICONOS - ESTILOS GLOBALES
+   ======================================== */
+
+/* Estilos base para iconos Lucide */
+.lucide {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Tamaños de iconos */
+.icon-xs {
+  width: 14px;
+  height: 14px;
+}
+
+.icon-sm {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-md {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-lg {
+  width: 32px;
+  height: 32px;
+}
+
+.icon-xl {
+  width: 48px;
+  height: 48px;
+}
+
+/* Colores de iconos según contexto */
+.icon-primary {
+  stroke: #C62828;
+  color: #C62828;
+}
+
+.icon-secondary {
+  stroke: #FF6F00;
+  color: #FF6F00;
+}
+
+.icon-white {
+  stroke: white;
+  color: white;
+}
+
+.icon-dark {
+  stroke: #2C3E50;
+  color: #2C3E50;
+}
+
+.icon-light {
+  stroke: #7F8C8D;
+  color: #7F8C8D;
+}
+
+.icon-success {
+  stroke: #27AE60;
+  color: #27AE60;
+}
+
+.icon-warning {
+  stroke: #F39C12;
+  color: #F39C12;
+}
+
+.icon-danger {
+  stroke: #E74C3C;
+  color: #E74C3C;
+}
+
+.icon-info {
+  stroke: #3498DB;
+  color: #3498DB;
+}
+
+/* Iconos en sidebar */
+.sidebar-icon .lucide {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.75rem;
+  stroke: #7F8C8D;
+  transition: all 0.3s ease;
+}
+
+.sidebar-item:hover .sidebar-icon .lucide,
+.sidebar-item.active .sidebar-icon .lucide {
+  stroke: #C62828;
+}
+
+/* Iconos en header */
+.header-icon .lucide {
+  width: 22px;
+  height: 22px;
+  stroke: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-icon:hover .lucide {
+  stroke: #FFD700;
+  transform: scale(1.1);
+}
+
+/* Iconos en breadcrumb */
+.breadcrumb .lucide {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.3rem;
+  vertical-align: text-bottom;
+}
+
+/* Iconos en botones */
+.btn .lucide,
+button .lucide {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Iconos en títulos */
+h1 .lucide,
+h2 .lucide,
+h3 .lucide {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+h1 .lucide {
+  width: 32px;
+  height: 32px;
+}
+
+h2 .lucide {
+  width: 28px;
+  height: 28px;
+}
+
+h3 .lucide {
+  width: 24px;
+  height: 24px;
+}
+
+/* Iconos en tarjetas de productos */
+.product-icon .lucide {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+  stroke: #7F8C8D;
+}
+
+/* Iconos en estadísticas */
+.stat-icon .lucide {
+  width: 28px;
+  height: 28px;
+  stroke: white;
+}
+
+/* Iconos en footer */
+.footer-contact .lucide {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.5rem;
+  stroke: #7F8C8D;
+  vertical-align: middle;
+}
+
+/* Iconos en perfil */
+.profile-nav-item .lucide {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+  stroke: #7F8C8D;
+  transition: all 0.3s ease;
+}
+
+.profile-nav-item.active .lucide,
+.profile-nav-item:hover .lucide {
+  stroke: #C62828;
+}
+
+/* Iconos en modal */
+.modal-header .lucide {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
+}
+
+/* Iconos en notificaciones */
+.notification-icon .lucide {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* Animaciones */
+@keyframes icon-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.icon-pulse {
+  animation: icon-pulse 2s ease-in-out infinite;
+}
+
+/* Rotación para iconos de carga */
+@keyframes icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.icon-spin {
+  animation: icon-spin 1s linear infinite;
+}

@@ -84,11 +84,11 @@ async function cargarVentas() {
     }
     
     const data = await response.json();
-    console.log('📦 Data recibida:', data);
+    console.log('Data recibida:', data);
     pedidosData = data.pedidos;
-    console.log('📦 pedidosData asignado:', pedidosData);
+    console.log('pedidosData asignado:', pedidosData);
     
-    console.log('✅ Pedidos recibidos:', pedidosData.length);
+    console.log('Pedidos recibidos:', pedidosData.length);
     
     console.log('Ventas cargadas:', pedidosData);
     

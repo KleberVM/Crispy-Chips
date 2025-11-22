@@ -14,11 +14,12 @@ const searchInput = document.getElementById('searchInput');
 // INICIALIZACIÓN
 // ========================================
 document.addEventListener('DOMContentLoaded', async () => {
-  actualizarContadorCarrito();
+  // El contador del carrito se actualiza automáticamente desde auth-modal.js
   renderizarCarrito();
   await cargarProductos(); // Cargar productos desde API
   inicializarFiltros();
   inicializarBusqueda();
+  // La búsqueda desde URL se aplica automáticamente en cargarProductos()
 });
 
 // ========================================
@@ -52,6 +53,11 @@ async function cargarProductos() {
     productosData = data.productos || [];
     
     renderizarProductos(productosData);
+    
+    // Aplicar búsqueda desde URL si existe (DESPUÉS de renderizar)
+    setTimeout(() => {
+      aplicarBusquedaDesdeURL();
+    }, 100);
   } catch (error) {
     console.error('Error al cargar productos:', error);
     mostrarError('No se pudieron cargar los productos. Intenta recargar la página.');
@@ -256,10 +262,17 @@ function inicializarBotonesAgregar() {
       } catch (error) {
         console.error("Error al agregar al carrito:", error);
         
-        // Verificar si es error de autenticación
-        if (error.message.includes('autenticación') || error.message.includes('sesión')) {
-          alert('Debes iniciar sesión para agregar productos al carrito');
+        // Verificar si el usuario no está logueado
+        const username = localStorage.getItem('username');
+        
+        if (!username) {
+          // Usuario no logueado - mostrar mensaje amigable
+          mostrarModalLogin('⚠️ Para agregar productos al carrito primero debes iniciar sesión');
+        } else if (error.message.includes('autenticación') || error.message.includes('sesión')) {
+          // Sesión expirada
+          mostrarModalLogin('❌ Tu sesión ha expirado. Inicia sesión nuevamente');
         } else {
+          // Otro tipo de error
           mostrarNotificacion(`Error: ${error.message}`, 'error');
         }
       } finally {
@@ -411,31 +424,8 @@ function guardarCarrito() {
   localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
-async function actualizarContadorCarrito() {
-  try {
-    const response = await fetch('http://localhost:3000/api/carrito', {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    
-    if (response.ok) {
-      const data = await response.json();
-      const total = data.items ? data.items.reduce((sum, item) => sum + item.cantidad, 0) : 0;
-      if (cartCount) {
-        cartCount.textContent = total;
-      }
-    }
-  } catch (error) {
-    console.log('Error al actualizar contador del carrito:', error);
-    // Si hay error, mantener contador en 0
-    if (cartCount) {
-      cartCount.textContent = '0';
-    }
-  }
-}
+// La función actualizarContadorCarrito() está definida en auth-modal.js (global)
+// No es necesario duplicarla aquí
 
 function mostrarNotificacion(mensaje, tipo = "success") {
   // Crear notificación toast
@@ -480,3 +470,137 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+// ========================================
+// MOSTRAR MODAL DE LOGIN CON MENSAJE
+// ========================================
+function mostrarModalLogin(mensaje) {
+  // Primero mostrar el toast con el mensaje
+  const toast = document.createElement('div');
+  toast.className = 'toast toast-warning';
+  toast.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <span style="font-size: 1.5rem;">🔒</span>
+      <div>
+        <div style="font-weight: 600; margin-bottom: 0.25rem;">Inicia sesión</div>
+        <div style="font-size: 0.9rem; opacity: 0.95;">${mensaje}</div>
+      </div>
+    </div>
+  `;
+  toast.style.cssText = `
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    z-index: 10000;
+    animation: slideInRight 0.4s ease;
+    max-width: 400px;
+    cursor: pointer;
+  `;
+  
+  document.body.appendChild(toast);
+  
+  // Hacer que el toast sea clickeable para abrir login
+  toast.addEventListener('click', () => {
+    const btnLogin = document.getElementById('btn-login-nav');
+    if (btnLogin) {
+      btnLogin.click();
+    }
+    toast.remove();
+  });
+  
+  // Auto-abrir el modal después de 1 segundo
+  setTimeout(() => {
+    const btnLogin = document.getElementById('btn-login-nav');
+    if (btnLogin) {
+      btnLogin.click();
+    }
+  }, 1000);
+  
+  // Remover toast después de 5 segundos
+  setTimeout(() => {
+    toast.style.animation = 'fadeOut 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 5000);
+}
+
+// ========================================
+// APLICAR BÚSQUEDA DESDE URL
+// ========================================
+function aplicarBusquedaDesdeURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchTerm = urlParams.get('search');
+  
+  if (searchTerm) {
+    console.log('🔍 Aplicando búsqueda desde URL:', searchTerm);
+    
+    // Actualizar el campo de búsqueda si existe
+    if (searchInput) {
+      searchInput.value = decodeURIComponent(searchTerm);
+    }
+    
+    // Filtrar productos
+    const termino = searchTerm.toLowerCase();
+    const productos = document.querySelectorAll('.producto-card');
+    let productosEncontrados = 0;
+    
+    productos.forEach(producto => {
+      const nombre = producto.querySelector('.producto-titulo')?.textContent.toLowerCase() || '';
+      const categoria = producto.getAttribute('data-category')?.toLowerCase() || '';
+      
+      if (nombre.includes(termino) || categoria.includes(termino)) {
+        producto.style.display = 'block';
+        productosEncontrados++;
+      } else {
+        producto.style.display = 'none';
+      }
+    });
+    
+    console.log(`✅ ${productosEncontrados} productos encontrados`);
+    
+    // Mostrar mensaje si no hay resultados
+    if (productosEncontrados === 0) {
+      mostrarMensajeSinResultados(searchTerm);
+    }
+  }
+}
+
+// ========================================
+// MOSTRAR MENSAJE SIN RESULTADOS
+// ========================================
+function mostrarMensajeSinResultados(termino) {
+  const productosSection = document.querySelector('.productos-grid');
+  if (!productosSection) return;
+  
+  // Verificar si ya existe el mensaje
+  let mensajeExistente = document.querySelector('.sin-resultados-busqueda');
+  if (mensajeExistente) {
+    mensajeExistente.remove();
+  }
+  
+  const mensaje = document.createElement('div');
+  mensaje.className = 'sin-resultados-busqueda';
+  mensaje.innerHTML = `
+    <div style="text-align: center; padding: 3rem; grid-column: 1 / -1;">
+      <i data-lucide="search-x" style="width: 64px; height: 64px; margin: 0 auto 1rem; opacity: 0.5;"></i>
+      <h3>No se encontraron productos</h3>
+      <p style="color: var(--text-light); margin-top: 0.5rem;">
+        No hay productos que coincidan con "<strong>${termino}</strong>"
+      </p>
+      <button onclick="window.location.href='productos.html'" style="margin-top: 1.5rem; padding: 0.75rem 1.5rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer;">
+        Ver todos los productos
+      </button>
+    </div>
+  `;
+  
+  productosSection.appendChild(mensaje);
+  
+  // Inicializar el icono de Lucide
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+}

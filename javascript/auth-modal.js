@@ -412,15 +412,27 @@ async function updateUserUI() {
     // Usuario logueado
     document.body.classList.add('logged-in');
     
+    // Agregar clase según el rol (para controlar con CSS)
+    const esAdmin = userRol === 'ADMIN';
+    if (esAdmin) {
+      document.body.classList.add('admin-user');
+      document.body.classList.remove('cliente-user');
+      console.log('✅ Clase admin-user agregada al body');
+    } else {
+      document.body.classList.add('cliente-user');
+      document.body.classList.remove('admin-user');
+      console.log('✅ Clase cliente-user agregada al body');
+    }
+    
     console.log('📌 Usuario logueado detectado');
     
     // Mostrar/ocultar opciones de ADMIN según el rol
-    const esAdmin = userRol === 'ADMIN';
     console.log('🎯 Llamando mostrarMenuAdmin con:', esAdmin);
     mostrarMenuAdmin(esAdmin);
     
-    console.log('🎯 Llamando mostrarIconosCliente con:', !esAdmin);
-    mostrarIconosCliente(!esAdmin);
+    // Gestionar iconos del header según el rol
+    console.log('🎯 Gestionando iconos del header. Es Admin:', esAdmin);
+    gestionarIconosHeader(esAdmin);
     
     // Actualizar dropdown del header
     if (userTextEl) {
@@ -447,13 +459,22 @@ async function updateUserUI() {
     // Cargar y mostrar foto de perfil
     loadUserPhoto();
     
-    // Mostrar sidebar toggle y header icons, ocultar menú
+    // Mostrar sidebar toggle, ocultar menú
+    // Los header icons ya fueron gestionados por gestionarIconosHeader()
     if (menu) menu.style.display = 'none';
     if (sidebarToggle) sidebarToggle.style.display = 'flex';
-    if (headerIcons) headerIcons.style.display = 'flex';
+    
+    // Actualizar contador del carrito (solo para usuarios CLIENTE)
+    if (!esAdmin) {
+      setTimeout(() => {
+        actualizarContadorCarrito();
+      }, 300);
+    }
   } else {
     // Usuario no logueado
     document.body.classList.remove('logged-in');
+    document.body.classList.remove('admin-user');
+    document.body.classList.remove('cliente-user');
     
     if (userTextEl) {
       userTextEl.textContent = 'Iniciar Sesión';
@@ -583,23 +604,48 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ========================================
-// MOSTRAR ICONOS DE CLIENTE (CARRITO)
+// GESTIONAR ICONOS DEL HEADER
 // ========================================
-function mostrarIconosCliente(esCliente) {
-  console.log('🛒 mostrarIconosCliente llamado con:', esCliente);
-  const headerIcons = document.querySelector('.header-icons.cliente-only');
-  console.log('🛒 headerIcons encontrado:', headerIcons !== null);
+function gestionarIconosHeader(esAdmin) {
+  console.log('gestionarIconosHeader - esAdmin:', esAdmin);
   
-  if (headerIcons) {
-    if (esCliente) {
-      console.log('✅ Mostrando carrito (es CLIENTE)');
-      headerIcons.style.display = 'flex';
-    } else {
-      console.log('❌ Ocultando carrito (es ADMIN)');
-      headerIcons.style.display = 'none';
+  // Iconos de CLIENTE (notificaciones + carrito)
+  const headerIconsCliente = document.getElementById('header-icons');
+  // Iconos de ADMIN (solo notificaciones)
+  const headerIconsAdmin = document.getElementById('header-icons-admin');
+  
+  console.log('🔍 headerIconsCliente:', headerIconsCliente);
+  console.log('🔍 headerIconsAdmin:', headerIconsAdmin);
+  
+  if (esAdmin) {
+    // Usuario ADMIN: Mostrar solo iconos de admin, ocultar iconos de cliente
+    if (headerIconsCliente) {
+      headerIconsCliente.style.display = 'none';
+      headerIconsCliente.style.visibility = 'hidden';
+      console.log('❌ Ocultando iconos de CLIENTE (#header-icons)');
+    }
+    if (headerIconsAdmin) {
+      headerIconsAdmin.style.display = 'flex';
+      headerIconsAdmin.style.visibility = 'visible';
+      console.log('✅ Mostrando iconos de ADMIN (#header-icons-admin)');
     }
   } else {
-    console.warn('⚠️ No se encontró .header-icons.cliente-only');
+    // Usuario CLIENTE: Mostrar iconos de cliente, ocultar iconos de admin
+    if (headerIconsCliente) {
+      headerIconsCliente.style.display = 'flex';
+      headerIconsCliente.style.visibility = 'visible';
+      headerIconsCliente.style.opacity = '1';
+      console.log('✅ Mostrando iconos de CLIENTE (#header-icons)');
+      console.log('✅ Display aplicado:', headerIconsCliente.style.display);
+      console.log('✅ Visibility aplicada:', headerIconsCliente.style.visibility);
+    } else {
+      console.error('❌ NO SE ENCONTRÓ #header-icons en el DOM');
+    }
+    if (headerIconsAdmin) {
+      headerIconsAdmin.style.display = 'none';
+      headerIconsAdmin.style.visibility = 'hidden';
+      console.log('❌ Ocultando iconos de ADMIN (#header-icons-admin)');
+    }
   }
 }
 
@@ -626,20 +672,18 @@ function mostrarMenuAdmin(esAdmin) {
       return;
     }
     
-    // Verificar si es un contenedor de header-icons (que sí debe ser flex)
-    if (section.classList.contains('header-icons')) {
-      section.style.display = esAdmin ? 'flex' : 'none';
-    } else {
-      // Sidebar links y otros elementos deben ser block
-      section.style.display = esAdmin ? 'block' : 'none';
+    // NO TOCAR los header-icons - se controlan en gestionarIconosHeader()
+    if (section.id === 'header-icons' || section.id === 'header-icons-admin') {
+      console.log('⏭️ Ignorando', section.id, '- se gestiona en gestionarIconosHeader()');
+      return;
     }
+    
+    // Sidebar links y otros elementos deben ser block
+    section.style.display = esAdmin ? 'block' : 'none';
   });
   
-  // Ocultar header-icons de cliente si es admin
-  const headerIconsCliente = document.getElementById('header-icons');
-  if (headerIconsCliente) {
-    headerIconsCliente.style.display = esAdmin ? 'none' : 'flex';
-  }
+  // Los iconos del header se gestionan en gestionarIconosHeader()
+  // No hacer nada aquí para evitar conflictos
   
   // Buscar o crear enlace de "Mis Productos" en el menú principal
   const menu = document.getElementById('menu');
@@ -676,7 +720,7 @@ function mostrarMenuAdmin(esAdmin) {
       sidebarLinkMisProductos.id = 'sidebar-link-mis-productos';
       sidebarLinkMisProductos.href = '../contenido/mis-productos.html';
       sidebarLinkMisProductos.className = 'sidebar-item';
-      sidebarLinkMisProductos.innerHTML = '<span class="sidebar-icon">📦</span> Mis Productos';
+      sidebarLinkMisProductos.innerHTML = '<span class="sidebar-icon"></span> Mis Productos';
       
       // Insertar después del enlace de "Productos" en sidebar
       const productosItem = Array.from(sidebarNav.children).find(a => a.textContent.includes('Productos'));
@@ -716,6 +760,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ========================================
+// ACTUALIZAR CONTADOR DEL CARRITO (GLOBAL)
+// ========================================
+async function actualizarContadorCarrito() {
+  try {
+    const username = localStorage.getItem('username');
+    if (!username) {
+      // Si no hay usuario, poner contador en 0
+      const cartCount = document.getElementById('cartCount');
+      if (cartCount) {
+        cartCount.textContent = '0';
+      }
+      return;
+    }
+    
+    const response = await fetch('http://localhost:3000/api/carrito', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      const total = data.items ? data.items.reduce((sum, item) => sum + item.cantidad, 0) : 0;
+      const cartCount = document.getElementById('cartCount');
+      if (cartCount) {
+        cartCount.textContent = total;
+        console.log('✅ Contador del carrito actualizado:', total);
+      }
+    }
+  } catch (error) {
+    console.log('⚠️ Error al actualizar contador del carrito:', error);
+    // Si hay error, mantener contador en 0
+    const cartCount = document.getElementById('cartCount');
+    if (cartCount) {
+      cartCount.textContent = '0';
+    }
+  }
+}
 
 // ========================================
 // INITIALIZE ON PAGE LOAD
