@@ -267,7 +267,7 @@ function inicializarBotonesAgregar() {
         
         if (!username) {
           // Usuario no logueado - mostrar mensaje amigable
-          mostrarModalLogin('⚠️ Para agregar productos al carrito primero debes iniciar sesión');
+          mostrarModalLogin(' Para agregar productos al carrito primero debes iniciar sesión');
         } else if (error.message.includes('autenticación') || error.message.includes('sesión')) {
           // Sesión expirada
           mostrarModalLogin('❌ Tu sesión ha expirado. Inicia sesión nuevamente');
@@ -397,7 +397,7 @@ btnComprar?.addEventListener('click', () => {
   }
 
   if (carrito.length === 0) {
-    mostrarNotificacion("⚠️ Tu carrito está vacío", "error");
+    mostrarNotificacion(" Tu carrito está vacío", "error");
     return;
   }
 

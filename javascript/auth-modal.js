@@ -647,16 +647,16 @@ function gestionarIconosHeader(esAdmin) {
       headerIconsCliente.style.display = 'flex';
       headerIconsCliente.style.visibility = 'visible';
       headerIconsCliente.style.opacity = '1';
-      console.log('✅ Mostrando iconos de CLIENTE (#header-icons)');
-      console.log('✅ Display aplicado:', headerIconsCliente.style.display);
-      console.log('✅ Visibility aplicada:', headerIconsCliente.style.visibility);
+      console.log(' Mostrando iconos de CLIENTE (#header-icons)');
+      console.log(' Display aplicado:', headerIconsCliente.style.display);
+      console.log(' Visibility aplicada:', headerIconsCliente.style.visibility);
     } else {
-      console.error('❌ NO SE ENCONTRÓ #header-icons en el DOM');
+      console.error(' NO SE ENCONTRÓ #header-icons en el DOM');
     }
     if (headerIconsAdmin) {
       headerIconsAdmin.style.display = 'none';
       headerIconsAdmin.style.visibility = 'hidden';
-      console.log('❌ Ocultando iconos de ADMIN (#header-icons-admin)');
+      console.log(' Ocultando iconos de ADMIN (#header-icons-admin)');
     }
   }
 }
@@ -665,14 +665,14 @@ function gestionarIconosHeader(esAdmin) {
 // MOSTRAR MENÚ ADMIN
 // ========================================
 function mostrarMenuAdmin(esAdmin) {
-  console.log('👑 mostrarMenuAdmin llamado con:', esAdmin);
+  console.log(' mostrarMenuAdmin llamado con:', esAdmin);
   
   // Mostrar/ocultar sección de ADMIN en sidebar
   const adminSections = document.querySelectorAll('.admin-only');
-  console.log('👑 Secciones .admin-only encontradas:', adminSections.length);
+  console.log(' Secciones .admin-only encontradas:', adminSections.length);
   
   adminSections.forEach((section, index) => {
-    console.log(`👑 Sección ${index}:`, section, '- Display:', esAdmin ? 'block' : 'none');
+    console.log(` Sección ${index}:`, section, '- Display:', esAdmin ? 'block' : 'none');
     
     // NO TOCAR secciones de perfil (profile-section) - estas se controlan por tabs
     if (section.classList.contains('profile-section') || section.classList.contains('profile-nav-item')) {
@@ -686,7 +686,7 @@ function mostrarMenuAdmin(esAdmin) {
     
     // NO TOCAR los header-icons - se controlan en gestionarIconosHeader()
     if (section.id === 'header-icons' || section.id === 'header-icons-admin') {
-      console.log('⏭️ Ignorando', section.id, '- se gestiona en gestionarIconosHeader()');
+      console.log(' Ignorando', section.id, '- se gestiona en gestionarIconosHeader()');
       return;
     }
     
@@ -802,11 +802,11 @@ async function actualizarContadorCarrito() {
       const cartCount = document.getElementById('cartCount');
       if (cartCount) {
         cartCount.textContent = total;
-        console.log('✅ Contador del carrito actualizado:', total);
+        console.log('Contador del carrito actualizado:', total);
       }
     }
   } catch (error) {
-    console.log('⚠️ Error al actualizar contador del carrito:', error);
+    console.log('Error al actualizar contador del carrito:', error);
     // Si hay error, mantener contador en 0
     const cartCount = document.getElementById('cartCount');
     if (cartCount) {

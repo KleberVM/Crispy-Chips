@@ -1,6 +1,6 @@
 // Middleware de autenticación
 const isAuthenticated = (req, res, next) => {
-  console.log('🔐 isAuthenticated middleware');
+  console.log(' isAuthenticated middleware');
   console.log('   - URL:', req.url);
   console.log('   - Method:', req.method);
   console.log('   - req.isAuthenticated():', req.isAuthenticated ? req.isAuthenticated() : 'N/A');

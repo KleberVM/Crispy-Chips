@@ -108,6 +108,11 @@ function renderizarUsuarios() {
     const row = crearFilaUsuario(usuario);
     tbody.appendChild(row);
   });
+  
+  // Inicializar iconos de Lucide después de renderizar
+  setTimeout(() => {
+    lucide.createIcons();
+  }, 0);
 }
 
 // ========================================
@@ -127,7 +132,7 @@ function crearFilaUsuario(usuario) {
   tr.innerHTML = `
     <td>
       <div class="user-avatar-cell">
-        ${imagenUrl ? `<img src="${imagenUrl}" alt="${usuario.username}">` : '<span class="avatar-icon">👤</span>'}
+        ${imagenUrl ? `<img src="${imagenUrl}" alt="${usuario.username}">` : '<span class="avatar-icon"><i data-lucide="user" class="lucide"></i></span>'}
       </div>
     </td>
     <td>
@@ -142,7 +147,7 @@ function crearFilaUsuario(usuario) {
     </td>
     <td>
       <span class="status-badge ${usuario.emailVerificado ? 'verificado' : 'no-verificado'}">
-        ${usuario.emailVerificado ? '✅ Verificado' : '⚠️ No verificado'}
+        ${usuario.emailVerificado ? '<i data-lucide="check-circle" class="lucide"></i> Verificado' : '<i data-lucide="alert-circle" class="lucide"></i> No verificado'}
       </span>
     </td>
     <td>${fechaRegistro}</td>
@@ -150,14 +155,14 @@ function crearFilaUsuario(usuario) {
       <div class="action-buttons">
         ${esAdmin ? `
           <button class="btn-action btn-view" onclick="verUsuario(${usuario.id})" title="Ver información">
-            👁️
+            <i data-lucide="eye" class="lucide"></i>
           </button>
         ` : `
           <button class="btn-action btn-edit" onclick="editarUsuario(${usuario.id})" title="Editar">
-            ✏️
+            <i data-lucide="edit" class="lucide"></i>
           </button>
           <button class="btn-action btn-delete" onclick="confirmarEliminar(${usuario.id}, '${usuario.username}')" title="Eliminar">
-            🗑️
+            <i data-lucide="trash" class="lucide"></i>
           </button>
         `}
       </div>
@@ -288,19 +293,7 @@ function verUsuario(id) {
   const usuario = state.usuarios.find(u => u.id === id);
   if (!usuario) return;
   
-  alert(`
-    📋 Información de Usuario ADMIN
-    
-    Nombre: ${usuario.nombre || 'N/A'}
-    Apellido: ${usuario.apellido || 'N/A'}
-    Username: ${usuario.username}
-    Email: ${usuario.email}
-    Rol: ${usuario.rol}
-    Estado: ${usuario.emailVerificado ? 'Verificado' : 'No verificado'}
-    Registrado: ${new Date(usuario.createdAt).toLocaleDateString('es-ES')}
-    
-    ⚠️ No puedes editar usuarios ADMIN
-  `);
+  alert(`Información de Usuario ADMIN\n\nNombre: ${usuario.nombre || 'N/A'}\nApellido: ${usuario.apellido || 'N/A'}\nUsername: ${usuario.username}\nEmail: ${usuario.email}\nRol: ${usuario.rol}\nEstado: ${usuario.emailVerificado ? 'Verificado' : 'No verificado'}\nRegistrado: ${new Date(usuario.createdAt).toLocaleDateString('es-ES')}\n\nNo puedes editar usuarios ADMIN`);
 }
 
 // ========================================
@@ -345,7 +338,7 @@ async function eliminarUsuario() {
     }
     
     cerrarModalEliminar();
-    alert('✅ Usuario eliminado exitosamente');
+    alert('Usuario eliminado exitosamente');
     cargarUsuarios();
     
   } catch (error) {
@@ -399,11 +392,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Verificar autenticación
   if (!verificarAutenticacion()) {
-    console.log('❌ Autenticación fallida');
+    console.log('Autenticación fallida');
     return;
   }
   
-  console.log('✅ Autenticación correcta');
+  console.log('Autenticación correcta');
   console.log('Cargando usuarios...');
   
   // Cargar usuarios
@@ -413,5 +406,5 @@ document.addEventListener('DOMContentLoaded', () => {
   inicializarEventos();
   inicializarModales();
   
-  console.log('✅ Eventos y modales inicializados');
+  console.log('Eventos y modales inicializados');
 });

@@ -14,25 +14,25 @@ function verificarAutenticacion() {
   const username = localStorage.getItem('username');
   const userRol = localStorage.getItem('userRol');
   
-  console.log('🔐 Verificando autenticación...');
+  console.log(' Verificando autenticación...');
   console.log('   Username:', username);
   console.log('   Rol:', userRol);
   
   if (!username) {
-    console.error('❌ Usuario no autenticado');
+    console.error('Usuario no autenticado');
     alert('Debes iniciar sesión para ver esta sección.');
     window.location.href = '../contenido/index.html';
     return false;
   }
   
   if (userRol !== 'ADMIN') {
-    console.error('❌ Usuario no es ADMIN');
+    console.error(' Usuario no es ADMIN');
     alert('Acceso no autorizado. Solo administradores pueden ver esta sección.');
     window.location.href = '../contenido/index.html';
     return false;
   }
   
-  console.log('✅ Autenticación verificada correctamente');
+  console.log('Autenticación verificada correctamente');
   return true;
 }
 
@@ -45,7 +45,7 @@ async function cargarVentas() {
   const ventasList = document.getElementById('ventas-list');
   
   if (!loadingState || !emptyState || !ventasList) {
-    console.error('❌ No se encontraron elementos del DOM');
+    console.error(' No se encontraron elementos del DOM');
     return;
   }
   
@@ -59,7 +59,7 @@ async function cargarVentas() {
       url += `?estado=${filtroEstado}`;
     }
     
-    console.log('🔄 Cargando ventas desde:', url);
+    console.log(' Cargando ventas desde:', url);
     
     const response = await fetch(url, {
       method: 'GET',
@@ -69,13 +69,13 @@ async function cargarVentas() {
       }
     });
     
-    console.log('📡 Response status:', response.status);
-    console.log('📡 Response headers:', response.headers);
+    console.log(' Response status:', response.status);
+    console.log(' Response headers:', response.headers);
     
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('❌ Error response:', errorText);
-      console.error('❌ Response completo:', {
+      console.error(' Error response:', errorText);
+      console.error(' Response completo:', {
         status: response.status,
         statusText: response.statusText,
         headers: Object.fromEntries(response.headers.entries())
@@ -128,8 +128,8 @@ function renderizarVentas() {
 // CREAR CARD DE VENTA
 // ========================================
 function crearVentaCard(pedido) {
-  console.log('📦 crearVentaCard - pedido:', pedido);
-  console.log('📦 crearVentaCard - pedido.id:', pedido.id);
+  console.log(' crearVentaCard - pedido:', pedido);
+  console.log(' crearVentaCard - pedido.id:', pedido.id);
   
   const div = document.createElement('div');
   div.className = 'venta-card';
@@ -240,7 +240,7 @@ async function mostrarDetallePedido(pedidoId) {
     
     modalBody.innerHTML = `
       <div class="detalle-section">
-        <h3>📋 Información del Pedido</h3>
+        <h3> Información del Pedido</h3>
         <div class="detalle-grid">
           <div class="detalle-item">
             <p class="detalle-label">ID del Pedido</p>
@@ -262,7 +262,7 @@ async function mostrarDetallePedido(pedidoId) {
       </div>
       
       <div class="detalle-section">
-        <h3>👤 Información del Cliente</h3>
+        <h3> Información del Cliente</h3>
         <div class="detalle-grid">
           <div class="detalle-item">
             <p class="detalle-label">Nombre</p>
@@ -284,7 +284,7 @@ async function mostrarDetallePedido(pedidoId) {
       </div>
       
       <div class="detalle-section">
-        <h3>🛍️ Productos</h3>
+        <h3> Productos</h3>
         <table class="productos-table">
           <thead>
             <tr>
@@ -322,7 +322,7 @@ async function mostrarDetallePedido(pedidoId) {
       </div>
       
       <div class="detalle-section">
-        <h3>📎 Comprobante de Pago</h3>
+        <h3> Comprobante de Pago</h3>
         <div class="comprobante-container">
           ${pedido.comprobantePago ? `
             <img src="${API_BASE_URL}${pedido.comprobantePago}" alt="Comprobante" class="comprobante-image">
@@ -348,7 +348,7 @@ async function mostrarDetallePedido(pedidoId) {
 let pedidoIdActual = null;
 
 function cambiarEstadoPedido(pedidoId, estadoActual) {
-  console.log('🔵 cambiarEstadoPedido llamado con:');
+  console.log(' cambiarEstadoPedido llamado con:');
   console.log('  - pedidoId recibido:', pedidoId, 'tipo:', typeof pedidoId);
   console.log('  - estadoActual recibido:', estadoActual, 'tipo:', typeof estadoActual);
   
@@ -522,23 +522,23 @@ async function cargarEstadisticas() {
 // ========================================
 // INICIALIZACIÓN
 // ========================================
-console.log('📌 Registrando DOMContentLoaded...');
+console.log('Registrando DOMContentLoaded...');
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('🎯 DOMContentLoaded disparado');
+  console.log(' DOMContentLoaded disparado');
   
   // Asegurar que el modal esté oculto al inicio
   const modal = document.getElementById('modal-detalle');
   if (modal) {
     modal.style.display = 'none';
-    console.log('✅ Modal oculto al inicio');
+    console.log(' Modal oculto al inicio');
   }
   
   if (!verificarAutenticacion()) {
-    console.log('❌ Autenticación falló, deteniendo...');
+    console.log(' Autenticación falló, deteniendo...');
     return;
   }
   
-  console.log('🔄 Llamando a cargarVentas()...');
+  console.log('Llamando a cargarVentas()...');
   cargarVentas();
   
   // Filtro de estado
@@ -560,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeModal = document.getElementById('close-modal');
   if (closeModal && modal) {
     closeModal.addEventListener('click', (e) => {
-      console.log('🔴 Cerrando modal (botón X)');
+      console.log(' Cerrando modal (botón X)');
       e.stopPropagation();
       modal.style.display = 'none';
       document.body.style.overflow = ''; // Restaurar scroll
@@ -571,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
-        console.log('🔴 Cerrando modal (click fuera)');
+        console.log(' Cerrando modal (click fuera)');
         modal.style.display = 'none';
         document.body.style.overflow = ''; // Restaurar scroll
       }
@@ -589,7 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Cerrar modal con tecla ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
-      console.log('🔴 Cerrando modal (ESC)');
+      console.log('Cerrando modal (ESC)');
       modal.style.display = 'none';
       document.body.style.overflow = '';
     }

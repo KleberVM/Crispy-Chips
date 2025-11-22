@@ -319,6 +319,15 @@ body {
 
 .user-avatar-cell .avatar-icon {
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-avatar-cell .avatar-icon .lucide {
+  width: 24px;
+  height: 24px;
+  color: var(--text-light);
 }
 
 /* Nombre y username */
@@ -362,10 +371,15 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.2rem 0.8rem;
-  border-radius: 12px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 500;
+}
+
+.status-badge .lucide {
+  width: 14px;
+  height: 14px;
 }
 
 .status-badge.verificado {
@@ -395,6 +409,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.btn-action .lucide {
+  width: 18px;
+  height: 18px;
+  color: white;
 }
 
 .btn-action:hover {
